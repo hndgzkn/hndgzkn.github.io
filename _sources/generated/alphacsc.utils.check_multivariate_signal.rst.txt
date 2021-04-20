@@ -1,0 +1,6 @@
+alphacsc.utils.check\_multivariate\_signal
+==========================================
+
+.. currentmodule:: alphacsc.utils
+
+.. autofunction:: check_multivariate_signal

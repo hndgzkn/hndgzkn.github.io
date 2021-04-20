@@ -1,0 +1,6 @@
+alphacsc.utils.check\_univariate\_signal
+========================================
+
+.. currentmodule:: alphacsc.utils
+
+.. autofunction:: check_univariate_signal

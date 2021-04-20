@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>alphacsc.GreedyCDL &#8212; alphacsc 0.4.dev0 documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="alphacsc.OnlineCDL" href="alphacsc.OnlineCDL.html" />
+    <link rel="prev" title="alphacsc.BatchCDL" href="alphacsc.BatchCDL.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          alphacsc</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.4.dev0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../models.html">Models</a></li>
+                <li><a href="../auto_examples/index.html">Examples</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="https://github.com/alphacsc/alphacsc">GitHub</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../models.html">Model descriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/alphacsc/alphacsc">Fork alphacsc on Github</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="alphacsc-greedycdl">
+<h1>alphacsc.GreedyCDL<a class="headerlink" href="#alphacsc-greedycdl" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="alphacsc.GreedyCDL">
+<em class="property">class </em><code class="sig-prename descclassname">alphacsc.</code><code class="sig-name descname">GreedyCDL</code><span class="sig-paren">(</span><em class="sig-param">n_atoms</em>, <em class="sig-param">n_times_atom</em>, <em class="sig-param">reg=0.1</em>, <em class="sig-param">n_iter=60</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">solver_z='lgcd'</em>, <em class="sig-param">solver_z_kwargs={}</em>, <em class="sig-param">unbiased_z_hat=False</em>, <em class="sig-param">solver_d='alternate_adaptive'</em>, <em class="sig-param">solver_d_kwargs={}</em>, <em class="sig-param">rank1=True</em>, <em class="sig-param">window=False</em>, <em class="sig-param">uv_constraint='separate'</em>, <em class="sig-param">lmbd_max='scaled'</em>, <em class="sig-param">eps=1e-10</em>, <em class="sig-param">D_init=None</em>, <em class="sig-param">D_init_params={}</em>, <em class="sig-param">verbose=10</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">sort_atoms=False</em><span class="sig-paren">)</span><a class="headerlink" href="#alphacsc.GreedyCDL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Greedy batch algorithm for convolutional dictionary learning</p>
+<p>This transformer solves the following problem
+\[</p>
+<blockquote>
+<div><dl class="simple">
+<dt>\arg\min_{D, Z} \sum_{n=1}^N</dt><dd><p>\frac{1}{2}\|X^{(n)} - \sum_{k=1}^K D_k*Z^{(n)}_k\|_2^2
++ \lambda\|Z^{(n)}\|_2</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>\]
+for <cite>K = n_atoms</cite> and <cite>N = n_samples</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Problem Specs</strong></dt><dd></dd>
+<dt><strong>n_atoms</strong><span class="classifier">int</span></dt><dd><p>The number of atoms to learn.</p>
+</dd>
+<dt><strong>n_times_atom</strong><span class="classifier">int</span></dt><dd><p>The support of the atom.</p>
+</dd>
+<dt><strong>loss</strong><span class="classifier">{ ‘l2’ | ‘dtw’ | ‘whitening’ }</span></dt><dd><p>Loss for the data-fit term. Either the norm l2 or the soft-DTW.</p>
+</dd>
+<dt><strong>loss_params</strong><span class="classifier">dict</span></dt><dd><p>Parameters of the loss.</p>
+</dd>
+<dt><strong>rank1</strong><span class="classifier">boolean</span></dt><dd><p>If set to True, learn rank 1 dictionary atoms.</p>
+</dd>
+<dt><strong>window</strong><span class="classifier">boolean</span></dt><dd><p>If set to True, re-parametrizes the atoms with a temporal Tukey window.</p>
+</dd>
+<dt><strong>uv_constraint</strong><span class="classifier">{‘joint’ | ‘separate’}</span></dt><dd><p>The kind of norm constraint on the atoms:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">'joint'</span></code>: the constraint is ||[u, v]||_2 &lt;= 1</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">'separate'</span></code>: the constraint is ||u||_2 &lt;= 1 and ||v||_2 &lt;= 1</p></li>
+</ul>
+</dd>
+<dt><strong>sort_atoms</strong><span class="classifier">boolean</span></dt><dd><p>If True, the atoms are sorted by explained variances.</p>
+</dd>
+<dt><strong>Global algorithm</strong></dt><dd><p>Greedy batch algorithm</p>
+</dd>
+<dt><strong>n_iter</strong><span class="classifier">int</span></dt><dd><p>The number of alternate steps to perform.</p>
+</dd>
+<dt><strong>eps</strong><span class="classifier">float</span></dt><dd><p>Stopping criterion. If the cost descent after a uv and a z update is
+smaller than eps, return.</p>
+</dd>
+<dt><strong>reg</strong><span class="classifier">float</span></dt><dd><p>The regularization parameter.</p>
+</dd>
+<dt><strong>lmbd_max</strong><span class="classifier">‘fixed’ | ‘scaled’ | ‘per_atom’ | ‘shared’</span></dt><dd><p>If not fixed, adapt the regularization rate as a ratio of lambda_max:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">'scaled'</span></code>: the regularization parameter is fixed as a ratio of
+its maximal value at init <em>i.e.</em>
+<span class="math notranslate nohighlight">\(lambda\)</span> = reg * lmbd_max(uv_init).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">'shared'</span></code>: the regularization parameter is set at each
+iteration as a ratio of its maximal value for the current dictionary
+estimate <em>i.e.</em> <span class="math notranslate nohighlight">\(lambda\)</span> = reg * lmbd_max(uv_hat).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">'per_atom'</span></code>: the regularization parameter is set per atom and
+at each iteration as a ratio of its maximal value for this atom
+<em>i.e.</em> <span class="math notranslate nohighlight">\(lambda[k]\)</span> = reg * lmbd_max(uv_hat[k]).</p></li>
+</ul>
+</dd>
+<dt><strong>Z-step parameters</strong></dt><dd></dd>
+<dt><strong>solver_z</strong><span class="classifier">str</span></dt><dd><p>The solver to use for the z update. Options are
+{‘l_bfgs’ (default) | ‘lgcd’}.</p>
+</dd>
+<dt><strong>solver_z_kwargs</strong><span class="classifier">dict</span></dt><dd><p>Additional keyword arguments to pass to update_z_multi.</p>
+</dd>
+<dt><strong>use_sparse_z</strong><span class="classifier">boolean</span></dt><dd><p>Use sparse lil_matrices to store the activations.</p>
+</dd>
+<dt><strong>unbiased_z_hat</strong><span class="classifier">boolean</span></dt><dd><p>If set to True, the value of the non-zero coefficients in the returned
+z_hat are recomputed with reg=0 on the frozen support.</p>
+</dd>
+<dt><strong>D-step parameters</strong></dt><dd></dd>
+<dt><strong>solver_d</strong><span class="classifier">str</span></dt><dd><p>The solver to use for the d update. Options are
+‘alternate’ | ‘alternate_adaptive’ (default) | ‘joint’</p>
+</dd>
+<dt><strong>solver_d_kwargs</strong><span class="classifier">dict</span></dt><dd><p>Additional keyword arguments to provide to update_d</p>
+</dd>
+<dt><strong>D_init</strong><span class="classifier">str or array</span></dt><dd><p>The initial atoms with shape (n_atoms, n_channels + n_times_atoms) or
+(n_atoms, n_channels, n_times_atom) or an initialization scheme str in
+{‘kmeans’ | ‘ssa’ | ‘chunk’ | ‘random’}.</p>
+</dd>
+<dt><strong>D_init_params</strong><span class="classifier">dict</span></dt><dd><p>Dictionnary of parameters for the kmeans init method.</p>
+</dd>
+<dt><strong>Technical parameters</strong></dt><dd></dd>
+<dt><strong>n_jobs</strong><span class="classifier">int</span></dt><dd><p>The number of parallel jobs.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">int</span></dt><dd><p>The verbosity level.</p>
+</dd>
+<dt><strong>callback</strong><span class="classifier">func</span></dt><dd><p>A callback function called at the end of each loop of the
+coordinate descent.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int | None</span></dt><dd><p>State to seed the random number generator.</p>
+</dd>
+<dt><strong>raise_on_increase</strong><span class="classifier">boolean</span></dt><dd><p>Raise an error if the objective function increase.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="method">
+<dt id="alphacsc.GreedyCDL.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">n_atoms</em>, <em class="sig-param">n_times_atom</em>, <em class="sig-param">reg=0.1</em>, <em class="sig-param">n_iter=60</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">solver_z='lgcd'</em>, <em class="sig-param">solver_z_kwargs={}</em>, <em class="sig-param">unbiased_z_hat=False</em>, <em class="sig-param">solver_d='alternate_adaptive'</em>, <em class="sig-param">solver_d_kwargs={}</em>, <em class="sig-param">rank1=True</em>, <em class="sig-param">window=False</em>, <em class="sig-param">uv_constraint='separate'</em>, <em class="sig-param">lmbd_max='scaled'</em>, <em class="sig-param">eps=1e-10</em>, <em class="sig-param">D_init=None</em>, <em class="sig-param">D_init_params={}</em>, <em class="sig-param">verbose=10</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">sort_atoms=False</em><span class="sig-paren">)</span><a class="headerlink" href="#alphacsc.GreedyCDL.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#alphacsc.GreedyCDL.__init__" title="alphacsc.GreedyCDL.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(n_atoms, n_times_atom[, reg, …])</p></td>
+<td><p>Initialize self.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code>(X[, y])</p></td>
+<td><p>Learn a convolutional dictionary from the set of signals X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code>(X[, y])</p></td>
+<td><p>Learn a convolutional dictionary and returns sparse codes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code>(X)</p></td>
+<td><p>Returns sparse codes associated to the signals X for the dictionary.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform_inverse</span></code>(z_hat)</p></td>
+<td><p>Reconstruct the signals from the given sparse codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">D_hat_</span></code></p></td>
+<td><p>array: dictionary in full rank mode.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pobj_</span></code></p></td>
+<td><p>list: Objective function value at each step of the alternate minimization.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">times_</span></code></p></td>
+<td><p>list: Cumulative time for each iteration of the coordinate descent.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">u_hat_</span></code></p></td>
+<td><p>array: spatial map of the dictionary.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">uv_hat_</span></code></p></td>
+<td><p>array: dictionary in rank 1 mode.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">v_hat_</span></code></p></td>
+<td><p>array: temporal patterns of the dictionary.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">z_hat_</span></code></p></td>
+<td><p>array: Sparse code associated to the signals used to fit the model.</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017-2018, Mainak Jas.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+alphacsc.learn\_d\_z
+====================
+
+.. currentmodule:: alphacsc
+
+.. autofunction:: learn_d_z

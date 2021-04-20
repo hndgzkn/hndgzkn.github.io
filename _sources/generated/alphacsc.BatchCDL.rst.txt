@@ -1,0 +1,38 @@
+alphacsc.BatchCDL
+=================
+
+.. currentmodule:: alphacsc
+
+.. autoclass:: BatchCDL
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~BatchCDL.__init__
+      ~BatchCDL.fit
+      ~BatchCDL.fit_transform
+      ~BatchCDL.transform
+      ~BatchCDL.transform_inverse
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~BatchCDL.D_hat_
+      ~BatchCDL.pobj_
+      ~BatchCDL.times_
+      ~BatchCDL.u_hat_
+      ~BatchCDL.uv_hat_
+      ~BatchCDL.v_hat_
+      ~BatchCDL.z_hat_
+   
+   
