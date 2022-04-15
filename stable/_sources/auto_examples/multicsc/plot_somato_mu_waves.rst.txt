@@ -140,28 +140,25 @@ before and finishing 4 seconds after.
         out, metadata = self.call(*args, **kwargs)
       File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/joblib/memory.py", line 779, in call
         output = self.func(*args, **kwargs)
-      File "/home/sed-sac/hgozukan/dev/alphacsc/alphacsc/datasets/somato.py", line 54, in load_data
-        raw = mne.io.read_raw_fif(file_name, preload=True)
-      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/fiff/raw.py", line 458, in read_raw_fif
-        return Raw(fname=fname, allow_maxshield=allow_maxshield,
-      File "</scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/externals/decorator.py:decorator-gen-165>", line 2, in __init__
+      File "/home/sed-sac/hgozukan/dev/alphacsc/alphacsc/datasets/somato.py", line 50, in load_data
+        data_path = mne.datasets.somato.data_path()
+      File "</scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/externals/decorator.py:decorator-gen-354>", line 2, in data_path
       File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/utils/_logging.py", line 90, in wrapper
         return function(*args, **kwargs)
-      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/fiff/raw.py", line 79, in __init__
-        self._read_raw_file(next_fname, allow_maxshield,
-      File "</scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/externals/decorator.py:decorator-gen-166>", line 2, in _read_raw_file
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/datasets/somato/somato.py", line 19, in data_path
+        return _data_path(path=path, force_update=force_update,
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/datasets/utils.py", line 390, in _data_path
+        remove_archive, full = _download(path, u, an, h)
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/datasets/utils.py", line 447, in _download
+        _fetch_file(url, full_name, print_destination=False,
+      File "</scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/externals/decorator.py:decorator-gen-3>", line 2, in _fetch_file
       File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/utils/_logging.py", line 90, in wrapper
         return function(*args, **kwargs)
-      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/fiff/raw.py", line 147, in _read_raw_file
-        ff, tree, _ = fiff_open(fname, preload=whole_file)
-      File "</scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/externals/decorator.py:decorator-gen-6>", line 2, in fiff_open
-      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/utils/_logging.py", line 90, in wrapper
-        return function(*args, **kwargs)
-      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/open.py", line 120, in fiff_open
-        fid = _fiff_get_fid(fname)
-      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/open.py", line 51, in _fiff_get_fid
-        fid = open(fname, "rb")  # Open in binary mode
-    FileNotFoundError: [Errno 2] No such file or directory: '/home/sed-sac/hgozukan/mne_data/MNE-somato-data/MEG/somato/sef_raw_sss.fif'
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/utils/fetching.py", line 162, in _fetch_file
+        _get_http(url, temp_file_name, initial_size, file_size, timeout,
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/utils/fetching.py", line 60, in _get_http
+        with open(temp_file_name, mode) as local_file:
+    FileNotFoundError: [Errno 2] No such file or directory: '/home/sed-sac/hgozukan/mne_data/MNE-somato-data.tar.gz.part'
 
 
 
@@ -193,7 +190,7 @@ pattern.
 
     i_atom = 4
     n_plots = 3
-    figsize = (n_plots * 5, 5.5)
+    figsize = (n_plots * 3.5, 5)
     fig, axes = plt.subplots(1, n_plots, figsize=figsize, squeeze=False)
 
     # Plot the spatial map of the learn atom using mne topomap
@@ -225,7 +222,7 @@ pattern.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.103 seconds)
+   **Total running time of the script:** ( 0 minutes  3.815 seconds)
 
 
 .. _sphx_glr_download_auto_examples_multicsc_plot_somato_mu_waves.py:
