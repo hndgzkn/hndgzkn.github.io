@@ -1,6 +1,0 @@
-alphacsc.learn\_d\_z\_weighted
-==============================
-
-.. currentmodule:: alphacsc
-
-.. autofunction:: learn_d_z_weighted
