@@ -1,0 +1,39 @@
+﻿alphacsc.OnlineCDL
+==================
+
+.. currentmodule:: alphacsc
+
+.. autoclass:: OnlineCDL
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~OnlineCDL.__init__
+      ~OnlineCDL.fit
+      ~OnlineCDL.fit_transform
+      ~OnlineCDL.partial_fit
+      ~OnlineCDL.transform
+      ~OnlineCDL.transform_inverse
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~OnlineCDL.D_hat_
+      ~OnlineCDL.pobj_
+      ~OnlineCDL.times_
+      ~OnlineCDL.u_hat_
+      ~OnlineCDL.uv_hat_
+      ~OnlineCDL.v_hat_
+      ~OnlineCDL.z_hat_
+   
+   

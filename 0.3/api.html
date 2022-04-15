@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>API Documentation &#8212; alphacsc 0.3.dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="alphacsc.BatchCDL" href="generated/alphacsc.BatchCDL.html" />
+    <link rel="prev" title="SWM on simulated data" href="auto_examples/other/plot_simulate_swm.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          alphacsc</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.dev</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="models.html">Models</a></li>
+                <li><a href="auto_examples/index.html">Examples</a></li>
+                <li><a href="#">API</a></li>
+                <li><a href="https://github.com/alphacsc/alphacsc">GitHub</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">alphaCSC: Convolution sparse coding for time-series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Model descriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples Gallery</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/alphacsc/alphacsc">Fork alphacsc on Github</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="api-documentation">
+<span id="id1"></span><h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
+<section id="transformers">
+<h2>Transformers<a class="headerlink" href="#transformers" title="Permalink to this headline">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/alphacsc.BatchCDL.html#alphacsc.BatchCDL" title="alphacsc.BatchCDL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchCDL</span></code></a>(n_atoms, n_times_atom[, reg, ...])</p></td>
+<td><p>Batch algorithm for convolutional dictionary learning</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/alphacsc.OnlineCDL.html#alphacsc.OnlineCDL" title="alphacsc.OnlineCDL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OnlineCDL</span></code></a>(n_atoms, n_times_atom[, reg, ...])</p></td>
+<td><p>Online algorithm for convolutional dictionary learning</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/alphacsc.learn_d_z.html#alphacsc.learn_d_z" title="alphacsc.learn_d_z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">learn_d_z</span></code></a>(X, n_atoms, n_times_atom[, ...])</p></td>
+<td><p>Univariate Convolutional Sparse Coding.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/alphacsc.learn_d_z_multi.html#alphacsc.learn_d_z_multi" title="alphacsc.learn_d_z_multi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">learn_d_z_multi</span></code></a>(X, n_atoms, n_times_atom[, ...])</p></td>
+<td><p>Multivariate Convolutional Sparse Coding with optional rank-1 constraint</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/alphacsc.learn_d_z_weighted.html#alphacsc.learn_d_z_weighted" title="alphacsc.learn_d_z_weighted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">learn_d_z_weighted</span></code></a>(X, n_atoms, n_times_atom)</p></td>
+<td><p>Univariate Convolutional Sparse Coding with an alpha-stable distribution</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017-2018, Mainak Jas.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
