@@ -1,0 +1,511 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>alphacsc.OnlineCDL &#8212; alphacsc 0.1.dev1+ga273d0c documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="alphacsc.learn_d_z" href="alphacsc.learn_d_z.html" />
+    <link rel="prev" title="alphacsc.GreedyCDL" href="alphacsc.GreedyCDL.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">alphacsc</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../models.html">
+  Model descriptions
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../auto_examples/index.html">
+  Examples Gallery
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API Documentation
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        dev  <!-- this text may get changed later by javascript -->
+        <span class="caret"></span>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables generated/alphacsc.OnlineCDL and {'json_url': '/dev/_static/switcher.json', 'version_match': 'dev'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "generated/alphacsc.OnlineCDL.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("/dev/_static/switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "generated/alphacsc.OnlineCDL.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.1.dev1+ga273d0c variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "dev") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/alphacsc/alphacsc" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/alphacsc/" rel="noopener" target="_blank" title="PyPI"><span><i class="fas fa-box"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="alphacsc.BatchCDL.html">
+   alphacsc.BatchCDL
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="alphacsc.GreedyCDL.html">
+   alphacsc.GreedyCDL
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   alphacsc.OnlineCDL
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="alphacsc.learn_d_z.html">
+   alphacsc.learn_d_z
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="alphacsc.learn_d_z_weighted.html">
+   alphacsc.learn_d_z_weighted
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="alphacsc.utils.check_univariate_signal.html">
+   alphacsc.utils.check_univariate_signal
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="alphacsc.utils.check_multivariate_signal.html">
+   alphacsc.utils.check_multivariate_signal
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="alphacsc.utils.split_signal.html">
+   alphacsc.utils.split_signal
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="alphacsc-onlinecdl">
+<h1>alphacsc.OnlineCDL<a class="headerlink" href="#alphacsc-onlinecdl" title="Permalink to this headline">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="alphacsc.OnlineCDL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">alphacsc.</span></span><span class="sig-name descname"><span class="pre">OnlineCDL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_times_atom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lgcd'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_z_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unbiased_z_hat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_d_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uv_constraint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbd_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'scaled'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'random'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#alphacsc.OnlineCDL" title="Permalink to this definition">#</a></dt>
+<dd><p>Base class for convolutional dictionary learning algorithms.</p>
+<p>Online algorithm for convolutional dictionary learning</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Problem Specs</strong></dt><dd></dd>
+<dt><strong>n_atoms</strong><span class="classifier">int</span></dt><dd><p>The number of atoms to learn.</p>
+</dd>
+<dt><strong>n_times_atom</strong><span class="classifier">int</span></dt><dd><p>The support of the atom.</p>
+</dd>
+<dt><strong>rank1</strong><span class="classifier">boolean</span></dt><dd><p>If set to True, learn rank 1 dictionary atoms.</p>
+</dd>
+<dt><strong>window</strong><span class="classifier">boolean</span></dt><dd><p>If set to True, re-parametrizes the atoms with a temporal Tukey window.</p>
+</dd>
+<dt><strong>uv_constraint</strong><span class="classifier">{‘joint’ | ‘separate’ | ‘auto’}</span></dt><dd><p>The kind of norm constraint on the atoms if <code class="code docutils literal notranslate"><span class="pre">rank1=True</span></code>. If
+<code class="code docutils literal notranslate"><span class="pre">rank1=False</span></code>, it must be ‘auto’, else it can be:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">'joint'</span></code>: the constraint is ||[u, v]||_2 &lt;= 1</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">'separate'</span></code>: the constraint is ||u||_2 &lt;= 1 and ||v||_2 &lt;= 1.
+This is the default for rank1 with if ‘auto’.</p></li>
+</ul>
+</dd>
+<dt><strong>sort_atoms</strong><span class="classifier">boolean</span></dt><dd><p>If True, the atoms are sorted by explained variances.</p>
+</dd>
+<dt><strong>Global algorithm</strong></dt><dd><p>Online algorithm</p>
+</dd>
+<dt><strong>alpha</strong><span class="classifier">float</span></dt><dd><p>Forgetting factor for online learning. If set to 0, the learning is
+stochastic and each D-step is independent from the previous steps.
+When set to 1, each the previous values z_hat - computed with different
+dictionary - have the same weight as the current one. This factor
+should be large enough to ensure convergence but to large factor can
+lead to sub-optimal minima.</p>
+</dd>
+<dt><strong>batch_selection</strong><span class="classifier">‘random’ | ‘cyclic’</span></dt><dd><p>The batch selection strategy for online learning. The batch are either
+selected randomly among all samples (without replacement) or in a
+cyclic way.</p>
+</dd>
+<dt><strong>batch_size</strong><span class="classifier">int in [1, n_trials]</span></dt><dd><p>Size of the batch used in online learning. Increasing it regularizes
+the dictionary learning as there is less variance for the successive
+estimates. But it also increases the computational cost as more coding
+signals z_hat must be estimate at each iteration.</p>
+</dd>
+<dt><strong>n_iter</strong><span class="classifier">int</span></dt><dd><p>The number of alternate steps to perform.</p>
+</dd>
+<dt><strong>eps</strong><span class="classifier">float</span></dt><dd><p>Stopping criterion. If the cost descent after a uv and a z update is
+smaller than eps, return.</p>
+</dd>
+<dt><strong>reg</strong><span class="classifier">float</span></dt><dd><p>The regularization parameter.</p>
+</dd>
+<dt><strong>lmbd_max</strong><span class="classifier">‘fixed’ | ‘scaled’ | ‘per_atom’ | ‘shared’</span></dt><dd><p>If not fixed, adapt the regularization rate as a ratio of lambda_max:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">'scaled'</span></code>: the regularization parameter is fixed as a ratio of
+its maximal value at init <em>i.e.</em>
+lambda = reg * lmbd_max(uv_init).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">'shared'</span></code>: the regularization parameter is set at each
+iteration as a ratio of its maximal value for the current dictionary
+estimate <em>i.e.</em> lambda = reg * lmbd_max(uv_hat).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">'per_atom'</span></code>: the regularization parameter is set per atom and
+at each iteration as a ratio of its maximal value for this atom
+<em>i.e.</em> lambda[k] = reg * lmbd_max(uv_hat[k]).</p></li>
+</ul>
+</dd>
+<dt><strong>Z-step parameters</strong></dt><dd></dd>
+<dt><strong>solver_z</strong><span class="classifier">str</span></dt><dd><p>The solver to use for the z update. Options are
+{‘l_bfgs’ (default) | ‘lgcd’}.</p>
+</dd>
+<dt><strong>solver_z_kwargs</strong><span class="classifier">dict</span></dt><dd><p>Additional keyword arguments to pass to update_z_multi.</p>
+</dd>
+<dt><strong>unbiased_z_hat</strong><span class="classifier">boolean</span></dt><dd><p>If set to True, the value of the non-zero coefficients in the returned
+z_hat are recomputed with reg=0 on the frozen support.</p>
+</dd>
+<dt><strong>D-step parameters</strong></dt><dd></dd>
+<dt><strong>solver_d</strong><span class="classifier">str (default: ‘auto’)</span></dt><dd><p>The solver to use for the d update. Options are:
+{‘alternate’, ‘alternate_adaptive’, ‘joint’, ‘fista’, ‘auto’}
+‘auto’ amounts to ‘fista’ when <code class="code docutils literal notranslate"><span class="pre">rank1=False</span></code> and
+‘alternate_adaptive’ for <code class="code docutils literal notranslate"><span class="pre">rank1=True</span></code>.</p>
+</dd>
+<dt><strong>solver_d_kwargs</strong><span class="classifier">dict</span></dt><dd><p>Additional keyword arguments to provide to update_d</p>
+</dd>
+<dt><strong>D_init</strong><span class="classifier">str or array</span></dt><dd><p>The initial atoms with shape (n_atoms, n_channels + n_times_atoms) or
+(n_atoms, n_channels, n_times_atom) or an initialization scheme str in
+{‘chunk’ | ‘random’ | ‘greedy’}.</p>
+</dd>
+<dt><strong>Technical parameters</strong></dt><dd></dd>
+<dt><strong>n_jobs</strong><span class="classifier">int</span></dt><dd><p>The number of parallel jobs.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">int</span></dt><dd><p>The verbosity level.</p>
+</dd>
+<dt><strong>callback</strong><span class="classifier">func</span></dt><dd><p>A callback function called at the end of each loop of the
+coordinate descent.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int | None</span></dt><dd><p>State to seed the random number generator.</p>
+</dd>
+<dt><strong>raise_on_increase</strong><span class="classifier">boolean</span></dt><dd><p>Raise an error if the objective function increase.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="alphacsc.OnlineCDL.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_times_atom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lgcd'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_z_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unbiased_z_hat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_d_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uv_constraint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbd_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'scaled'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'random'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#alphacsc.OnlineCDL.__init__" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<p class="rubric">Methods</p>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#alphacsc.OnlineCDL.__init__" title="alphacsc.OnlineCDL.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(n_atoms, n_times_atom[, reg, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code>(X[, y])</p></td>
+<td><p>Learn a convolutional dictionary from the set of signals X.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code>(X[, y])</p></td>
+<td><p>Learn a convolutional dictionary and returns sparse codes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">partial_fit</span></code>(X[, y])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code>(X)</p></td>
+<td><p>Returns sparse codes associated to the signals X for the dictionary.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform_inverse</span></code>(z_hat)</p></td>
+<td><p>Reconstruct the signals from the given sparse codes.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">D_hat_</span></code></p></td>
+<td><p>array: dictionary in full rank mode.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pobj_</span></code></p></td>
+<td><p>list: Objective function value at each step of the alternate minimization.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">times_</span></code></p></td>
+<td><p>list: Cumulative time for each iteration of the coordinate descent.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">u_hat_</span></code></p></td>
+<td><p>array: spatial map of the dictionary.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">uv_hat_</span></code></p></td>
+<td><p>array: dictionary in rank 1 mode.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">v_hat_</span></code></p></td>
+<td><p>array: temporal patterns of the dictionary.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">z_hat_</span></code></p></td>
+<td><p>array: Sparse code associated to the signals used to fit the model.</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="alphacsc.GreedyCDL.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">alphacsc.GreedyCDL</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="alphacsc.learn_d_z.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">alphacsc.learn_d_z</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+    <script src="/versionwarning.js"></script>
+    
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2017-2018, Mainak Jas.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
