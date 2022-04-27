@@ -1,0 +1,12 @@
+
+:orphan:
+
+.. _sphx_glr_auto_examples_dicodile_sg_execution_times:
+
+Computation times
+=================
+**03:14.134** total execution time for **auto_examples_dicodile** files:
+
++------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_dicodile_plot_gait.py` (``plot_gait.py``) | 03:14.134 | 0.0 MB |
++------------------------------------------------------------------------+-----------+--------+

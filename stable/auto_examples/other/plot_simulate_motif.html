@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MoTIF on simulated data &#8212; alphacsc 0.4rc11 documentation</title>
+    <title>MoTIF on simulated data &#8212; alphacsc 0.5.0rc0 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -99,7 +99,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        0.4rc11  <!-- this text may get changed later by javascript -->
+        0.5.0rc0  <!-- this text may get changed later by javascript -->
         <span class="caret"></span>
     </button>
     <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
@@ -109,7 +109,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables auto_examples/other/plot_simulate_motif and {'json_url': '/dev/_static/switcher.json', 'version_match': '0.4rc11'}.
+     variables auto_examples/other/plot_simulate_motif and {'json_url': '/dev/_static/switcher.json', 'version_match': '0.5.0rc0'}.
 -->
 
 <script type="text/javascript">
@@ -160,10 +160,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.4rc11 variable.
+            // this version, rather than using sphinx's 0.5.0rc0 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.4rc11") {
+            if (entry.version == "0.5.0rc0") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -413,7 +413,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 [seed 42] Atom 1 Iteration 8
 [seed 42] Atom 1 Iteration 9
 
-[&lt;matplotlib.lines.Line2D object at 0x7f39f52cddc0&gt;, &lt;matplotlib.lines.Line2D object at 0x7f39f52cd0d0&gt;]
+[&lt;matplotlib.lines.Line2D object at 0x7f9fadaf6eb0&gt;, &lt;matplotlib.lines.Line2D object at 0x7f9fadaf66d0&gt;]
 </pre></div>
 </div>
 <p>Compare this to the original atoms</p>
@@ -422,7 +422,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_simulate_motif_002.png" srcset="../../_images/sphx_glr_plot_simulate_motif_002.png" alt="plot simulate motif" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.641 seconds)</p>
+<img src="../../_images/sphx_glr_plot_simulate_motif_002.png" srcset="../../_images/sphx_glr_plot_simulate_motif_002.png" alt="plot simulate motif" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.700 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-other-plot-simulate-motif-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/0b12a6d60c0fbcf3fc91d6fcd57bc109/plot_simulate_motif.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_simulate_motif.py</span></code></a></p>

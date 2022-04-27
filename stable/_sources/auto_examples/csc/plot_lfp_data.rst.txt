@@ -73,7 +73,7 @@ First, let us fetch the data (~14 MB)
     Using default location ~/mne_data for LFP_data...
     Creating ~/mne_data
     Downloading file 'LFP_data_contiguous_1250_Hz.mat' from 'https://github.com/hitziger/AWL/raw/master/Experiments/data/LFP_data_contiguous_1250_Hz.mat' to '/github/home/mne_data/LFP'.
-      0%|                                              | 0.00/14.4M [00:00<?, ?B/s]     44%|████████████████▎                    | 6.36M/14.4M [00:00<00:00, 63.6MB/s]     91%|█████████████████████████████████▋   | 13.1M/14.4M [00:00<00:00, 65.9MB/s]      0%|                                              | 0.00/14.4M [00:00<?, ?B/s]    100%|█████████████████████████████████████| 14.4M/14.4M [00:00<00:00, 28.3GB/s]
+      0%|                                              | 0.00/14.4M [00:00<?, ?B/s]     24%|█████████                            | 3.52M/14.4M [00:00<00:00, 35.2MB/s]     71%|██████████████████████████▎          | 10.2M/14.4M [00:00<00:00, 54.1MB/s]      0%|                                              | 0.00/14.4M [00:00<?, ?B/s]    100%|█████████████████████████████████████| 14.4M/14.4M [00:00<00:00, 28.8GB/s]
 
 
 
@@ -578,7 +578,7 @@ Let's look at the atoms now.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  39.870 seconds)
+   **Total running time of the script:** ( 1 minutes  31.233 seconds)
 
 
 .. _sphx_glr_download_auto_examples_csc_plot_lfp_data.py:
