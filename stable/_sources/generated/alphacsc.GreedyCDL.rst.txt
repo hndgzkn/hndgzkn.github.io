@@ -1,0 +1,38 @@
+﻿alphacsc.GreedyCDL
+==================
+
+.. currentmodule:: alphacsc
+
+.. autoclass:: GreedyCDL
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~GreedyCDL.__init__
+      ~GreedyCDL.fit
+      ~GreedyCDL.fit_transform
+      ~GreedyCDL.transform
+      ~GreedyCDL.transform_inverse
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~GreedyCDL.D_hat_
+      ~GreedyCDL.pobj_
+      ~GreedyCDL.times_
+      ~GreedyCDL.u_hat_
+      ~GreedyCDL.uv_hat_
+      ~GreedyCDL.v_hat_
+      ~GreedyCDL.z_hat_
+   
+   

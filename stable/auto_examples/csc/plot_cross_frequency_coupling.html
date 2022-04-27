@@ -1,17 +1,33 @@
+
 <!DOCTYPE html>
 
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Extracting cross-frequency coupling waveforms from rodent LFP data &#8212; alphacsc 0.4rc11 documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
-    <title>Extracting cross-frequency coupling waveforms from rodent LFP data &#8212; alphacsc 0.3.dev documentation</title>
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
@@ -19,91 +35,302 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Vanilla CSC on simulated data" href="plot_simulate_csc.html" />
-    <link rel="prev" title="Selecting random state for CSC" href="plot_simulate_randomstate.html" />
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="prev" title="CSC to learn LFP spiking atoms" href="plot_lfp_data.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
 
-  </head><body>
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
 
-  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="../../index.html">
-          alphacsc</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3.dev</b></span>
-      </div>
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
 
-        <div class="collapse navbar-collapse nav-collapse">
-          <ul class="nav navbar-nav">
-            
-                <li><a href="../../models.html">Models</a></li>
-                <li><a href="../index.html">Examples</a></li>
-                <li><a href="../../api.html">API</a></li>
-                <li><a href="https://github.com/alphacsc/alphacsc">GitHub</a></li>
-            
-            
-              <li class="dropdown globaltoc-container">
-  <a role="button"
-     id="dLabelGlobalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="../../index.html">Site <b class="caret"></b></a>
-  <ul class="dropdown-menu globaltoc"
-      role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">alphaCSC: Convolution sparse coding for time-series</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../models.html">Model descriptions</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Documentation</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/alphacsc/alphacsc">Fork alphacsc on Github</a></li>
-</ul>
-</ul>
-</li>
-              
-            
-            
-            
-            
-            
-          </ul>
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../index.html">
+<p class="title">alphacsc</p>
+</a>
 
-          
-            
-<form class="navbar-form navbar-right" action="../../search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-          
-        </div>
-    </div>
+    
   </div>
 
-<div class="container">
-  <div class="row">
-    <div class="body col-md-12 content" role="main">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
       
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../models.html">
+  Model descriptions
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  Examples Gallery
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../api.html">
+  API Documentation
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        0.4rc11  <!-- this text may get changed later by javascript -->
+        <span class="caret"></span>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables auto_examples/csc/plot_cross_frequency_coupling and {'json_url': '/dev/_static/switcher.json', 'version_match': '0.4rc11'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "auto_examples/csc/plot_cross_frequency_coupling.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("/dev/_static/switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "auto_examples/csc/plot_cross_frequency_coupling.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4rc11 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4rc11") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/alphacsc/alphacsc" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/alphacsc/" rel="noopener" target="_blank" title="PyPI"><span><i class="fas fa-box"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_simulate_randomstate.html">
+   Selecting random state for CSC
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_lfp_data.html">
+   CSC to learn LFP spiking atoms
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Extracting cross-frequency coupling waveforms from rodent LFP data
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_simulate_csc.html">
+   Vanilla CSC on simulated data
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dicodile/plot_gait.html">
+   Gait (steps) example
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../multicsc/plot_somato_mu_waves.html">
+   Extracting
+   <span class="math notranslate nohighlight">
+    \(\mu\)
+   </span>
+   -wave from the somato-sensory dataset
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../multicsc/plot_sample_evoked_response.html">
+   Extracting artifact and evoked response atoms from the sample dataset
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../noise_alpha/plot_simulate_alphacsc.html">
+   Alpha CSC on simulated data
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../noise_alpha/plot_empirical_strong_artifacts.html">
+   Alpha CSC on empirical time-series with strong artifacts
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../other/plot_simulate_motif.html">
+   MoTIF on simulated data
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../other/plot_simulate_swm.html">
+   SWM on simulated data
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-csc-plot-cross-frequency-coupling-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="extracting-cross-frequency-coupling-waveforms-from-rodent-lfp-data">
-<span id="sphx-glr-auto-examples-csc-plot-cross-frequency-coupling-py"></span><h1>Extracting cross-frequency coupling waveforms from rodent LFP data<a class="headerlink" href="#extracting-cross-frequency-coupling-waveforms-from-rodent-lfp-data" title="Permalink to this headline">¶</a></h1>
+<div class="sphx-glr-example-title section" id="extracting-cross-frequency-coupling-waveforms-from-rodent-lfp-data">
+<span id="sphx-glr-auto-examples-csc-plot-cross-frequency-coupling-py"></span><h1>Extracting cross-frequency coupling waveforms from rodent LFP data<a class="headerlink" href="#extracting-cross-frequency-coupling-waveforms-from-rodent-lfp-data" title="Permalink to this headline">#</a></h1>
 <p>This example illustrates how to learn univariate atoms on a univariate
 time-serie. The data is a single LFP channel recorded on a rodent’s striatum
 <a class="footnote-reference brackets" href="#id2" id="id1">1</a>. Interestingly in this time-serie, the high frequency oscillations around
@@ -137,8 +364,8 @@ Nature Communications, 8:13920, 2017</p>
 <span class="n">sfreq</span> <span class="o">=</span> <span class="mf">350.</span>
 
 <span class="c1"># We load the signal. It is an LFP channel recorded on a rodent&#39;s striatum.</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;../rodent_striatum.npy&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">data</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.load" title="numpy.load" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">np</span><span class="o">.</span><span class="n">load</span></a><span class="p">(</span><span class="s1">&#39;../rodent_striatum.npy&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">data</span></a><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -147,14 +374,14 @@ Nature Communications, 8:13920, 2017</p>
 </div>
 <p>As the data contains severe artifacts between t=0 and t=100, we use a
 section not affected by artifacts.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">35000</span><span class="p">:]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">data</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">data</span></a><span class="p">[:,</span> <span class="mi">35000</span><span class="p">:]</span>
 
 <span class="c1"># We also remove the slow drift, which accounts for a lot of variance.</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">filter_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sfreq</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">data</span></a> <span class="o">=</span> <a href="http://mne.tools/stable/generated/mne.filter.filter_data.html#mne.filter.filter_data" title="mne.filter.filter_data" class="sphx-glr-backref-module-mne-filter sphx-glr-backref-type-py-function"><span class="n">mne</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">filter_data</span></a><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">data</span></a><span class="p">,</span> <span class="n">sfreq</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
 <span class="c1"># To make the most of parallel computing, we split the data into trials.</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">/=</span> <span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">data</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">data</span></a><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">data</span></a> <span class="o">/=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">data</span></a><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -174,71 +401,71 @@ Designing a one-pass, zero-phase, non-causal highpass filter:
 described with a comodulogram, computed for instance with the <a class="reference external" href="http://pactools.github.io/">pactools</a> Python library.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pactools</span> <span class="kn">import</span> <span class="n">Comodulogram</span>
 
-<span class="n">comod</span> <span class="o">=</span> <span class="n">Comodulogram</span><span class="p">(</span><span class="n">fs</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">low_fq_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">10.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+<span class="n">comod</span> <span class="o">=</span> <span class="n">Comodulogram</span><span class="p">(</span><span class="n">fs</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">low_fq_range</span><span class="o">=</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">10.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
                      <span class="n">low_fq_width</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;duprelatour&#39;</span><span class="p">)</span>
-<span class="n">comod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">comod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">data</span></a><span class="p">)</span>
 <span class="n">comod</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_cross_frequency_coupling_001.png" srcset="../../_images/sphx_glr_plot_cross_frequency_coupling_001.png" alt="plot cross frequency coupling" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[                                        ] 0% | 0.00 sec | comodulogram: DAR(10, 1)
-[                                        ] 2% | 2.85 sec | comodulogram: DAR(10, 1)
-[.                                       ] 4% | 4.75 sec | comodulogram: DAR(10, 1)
-[..                                      ] 6% | 6.90 sec | comodulogram: DAR(10, 1)
-[...                                     ] 8% | 7.79 sec | comodulogram: DAR(10, 1)
-[....                                    ] 10% | 8.82 sec | comodulogram: DAR(10, 1)
-[....                                    ] 12% | 9.67 sec | comodulogram: DAR(10, 1)
-[.....                                   ] 14% | 10.67 sec | comodulogram: DAR(10, 1)
-[......                                  ] 16% | 11.51 sec | comodulogram: DAR(10, 1)
-[.......                                 ] 18% | 12.38 sec | comodulogram: DAR(10, 1)
-[........                                ] 20% | 13.46 sec | comodulogram: DAR(10, 1)
-[........                                ] 22% | 14.52 sec | comodulogram: DAR(10, 1)
-[.........                               ] 24% | 15.34 sec | comodulogram: DAR(10, 1)
-[..........                              ] 26% | 16.11 sec | comodulogram: DAR(10, 1)
-[...........                             ] 28% | 16.81 sec | comodulogram: DAR(10, 1)
-[............                            ] 30% | 17.57 sec | comodulogram: DAR(10, 1)
-[............                            ] 32% | 18.34 sec | comodulogram: DAR(10, 1)
-[.............                           ] 34% | 19.11 sec | comodulogram: DAR(10, 1)
-[..............                          ] 36% | 19.84 sec | comodulogram: DAR(10, 1)
-[...............                         ] 38% | 20.54 sec | comodulogram: DAR(10, 1)
-[................                        ] 40% | 21.31 sec | comodulogram: DAR(10, 1)
-[................                        ] 42% | 22.08 sec | comodulogram: DAR(10, 1)
-[.................                       ] 44% | 22.78 sec | comodulogram: DAR(10, 1)
-[..................                      ] 46% | 23.58 sec | comodulogram: DAR(10, 1)
-[...................                     ] 48% | 24.35 sec | comodulogram: DAR(10, 1)
-[....................                    ] 50% | 25.07 sec | comodulogram: DAR(10, 1)
-[....................                    ] 52% | 25.78 sec | comodulogram: DAR(10, 1)
-[.....................                   ] 54% | 26.51 sec | comodulogram: DAR(10, 1)
-[......................                  ] 56% | 27.27 sec | comodulogram: DAR(10, 1)
-[.......................                 ] 58% | 28.00 sec | comodulogram: DAR(10, 1)
-[........................                ] 60% | 28.72 sec | comodulogram: DAR(10, 1)
-[........................                ] 62% | 29.46 sec | comodulogram: DAR(10, 1)
-[.........................               ] 64% | 30.18 sec | comodulogram: DAR(10, 1)
-[..........................              ] 66% | 30.91 sec | comodulogram: DAR(10, 1)
-[...........................             ] 68% | 31.63 sec | comodulogram: DAR(10, 1)
-[............................            ] 70% | 32.35 sec | comodulogram: DAR(10, 1)
-[............................            ] 72% | 33.06 sec | comodulogram: DAR(10, 1)
-[.............................           ] 74% | 33.77 sec | comodulogram: DAR(10, 1)
-[..............................          ] 76% | 34.48 sec | comodulogram: DAR(10, 1)
-[...............................         ] 78% | 35.23 sec | comodulogram: DAR(10, 1)
-[................................        ] 80% | 35.94 sec | comodulogram: DAR(10, 1)
-[................................        ] 82% | 36.65 sec | comodulogram: DAR(10, 1)
-[.................................       ] 84% | 37.37 sec | comodulogram: DAR(10, 1)
-[..................................      ] 86% | 38.09 sec | comodulogram: DAR(10, 1)
-[...................................     ] 88% | 38.80 sec | comodulogram: DAR(10, 1)
-[....................................    ] 90% | 39.55 sec | comodulogram: DAR(10, 1)
-[....................................    ] 92% | 40.26 sec | comodulogram: DAR(10, 1)
-[.....................................   ] 94% | 40.97 sec | comodulogram: DAR(10, 1)
-[......................................  ] 96% | 41.68 sec | comodulogram: DAR(10, 1)
-[....................................... ] 98% | 42.41 sec | comodulogram: DAR(10, 1)
-[........................................] 100% | 43.16 sec | comodulogram: DAR(10, 1)
+[                                        ] 2% | 0.84 sec | comodulogram: DAR(10, 1)
+[.                                       ] 4% | 1.31 sec | comodulogram: DAR(10, 1)
+[..                                      ] 6% | 1.78 sec | comodulogram: DAR(10, 1)
+[...                                     ] 8% | 2.25 sec | comodulogram: DAR(10, 1)
+[....                                    ] 10% | 2.72 sec | comodulogram: DAR(10, 1)
+[....                                    ] 12% | 3.19 sec | comodulogram: DAR(10, 1)
+[.....                                   ] 14% | 3.66 sec | comodulogram: DAR(10, 1)
+[......                                  ] 16% | 4.14 sec | comodulogram: DAR(10, 1)
+[.......                                 ] 18% | 4.61 sec | comodulogram: DAR(10, 1)
+[........                                ] 20% | 5.09 sec | comodulogram: DAR(10, 1)
+[........                                ] 22% | 5.55 sec | comodulogram: DAR(10, 1)
+[.........                               ] 24% | 6.02 sec | comodulogram: DAR(10, 1)
+[..........                              ] 26% | 6.49 sec | comodulogram: DAR(10, 1)
+[...........                             ] 28% | 6.92 sec | comodulogram: DAR(10, 1)
+[............                            ] 30% | 7.39 sec | comodulogram: DAR(10, 1)
+[............                            ] 32% | 7.86 sec | comodulogram: DAR(10, 1)
+[.............                           ] 34% | 8.33 sec | comodulogram: DAR(10, 1)
+[..............                          ] 36% | 8.78 sec | comodulogram: DAR(10, 1)
+[...............                         ] 38% | 9.23 sec | comodulogram: DAR(10, 1)
+[................                        ] 40% | 9.70 sec | comodulogram: DAR(10, 1)
+[................                        ] 42% | 10.18 sec | comodulogram: DAR(10, 1)
+[.................                       ] 44% | 10.62 sec | comodulogram: DAR(10, 1)
+[..................                      ] 46% | 11.09 sec | comodulogram: DAR(10, 1)
+[...................                     ] 48% | 11.57 sec | comodulogram: DAR(10, 1)
+[....................                    ] 50% | 12.01 sec | comodulogram: DAR(10, 1)
+[....................                    ] 52% | 12.45 sec | comodulogram: DAR(10, 1)
+[.....................                   ] 54% | 12.90 sec | comodulogram: DAR(10, 1)
+[......................                  ] 56% | 13.37 sec | comodulogram: DAR(10, 1)
+[.......................                 ] 58% | 13.82 sec | comodulogram: DAR(10, 1)
+[........................                ] 60% | 14.26 sec | comodulogram: DAR(10, 1)
+[........................                ] 62% | 14.71 sec | comodulogram: DAR(10, 1)
+[.........................               ] 64% | 15.15 sec | comodulogram: DAR(10, 1)
+[..........................              ] 66% | 15.60 sec | comodulogram: DAR(10, 1)
+[...........................             ] 68% | 16.04 sec | comodulogram: DAR(10, 1)
+[............................            ] 70% | 16.49 sec | comodulogram: DAR(10, 1)
+[............................            ] 72% | 16.94 sec | comodulogram: DAR(10, 1)
+[.............................           ] 74% | 17.39 sec | comodulogram: DAR(10, 1)
+[..............................          ] 76% | 17.83 sec | comodulogram: DAR(10, 1)
+[...............................         ] 78% | 18.28 sec | comodulogram: DAR(10, 1)
+[................................        ] 80% | 18.73 sec | comodulogram: DAR(10, 1)
+[................................        ] 82% | 19.18 sec | comodulogram: DAR(10, 1)
+[.................................       ] 84% | 19.63 sec | comodulogram: DAR(10, 1)
+[..................................      ] 86% | 20.08 sec | comodulogram: DAR(10, 1)
+[...................................     ] 88% | 20.53 sec | comodulogram: DAR(10, 1)
+[....................................    ] 90% | 20.98 sec | comodulogram: DAR(10, 1)
+[....................................    ] 92% | 21.43 sec | comodulogram: DAR(10, 1)
+[.....................................   ] 94% | 21.88 sec | comodulogram: DAR(10, 1)
+[......................................  ] 96% | 22.33 sec | comodulogram: DAR(10, 1)
+[....................................... ] 98% | 22.77 sec | comodulogram: DAR(10, 1)
+[........................................] 100% | 23.23 sec | comodulogram: DAR(10, 1)
 
-[........................................] 100% | 43.16 sec | comodulogram: DAR(10, 1)
+[........................................] 100% | 23.23 sec | comodulogram: DAR(10, 1)
 </pre></div>
 </div>
 <p>We fit a CSC model on the data.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alphacsc</span> <span class="kn">import</span> <span class="n">learn_d_z</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alphacsc</span> <span class="kn">import</span> <a href="http://alphacsc.github.io/generated/alphacsc.learn_d_z.html#alphacsc.learn_d_z" title="alphacsc.learn_d_z" class="sphx-glr-backref-module-alphacsc sphx-glr-backref-type-py-function"><span class="n">learn_d_z</span></a>
 
 <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
     <span class="n">n_atoms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
@@ -252,7 +479,7 @@ described with a comodulogram, computed for instance with the <a class="referenc
     <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">d_hat</span><span class="p">,</span> <span class="n">z_hat</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">learn_d_z</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">d_hat</span></a><span class="p">,</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">z_hat</span></a><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <a href="http://alphacsc.github.io/generated/alphacsc.learn_d_z.html#alphacsc.learn_d_z" title="alphacsc.learn_d_z" class="sphx-glr-backref-module-alphacsc sphx-glr-backref-type-py-function"><span class="n">learn_d_z</span></a><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">data</span></a><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -261,17 +488,17 @@ described with a comodulogram, computed for instance with the <a class="referenc
 </div>
 <p>Plot the temporal patterns. Interestingly, we obtain prototypical
 waveforms of the signal on which we can clearly see the CFC.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_times_atom</span> <span class="o">=</span> <span class="n">d_hat</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_times_atom</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">d_hat</span></a><span class="o">.</span><span class="n">shape</span>
 <span class="n">n_columns</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">n_atoms</span><span class="p">)</span>
-<span class="n">n_rows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_atoms</span> <span class="o">//</span> <span class="n">n_columns</span><span class="p">))</span>
+<span class="n">n_rows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ceil" title="numpy.ceil" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-data"><span class="n">np</span><span class="o">.</span><span class="n">ceil</span></a><span class="p">(</span><span class="n">n_atoms</span> <span class="o">//</span> <span class="n">n_columns</span><span class="p">))</span>
 <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n_columns</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">n_rows</span><span class="p">)</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">n_rows</span><span class="p">,</span> <span class="n">n_columns</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">,</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">axes</span></a> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">n_rows</span><span class="p">,</span> <span class="n">n_columns</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">axes</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">axes</span></a><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
 
 <span class="k">for</span> <span class="n">kk</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_atoms</span><span class="p">):</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">kk</span><span class="p">]</span>
-    <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times_atom</span><span class="p">)</span> <span class="o">/</span> <span class="n">sfreq</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">d_hat</span><span class="p">[</span><span class="n">kk</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">kk</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">axes</span></a><span class="p">[</span><span class="n">kk</span><span class="p">]</span>
+    <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">time</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="n">n_times_atom</span><span class="p">)</span> <span class="o">/</span> <span class="n">sfreq</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">time</span></a><span class="p">,</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">d_hat</span></a><span class="p">[</span><span class="n">kk</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">kk</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_times_atom</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Time (sec)&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Temporal pattern </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">kk</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
@@ -280,7 +507,7 @@ waveforms of the signal on which we can clearly see the CFC.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_cross_frequency_coupling_002.png" srcset="../../_images/sphx_glr_plot_cross_frequency_coupling_002.png" alt="Temporal pattern 0, Temporal pattern 1, Temporal pattern 2" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 9 minutes  15.884 seconds)</p>
+<img src="../../_images/sphx_glr_plot_cross_frequency_coupling_002.png" srcset="../../_images/sphx_glr_plot_cross_frequency_coupling_002.png" alt="Temporal pattern 0, Temporal pattern 1, Temporal pattern 2" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 10 minutes  14.385 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-csc-plot-cross-frequency-coupling-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/7d38078ea50eae3afa9448ad09afc5da/plot_cross_frequency_coupling.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_cross_frequency_coupling.py</span></code></a></p>
@@ -290,23 +517,55 @@ waveforms of the signal on which we can clearly see the CFC.</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</section>
-
-
-    </div>
-      
-  </div>
 </div>
-<footer class="footer">
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="plot_lfp_data.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">CSC to learn LFP spiking atoms</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="plot_simulate_csc.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Vanilla CSC on simulated data</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+    <script src="/versionwarning.js"></script>
+    
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
   <div class="container">
-    <p class="pull-right">
-      <a href="#">Back to top</a>
-      
-    </p>
-    <p>
-        &copy; Copyright 2017-2018, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
-    </p>
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2017-2018, Mainak Jas.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
   </div>
 </footer>
   </body>

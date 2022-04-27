@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>alphacsc.learn_d_z &#8212; alphacsc 0.3.dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="alphacsc.learn_d_z_multi" href="alphacsc.learn_d_z_multi.html" />
+    <link rel="prev" title="alphacsc.OnlineCDL" href="alphacsc.OnlineCDL.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          alphacsc</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.dev</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../models.html">Models</a></li>
+                <li><a href="../auto_examples/index.html">Examples</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="https://github.com/alphacsc/alphacsc">GitHub</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">alphaCSC: Convolution sparse coding for time-series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../models.html">Model descriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/alphacsc/alphacsc">Fork alphacsc on Github</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="alphacsc-learn-d-z">
+<h1>alphacsc.learn_d_z<a class="headerlink" href="#alphacsc-learn-d-z" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="alphacsc.learn_d_z">
+<span class="sig-prename descclassname"><span class="pre">alphacsc.</span></span><span class="sig-name descname"><span class="pre">learn_d_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_times_atom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_d=&lt;function</span> <span class="pre">update_d_block&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg=0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbd_max='fixed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter=60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_z='l-bfgs'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_d_kwargs={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_z_kwargs={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds_init=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds_init_params={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weights=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose=10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopping_pobj=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#alphacsc.learn_d_z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Univariate Convolutional Sparse Coding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array, shape (n_trials, n_times)</span></dt><dd><p>The data on which to perform CSC.</p>
+</dd>
+<dt><strong>n_atoms</strong><span class="classifier">int</span></dt><dd><p>The number of atoms to learn.</p>
+</dd>
+<dt><strong>n_times_atom</strong><span class="classifier">int</span></dt><dd><p>The support of the atom.</p>
+</dd>
+<dt><strong>func_d</strong><span class="classifier">callable</span></dt><dd><p>The function to update the atoms.</p>
+</dd>
+<dt><strong>reg</strong><span class="classifier">float</span></dt><dd><p>The regularization parameter</p>
+</dd>
+<dt><strong>lmbd_max</strong><span class="classifier">‘fixed’ | ‘scaled’ | ‘per_atom’ | ‘shared’</span></dt><dd><dl class="simple">
+<dt>If not fixed, adapt the regularization rate as a ratio of lambda_max:</dt><dd><ul class="simple">
+<li><p>‘scaled’: the regularization parameter is fixed as a ratio of its
+maximal value at init i.e. reg_used = reg * lmbd_max(uv_init)</p></li>
+<li><p>‘shared’: the regularization parameter is set at each iteration as
+a ratio of its maximal value for the current dictionary estimate
+i.e. reg_used = reg * lmbd_max(uv_hat)</p></li>
+<li><p>‘per_atom’: the regularization parameter is set per atom and at
+each iteration as a ratio of its maximal value for this atom i.e.
+reg_used[k] = reg * lmbd_max(uv_hat[k])</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><strong>n_iter</strong><span class="classifier">int</span></dt><dd><p>The number of coordinate-descent iterations.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int | None</span></dt><dd><p>The random state.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int</span></dt><dd><p>The number of parallel jobs.</p>
+</dd>
+<dt><strong>solver_z</strong><span class="classifier">str</span></dt><dd><p>The solver to use for the z update. Options are
+‘l-bfgs’ (default) | ‘ista’ | ‘fista’</p>
+</dd>
+<dt><strong>solver_d_kwargs</strong><span class="classifier">dict</span></dt><dd><p>Additional keyword arguments to provide to update_d</p>
+</dd>
+<dt><strong>solver_z_kwargs</strong><span class="classifier">dict</span></dt><dd><p>Additional keyword arguments to pass to update_z</p>
+</dd>
+<dt><strong>ds_init</strong><span class="classifier">str or array, shape (n_atoms, n_times_atom)</span></dt><dd><p>The initial atoms or an initialization scheme in {‘kmeans’ | ‘ssa’ |
+‘chunks’ | ‘random’}.</p>
+</dd>
+<dt><strong>ds_init_params</strong><span class="classifier">dict</span></dt><dd><p>Dictionnary of parameters for the kmeans init method.</p>
+</dd>
+<dt><strong>sample_weights</strong><span class="classifier">array, shape (n_trials, n_times)</span></dt><dd><p>The weights in the alphaCSC problem. Should be None
+when using vanilla CSC.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">int</span></dt><dd><p>The verbosity level.</p>
+</dd>
+<dt><strong>callback</strong><span class="classifier">func</span></dt><dd><p>A callback function called at the end of each loop of the
+coordinate descent.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>pobj</strong><span class="classifier">list</span></dt><dd><p>The objective function value at each step of the coordinate descent.</p>
+</dd>
+<dt><strong>times</strong><span class="classifier">list</span></dt><dd><p>The cumulative time for each iteration of the coordinate descent.</p>
+</dd>
+<dt><strong>d_hat</strong><span class="classifier">array, shape (n_atoms, n_times)</span></dt><dd><p>The estimated atoms.</p>
+</dd>
+<dt><strong>z_hat</strong><span class="classifier">array, shape (n_atoms, n_trials, n_times - n_times_atom + 1)</span></dt><dd><p>The sparse activation matrix.</p>
+</dd>
+<dt><strong>reg</strong><span class="classifier">float</span></dt><dd><p>Regularization parameter used.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017-2018, Mainak Jas.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

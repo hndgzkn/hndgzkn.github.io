@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla CSC on simulated data &#8212; alphacsc 0.1.dev1+g9306425 documentation</title>
+    <title>Vanilla CSC on simulated data &#8212; alphacsc 0.4rc11 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -99,7 +99,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        dev  <!-- this text may get changed later by javascript -->
+        0.4rc11  <!-- this text may get changed later by javascript -->
         <span class="caret"></span>
     </button>
     <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
@@ -109,7 +109,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables auto_examples/csc/plot_simulate_csc and {'json_url': '/dev/_static/switcher.json', 'version_match': 'dev'}.
+     variables auto_examples/csc/plot_simulate_csc and {'json_url': '/dev/_static/switcher.json', 'version_match': '0.4rc11'}.
 -->
 
 <script type="text/javascript">
@@ -160,10 +160,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.1.dev1+g9306425 variable.
+            // this version, rather than using sphinx's 0.4rc11 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "dev") {
+            if (entry.version == "0.4rc11") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -406,7 +406,7 @@ Vanilla CSC
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_simulate_csc_002.png" srcset="../../_images/sphx_glr_plot_simulate_csc_002.png" alt="plot simulate csc" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D object at 0x7f0c3cb94070&gt;, &lt;matplotlib.lines.Line2D object at 0x7f0c3cb940d0&gt;]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D object at 0x7f3a10e457f0&gt;, &lt;matplotlib.lines.Line2D object at 0x7f3a10e45520&gt;]
 </pre></div>
 </div>
 <p>We can also visualize the learned activations</p>
@@ -435,7 +435,7 @@ such data.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>V_0/50 .................................................
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  28.442 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  23.020 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-csc-plot-simulate-csc-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9377ae50af7f9260094d40fab39c7c5e/plot_simulate_csc.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_simulate_csc.py</span></code></a></p>

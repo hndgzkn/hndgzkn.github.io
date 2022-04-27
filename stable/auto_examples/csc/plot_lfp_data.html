@@ -1,109 +1,336 @@
+
 <!DOCTYPE html>
 
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSC to learn LFP spiking atoms &#8212; alphacsc 0.4rc11 documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
-    <title>CSC to learn LFP spiking atoms &#8212; alphacsc 0.3.dev documentation</title>
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Selecting random state for CSC" href="plot_simulate_randomstate.html" />
-    <link rel="prev" title="Examples Gallery" href="../index.html" />
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="next" title="Extracting cross-frequency coupling waveforms from rodent LFP data" href="plot_cross_frequency_coupling.html" />
+    <link rel="prev" title="Selecting random state for CSC" href="plot_simulate_randomstate.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
 
-  </head><body>
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
 
-  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="../../index.html">
-          alphacsc</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3.dev</b></span>
-      </div>
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
 
-        <div class="collapse navbar-collapse nav-collapse">
-          <ul class="nav navbar-nav">
-            
-                <li><a href="../../models.html">Models</a></li>
-                <li><a href="../index.html">Examples</a></li>
-                <li><a href="../../api.html">API</a></li>
-                <li><a href="https://github.com/alphacsc/alphacsc">GitHub</a></li>
-            
-            
-              <li class="dropdown globaltoc-container">
-  <a role="button"
-     id="dLabelGlobalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="../../index.html">Site <b class="caret"></b></a>
-  <ul class="dropdown-menu globaltoc"
-      role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">alphaCSC: Convolution sparse coding for time-series</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../models.html">Model descriptions</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Documentation</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/alphacsc/alphacsc">Fork alphacsc on Github</a></li>
-</ul>
-</ul>
-</li>
-              
-            
-            
-            
-            
-            
-          </ul>
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../index.html">
+<p class="title">alphacsc</p>
+</a>
 
-          
-            
-<form class="navbar-form navbar-right" action="../../search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-          
-        </div>
-    </div>
+    
   </div>
 
-<div class="container">
-  <div class="row">
-    <div class="body col-md-12 content" role="main">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
       
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../models.html">
+  Model descriptions
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  Examples Gallery
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../api.html">
+  API Documentation
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        0.4rc11  <!-- this text may get changed later by javascript -->
+        <span class="caret"></span>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables auto_examples/csc/plot_lfp_data and {'json_url': '/dev/_static/switcher.json', 'version_match': '0.4rc11'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "auto_examples/csc/plot_lfp_data.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("/dev/_static/switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "auto_examples/csc/plot_lfp_data.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.4rc11 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "0.4rc11") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/alphacsc/alphacsc" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/alphacsc/" rel="noopener" target="_blank" title="PyPI"><span><i class="fas fa-box"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_simulate_randomstate.html">
+   Selecting random state for CSC
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   CSC to learn LFP spiking atoms
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_cross_frequency_coupling.html">
+   Extracting cross-frequency coupling waveforms from rodent LFP data
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="plot_simulate_csc.html">
+   Vanilla CSC on simulated data
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dicodile/plot_gait.html">
+   Gait (steps) example
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../multicsc/plot_somato_mu_waves.html">
+   Extracting
+   <span class="math notranslate nohighlight">
+    \(\mu\)
+   </span>
+   -wave from the somato-sensory dataset
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../multicsc/plot_sample_evoked_response.html">
+   Extracting artifact and evoked response atoms from the sample dataset
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../noise_alpha/plot_simulate_alphacsc.html">
+   Alpha CSC on simulated data
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../noise_alpha/plot_empirical_strong_artifacts.html">
+   Alpha CSC on empirical time-series with strong artifacts
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../other/plot_simulate_motif.html">
+   MoTIF on simulated data
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../other/plot_simulate_swm.html">
+   SWM on simulated data
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-csc-plot-lfp-data-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="csc-to-learn-lfp-spiking-atoms">
-<span id="sphx-glr-auto-examples-csc-plot-lfp-data-py"></span><h1>CSC to learn LFP spiking atoms<a class="headerlink" href="#csc-to-learn-lfp-spiking-atoms" title="Permalink to this headline">¶</a></h1>
+<div class="sphx-glr-example-title section" id="csc-to-learn-lfp-spiking-atoms">
+<span id="sphx-glr-auto-examples-csc-plot-lfp-data-py"></span><h1>CSC to learn LFP spiking atoms<a class="headerlink" href="#csc-to-learn-lfp-spiking-atoms" title="Permalink to this headline">#</a></h1>
 <p>Here, we show how CSC can be used to learn spiking
 atoms from Local Field Potential (LFP) data [1].</p>
 <dl class="simple">
@@ -113,19 +340,45 @@ Neurophysiological Signals. IEEE Transactions on Signal Processing (2017).</p>
 </dl>
 <p>First, let us fetch the data (~14 MB)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">_fetch_file</span>
+<span class="kn">from</span> <span class="nn">mne.datasets</span> <span class="kn">import</span> <a href="http://mne.tools/stable/generated/mne.datasets.fetch_dataset.html#mne.datasets.fetch_dataset" title="mne.datasets.fetch_dataset" class="sphx-glr-backref-module-mne-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_dataset</span></a>
+<span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">get_config</span>
 
 <span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://github.com/hitziger/AWL/raw/master/Experiments/data/&#39;</span>
        <span class="s1">&#39;LFP_data_contiguous_1250_Hz.mat&#39;</span><span class="p">)</span>
-<span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;./LFP_data_contiguous_1250_Hz.mat&#39;</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
-    <span class="n">_fetch_file</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+
+<span class="n">folder_name</span> <span class="o">=</span> <span class="s2">&quot;LFP&quot;</span>
+<span class="n">archive_name</span> <span class="o">=</span> <span class="s2">&quot;LFP_data_contiguous_1250_Hz.mat&quot;</span>
+
+<span class="n">fname</span> <span class="o">=</span> <a href="http://mne.tools/stable/generated/mne.datasets.fetch_dataset.html#mne.datasets.fetch_dataset" title="mne.datasets.fetch_dataset" class="sphx-glr-backref-module-mne-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_dataset</span></a><span class="p">(</span>
+    <span class="p">{</span><span class="s2">&quot;dataset_name&quot;</span><span class="p">:</span> <span class="s2">&quot;LFP_data&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+     <span class="s2">&quot;archive_name&quot;</span><span class="p">:</span> <span class="n">archive_name</span><span class="p">,</span>
+     <span class="s2">&quot;folder_name&quot;</span><span class="p">:</span> <span class="n">folder_name</span><span class="p">,</span>
+     <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="kc">None</span>
+     <span class="p">},</span>
+    <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="n">fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">archive_name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Using default location ~/mne_data for LFP_data...
+Creating ~/mne_data
+Downloading file &#39;LFP_data_contiguous_1250_Hz.mat&#39; from &#39;https://github.com/hitziger/AWL/raw/master/Experiments/data/LFP_data_contiguous_1250_Hz.mat&#39; to &#39;/github/home/mne_data/LFP&#39;.
+
+  0%|                                              | 0.00/14.4M [00:00&lt;?, ?B/s]
+ 44%|████████████████▎                    | 6.36M/14.4M [00:00&lt;00:00, 63.6MB/s]
+ 91%|█████████████████████████████████▋   | 13.1M/14.4M [00:00&lt;00:00, 65.9MB/s]
+  0%|                                              | 0.00/14.4M [00:00&lt;?, ?B/s]
+100%|█████████████████████████████████████| 14.4M/14.4M [00:00&lt;00:00, 28.3GB/s]
 </pre></div>
 </div>
 <p>It is a mat file, so we use scipy to load it</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">io</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/scipy-0.17.0/reference/generated/scipy.io.html#scipy.io.loadmat" title="scipy.io.loadmat" class="sphx-glr-backref-module-scipy-io sphx-glr-backref-type-scipy-optimize-function"><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span></a><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
 <span class="n">X</span><span class="p">,</span> <span class="n">sfreq</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;sfreq&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -134,7 +387,7 @@ Neurophysiological Signals. IEEE Transactions on Signal Processing (2017).</p>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="o">=</span> <span class="mi">11000</span><span class="p">,</span> <span class="mi">15000</span>
-<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span> <span class="o">/</span> <span class="n">sfreq</span>
+<span class="n">times</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span> <span class="o">/</span> <span class="n">sfreq</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\mu$ V&#39;</span><span class="p">)</span>
@@ -147,9 +400,9 @@ Neurophysiological Signals. IEEE Transactions on Signal Processing (2017).</p>
 </div>
 <p>and filter it using a convenient function from MNE. This will remove low
 frequency drifts, but we keep the high frequencies</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mne.filter</span> <span class="kn">import</span> <span class="n">filter_data</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">filter_data</span><span class="p">(</span>
-    <span class="n">X</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">l_freq</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">h_freq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fir_design</span><span class="o">=</span><span class="s1">&#39;firwin&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mne.filter</span> <span class="kn">import</span> <a href="http://mne.tools/stable/generated/mne.filter.filter_data.html#mne.filter.filter_data" title="mne.filter.filter_data" class="sphx-glr-backref-module-mne-filter sphx-glr-backref-type-py-function"><span class="n">filter_data</span></a>
+<span class="n">X</span> <span class="o">=</span> <a href="http://mne.tools/stable/generated/mne.filter.filter_data.html#mne.filter.filter_data" title="mne.filter.filter_data" class="sphx-glr-backref-module-mne-filter sphx-glr-backref-type-py-function"><span class="n">filter_data</span></a><span class="p">(</span>
+    <span class="n">X</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.generic" title="numpy.generic" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">np</span><span class="o">.</span><span class="n">float64</span></a><span class="p">),</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">l_freq</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">h_freq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fir_design</span><span class="o">=</span><span class="s1">&#39;firwin&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -181,36 +434,36 @@ select the random state, consult <span class="xref std std-ref">this example</sp
 </div>
 <p>Now, we epoch the trials</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">overlap</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">starts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">n_times</span><span class="p">,</span> <span class="n">n_times</span> <span class="o">-</span> <span class="n">overlap</span><span class="p">)</span>
-<span class="n">stops</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">n_times</span> <span class="o">-</span> <span class="n">overlap</span><span class="p">)</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">starts</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">n_times</span><span class="p">,</span> <span class="n">n_times</span> <span class="o">-</span> <span class="n">overlap</span><span class="p">)</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">stops</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="n">n_times</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">n_times</span> <span class="o">-</span> <span class="n">overlap</span><span class="p">)</span>
 
-<span class="n">X_new</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">starts</span><span class="p">,</span> <span class="n">stops</span><span class="p">)):</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_new</span></a> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">starts</span></a><span class="p">,</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">stops</span></a><span class="p">)):</span>
     <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="n">n_trials</span><span class="p">:</span>
         <span class="k">break</span>
-    <span class="n">X_new</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span>
-<span class="n">X_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+    <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_new</span><span class="o">.</span><span class="n">append</span></a><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_new</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.vstack" title="numpy.vstack" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">np</span><span class="o">.</span><span class="n">vstack</span></a><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_new</span></a><span class="p">)</span>
 <span class="k">del</span> <span class="n">X</span>
 </pre></div>
 </div>
 <p>We remove the mean and scale to unit variance.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X_new</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
-<span class="n">X_new</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_new</span></a> <span class="o">-=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.mean" title="numpy.mean" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_new</span></a><span class="p">)</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_new</span></a> <span class="o">/=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.std" title="numpy.std" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">np</span><span class="o">.</span><span class="n">std</span></a><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_new</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p>The convolutions can result in edge artifacts at the edges of the trials.
 Therefore, we discount the contributions from the edges by windowing the
 trials.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">hamming</span>
-<span class="n">X_new</span> <span class="o">*=</span> <span class="n">hamming</span><span class="p">(</span><span class="n">n_times</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.hamming" title="numpy.hamming" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">hamming</span></a>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_new</span></a> <span class="o">*=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.hamming" title="numpy.hamming" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">hamming</span></a><span class="p">(</span><span class="n">n_times</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
 </pre></div>
 </div>
 <p>Of course, in a data-limited setting we want to use as much of the data as
 possible. If this is the case, you can set <cite>overlap</cite> to non-zero (for example
 half the epoch length).</p>
 <p>Now, we run regular CSC since the trials are not too noisy</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alphacsc</span> <span class="kn">import</span> <span class="n">learn_d_z</span>
-<span class="n">pobj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">d_hat</span><span class="p">,</span> <span class="n">z_hat</span><span class="p">,</span> <span class="n">reg</span> <span class="o">=</span> <span class="n">learn_d_z</span><span class="p">(</span><span class="n">X_new</span><span class="p">,</span> <span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_times_atom</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alphacsc</span> <span class="kn">import</span> <a href="http://alphacsc.github.io/generated/alphacsc.learn_d_z.html#alphacsc.learn_d_z" title="alphacsc.learn_d_z" class="sphx-glr-backref-module-alphacsc sphx-glr-backref-type-py-function"><span class="n">learn_d_z</span></a>
+<span class="n">pobj</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">d_hat</span></a><span class="p">,</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">z_hat</span></a><span class="p">,</span> <span class="n">reg</span> <span class="o">=</span> <a href="http://alphacsc.github.io/generated/alphacsc.learn_d_z.html#alphacsc.learn_d_z" title="alphacsc.learn_d_z" class="sphx-glr-backref-module-alphacsc sphx-glr-backref-type-py-function"><span class="n">learn_d_z</span></a><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_new</span></a><span class="p">,</span> <span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_times_atom</span><span class="p">,</span>
                                            <span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="n">n_iter</span><span class="p">,</span>
                                            <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -279,13 +532,13 @@ Using method dual for projection
 Coordinate descent loop 15 / 60 [n_jobs=1]
 [seed 10] Objective (z_hat) : 18623.64002131
 Using method dual for projection
-[seed 10] Objective (d) 18621.18904483
+[seed 10] Objective (d) 18621.18904484
 Coordinate descent loop 16 / 60 [n_jobs=1]
 [seed 10] Objective (z_hat) : 18547.81611677
 Using method dual for projection
 [seed 10] Objective (d) 18545.24281149
 Coordinate descent loop 17 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18471.88752075
+[seed 10] Objective (z_hat) : 18471.88752076
 Using method dual for projection
 [seed 10] Objective (d) 18470.42055102
 Coordinate descent loop 18 / 60 [n_jobs=1]
@@ -293,178 +546,178 @@ Coordinate descent loop 18 / 60 [n_jobs=1]
 Using method dual for projection
 [seed 10] Objective (d) 18391.78226334
 Coordinate descent loop 19 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18331.73169085
+[seed 10] Objective (z_hat) : 18331.73169086
 Using method dual for projection
-[seed 10] Objective (d) 18328.84451728
+[seed 10] Objective (d) 18328.84451729
 Coordinate descent loop 20 / 60 [n_jobs=1]
 [seed 10] Objective (z_hat) : 18274.15271778
 Using method dual for projection
-[seed 10] Objective (d) 18297.40702009
+[seed 10] Objective (d) 18297.40702007
 Coordinate descent loop 21 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18257.44912764
+[seed 10] Objective (z_hat) : 18257.44912760
 Using method dual for projection
-[seed 10] Objective (d) 18276.17808971
+[seed 10] Objective (d) 18276.17808963
 Coordinate descent loop 22 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18243.49274430
+[seed 10] Objective (z_hat) : 18243.49274421
 Using method dual for projection
-[seed 10] Objective (d) 18261.00618801
+[seed 10] Objective (d) 18261.00618790
 Coordinate descent loop 23 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18234.36110409
+[seed 10] Objective (z_hat) : 18234.36110400
 Using method dual for projection
-[seed 10] Objective (d) 18208.94505651
+[seed 10] Objective (d) 18208.94505630
 Coordinate descent loop 24 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18179.04646085
+[seed 10] Objective (z_hat) : 18179.04646062
 Using method dual for projection
-[seed 10] Objective (d) 18179.60670455
+[seed 10] Objective (d) 18179.60670430
 Coordinate descent loop 25 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18156.84098656
+[seed 10] Objective (z_hat) : 18156.84098639
 Using method dual for projection
-[seed 10] Objective (d) 18166.58627553
+[seed 10] Objective (d) 18166.58627562
 Coordinate descent loop 26 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18145.85002352
+[seed 10] Objective (z_hat) : 18145.85002356
 Using method dual for projection
-[seed 10] Objective (d) 18152.93057126
+[seed 10] Objective (d) 18152.93057120
 Coordinate descent loop 27 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18131.29820960
+[seed 10] Objective (z_hat) : 18131.29820966
 Using method dual for projection
 [seed 10] Objective (d) 18131.16931585
 Coordinate descent loop 28 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18119.63495620
+[seed 10] Objective (z_hat) : 18119.63495602
 Using method dual for projection
-[seed 10] Objective (d) 18111.53150228
+[seed 10] Objective (d) 18111.53150159
 Coordinate descent loop 29 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18095.94336612
+[seed 10] Objective (z_hat) : 18095.94336614
 Using method dual for projection
-[seed 10] Objective (d) 18106.50704367
+[seed 10] Objective (d) 18106.50704724
 Coordinate descent loop 30 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18098.05237181
+[seed 10] Objective (z_hat) : 18098.05237401
 Using method dual for projection
-[seed 10] Objective (d) 18097.82986883
+[seed 10] Objective (d) 18097.82987219
 Coordinate descent loop 31 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18084.15728411
+[seed 10] Objective (z_hat) : 18084.15728858
 Using method dual for projection
-[seed 10] Objective (d) 18025.10056832
+[seed 10] Objective (d) 18025.10056909
 Coordinate descent loop 32 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18015.48732514
+[seed 10] Objective (z_hat) : 18015.48732444
 Using method dual for projection
-[seed 10] Objective (d) 18015.15575809
+[seed 10] Objective (d) 18015.15575745
 Coordinate descent loop 33 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18009.09807293
+[seed 10] Objective (z_hat) : 18009.09807550
 Using method dual for projection
-[seed 10] Objective (d) 18010.63887509
+[seed 10] Objective (d) 18010.63887828
 Coordinate descent loop 34 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18004.88799043
+[seed 10] Objective (z_hat) : 18004.88799181
 Using method dual for projection
-[seed 10] Objective (d) 18058.43293868
+[seed 10] Objective (d) 18058.43295042
 Coordinate descent loop 35 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18049.18810207
+[seed 10] Objective (z_hat) : 18049.18814404
 Using method dual for projection
-[seed 10] Objective (d) 17997.43383372
+[seed 10] Objective (d) 17997.43386062
 Coordinate descent loop 36 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17990.54845545
+[seed 10] Objective (z_hat) : 17990.54845736
 Using method dual for projection
-[seed 10] Objective (d) 17990.87720429
+[seed 10] Objective (d) 17990.87720230
 Coordinate descent loop 37 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17985.96104611
+[seed 10] Objective (z_hat) : 17985.96104110
 Using method dual for projection
-[seed 10] Objective (d) 17988.72477275
+[seed 10] Objective (d) 17988.72476199
 Coordinate descent loop 38 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17984.75060685
+[seed 10] Objective (z_hat) : 17984.75059699
 Using method dual for projection
-[seed 10] Objective (d) 18049.42031595
+[seed 10] Objective (d) 18049.42022273
 Coordinate descent loop 39 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 18046.54427422
+[seed 10] Objective (z_hat) : 18046.54425058
 Using method dual for projection
-[seed 10] Objective (d) 17984.35843227
+[seed 10] Objective (d) 17984.35856862
 Coordinate descent loop 40 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17980.96852119
+[seed 10] Objective (z_hat) : 17980.96880430
 Using method dual for projection
-[seed 10] Objective (d) 17980.80637993
+[seed 10] Objective (d) 17980.80669037
 Coordinate descent loop 41 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17972.69145764
+[seed 10] Objective (z_hat) : 17972.69296219
 Using method dual for projection
-[seed 10] Objective (d) 17972.03875516
+[seed 10] Objective (d) 17972.04008927
 Coordinate descent loop 42 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17966.98348874
+[seed 10] Objective (z_hat) : 17966.98480639
 Using method dual for projection
-[seed 10] Objective (d) 17966.82851203
+[seed 10] Objective (d) 17966.82982420
 Coordinate descent loop 43 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17962.43651755
+[seed 10] Objective (z_hat) : 17962.43826374
 Using method dual for projection
-[seed 10] Objective (d) 17977.52908027
+[seed 10] Objective (d) 17977.53550322
 Coordinate descent loop 44 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17975.02834571
+[seed 10] Objective (z_hat) : 17975.03587533
 Using method dual for projection
-[seed 10] Objective (d) 17966.23337802
+[seed 10] Objective (d) 17966.16026575
 Coordinate descent loop 45 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17963.82252957
+[seed 10] Objective (z_hat) : 17963.76015273
 Using method dual for projection
-[seed 10] Objective (d) 17978.80967677
+[seed 10] Objective (d) 17978.91055034
 Coordinate descent loop 46 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17976.66483297
+[seed 10] Objective (z_hat) : 17976.75050954
 Using method dual for projection
-[seed 10] Objective (d) 17972.18480338
+[seed 10] Objective (d) 17972.49942963
 Coordinate descent loop 47 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17970.12420962
+[seed 10] Objective (z_hat) : 17970.48291179
 Using method dual for projection
-[seed 10] Objective (d) 17972.48288898
+[seed 10] Objective (d) 17973.23422992
 Coordinate descent loop 48 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17969.94996022
+[seed 10] Objective (z_hat) : 17970.92478592
 Using method dual for projection
-[seed 10] Objective (d) 17965.23270533
+[seed 10] Objective (d) 17963.82948038
 Coordinate descent loop 49 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17963.55205711
+[seed 10] Objective (z_hat) : 17961.84373701
 Using method dual for projection
-[seed 10] Objective (d) 17969.37962537
+[seed 10] Objective (d) 17971.86050776
 Coordinate descent loop 50 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17965.54664778
+[seed 10] Objective (z_hat) : 17967.92414417
 Using method dual for projection
-[seed 10] Objective (d) 17961.28071921
+[seed 10] Objective (d) 17974.11292268
 Coordinate descent loop 51 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17958.73277309
+[seed 10] Objective (z_hat) : 17971.19344934
 Using method dual for projection
-[seed 10] Objective (d) 17958.21375077
+[seed 10] Objective (d) 17976.59916952
 Coordinate descent loop 52 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17956.75580565
+[seed 10] Objective (z_hat) : 17974.68790064
 Using method dual for projection
-[seed 10] Objective (d) 17958.71603218
+[seed 10] Objective (d) 17972.97115106
 Coordinate descent loop 53 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17957.61409011
+[seed 10] Objective (z_hat) : 17971.74333296
 Using method dual for projection
-[seed 10] Objective (d) 17960.55118043
+[seed 10] Objective (d) 17971.21362948
 Coordinate descent loop 54 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17959.37464115
+[seed 10] Objective (z_hat) : 17970.14057303
 Using method dual for projection
-[seed 10] Objective (d) 17956.79042742
+[seed 10] Objective (d) 17963.95975857
 Coordinate descent loop 55 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17955.76752140
+[seed 10] Objective (z_hat) : 17962.82815869
 Using method dual for projection
-[seed 10] Objective (d) 17955.63489044
+[seed 10] Objective (d) 17964.32024402
 Coordinate descent loop 56 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17954.87025576
+[seed 10] Objective (z_hat) : 17963.16483309
 Using method dual for projection
-[seed 10] Objective (d) 17955.93825285
+[seed 10] Objective (d) 17960.62470416
 Coordinate descent loop 57 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17954.98377639
+[seed 10] Objective (z_hat) : 17959.04029128
 Using method dual for projection
-[seed 10] Objective (d) 17950.93343036
+[seed 10] Objective (d) 17956.00852062
 Coordinate descent loop 58 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17950.03062819
+[seed 10] Objective (z_hat) : 17954.27151859
 Using method dual for projection
-[seed 10] Objective (d) 17956.16185689
+[seed 10] Objective (d) 17956.37784603
 Coordinate descent loop 59 / 60 [n_jobs=1]
-[seed 10] Objective (z_hat) : 17954.83421551
+[seed 10] Objective (z_hat) : 17955.30068453
 Using method dual for projection
-[seed 10] Objective (d) 17957.42392000
+[seed 10] Objective (d) 17945.26047536
 </pre></div>
 </div>
 <p>Let’s look at the atoms now.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">d_hat</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">d_hat</span><span class="o">.</span><span class="n">T</span></a><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_lfp_data_002.png" srcset="../../_images/sphx_glr_plot_lfp_data_002.png" alt="plot lfp data" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 2 minutes  20.967 seconds)</p>
+<img src="../../_images/sphx_glr_plot_lfp_data_002.png" srcset="../../_images/sphx_glr_plot_lfp_data_002.png" alt="plot lfp data" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  39.870 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-csc-plot-lfp-data-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/f93a497b17a2035de2f8a7969f6a761b/plot_lfp_data.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_lfp_data.py</span></code></a></p>
@@ -474,23 +727,55 @@ Using method dual for projection
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</section>
-
-
-    </div>
-      
-  </div>
 </div>
-<footer class="footer">
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="plot_simulate_randomstate.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Selecting random state for CSC</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="plot_cross_frequency_coupling.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Extracting cross-frequency coupling waveforms from rodent LFP data</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+    <script src="/versionwarning.js"></script>
+    
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
   <div class="container">
-    <p class="pull-right">
-      <a href="#">Back to top</a>
-      
-    </p>
-    <p>
-        &copy; Copyright 2017-2018, Mainak Jas.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
-    </p>
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2017-2018, Mainak Jas.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
   </div>
 </footer>
   </body>

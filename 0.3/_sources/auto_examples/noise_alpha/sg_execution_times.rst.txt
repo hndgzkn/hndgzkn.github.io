@@ -1,0 +1,14 @@
+
+:orphan:
+
+.. _sphx_glr_auto_examples_noise_alpha_sg_execution_times:
+
+Computation times
+=================
+**11:58.407** total execution time for **auto_examples_noise_alpha** files:
+
++-----------------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_noise_alpha_plot_empirical_strong_artifacts.py` (``plot_empirical_strong_artifacts.py``) | 07:15.737 | 0.0 MB |
++-----------------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_noise_alpha_plot_simulate_alphacsc.py` (``plot_simulate_alphacsc.py``)                   | 04:42.670 | 0.0 MB |
++-----------------------------------------------------------------------------------------------------------------------+-----------+--------+

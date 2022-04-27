@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>MoTIF on simulated data &#8212; alphacsc 0.3.dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="SWM on simulated data" href="plot_simulate_swm.html" />
+    <link rel="prev" title="Alpha CSC on empirical time-series with strong artifacts" href="../noise_alpha/plot_empirical_strong_artifacts.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          alphacsc</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.dev</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../models.html">Models</a></li>
+                <li><a href="../index.html">Examples</a></li>
+                <li><a href="../../api.html">API</a></li>
+                <li><a href="https://github.com/alphacsc/alphacsc">GitHub</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">alphaCSC: Convolution sparse coding for time-series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../models.html">Model descriptions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/alphacsc/alphacsc">Fork alphacsc on Github</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-other-plot-simulate-motif-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="motif-on-simulated-data">
+<span id="sphx-glr-auto-examples-other-plot-simulate-motif-py"></span><h1>MoTIF on simulated data<a class="headerlink" href="#motif-on-simulated-data" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrates MoTIF [1] on simulated data. In the
+alphacsc module, we are offering all the alternatives for the users
+to try. Please cite our paper [2] if you use this implementation.</p>
+<dl class="simple">
+<dt>[1] Jost, Philippe, et al.</dt><dd><p>“MoTIF: An efficient algorithm for learning
+translation invariant dictionaries.” Acoustics, Speech and Signal
+Processing, 2006. ICASSP 2006 Proceedings. 2006 IEEE International
+Conference on. Vol. 5. IEEE, 2006.</p>
+</dd>
+<dt>[2] Jas, M., Dupr’e La Tour, T., Simsekli, U., &amp; Gramfort, A. (2017).</dt><dd><p>Learning the Morphology of Brain Signals Using Alpha-Stable Convolutional
+Sparse Coding. arXiv preprint arXiv:1705.08006.</p>
+</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: Mainak Jas &lt;mainak.jas@telecom-paristech.fr&gt;</span>
+<span class="c1">#          Tom Dupre La Tour &lt;tom.duprelatour@telecom-paristech.fr&gt;</span>
+<span class="c1">#          Umut Simsekli &lt;umut.simsekli@telecom-paristech.fr&gt;</span>
+<span class="c1">#          Alexandre Gramfort &lt;alexandre.gramfort@telecom-paristech.fr&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># License: BSD (3-clause)</span>
+</pre></div>
+</div>
+<p>Let us first import the modules.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">alphacsc.simulate</span> <span class="kn">import</span> <span class="n">simulate_data</span>
+<span class="kn">from</span> <span class="nn">alphacsc.other.motif</span> <span class="kn">import</span> <span class="n">learn_atoms</span>
+</pre></div>
+</div>
+<p>and define the relevant parameters. Note we choose a large n_times
+to avoid overlapping atoms which MoTIF cannot handle</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_times_atom</span> <span class="o">=</span> <span class="mi">64</span>  <span class="c1"># L</span>
+<span class="n">n_times</span> <span class="o">=</span> <span class="mi">5000</span>  <span class="c1"># T</span>
+<span class="n">n_atoms</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># K</span>
+<span class="n">n_trials</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># N</span>
+</pre></div>
+</div>
+<p>simulate the data.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">random_state_simulate</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">ds_true</span><span class="p">,</span> <span class="n">z_true</span> <span class="o">=</span> <span class="n">simulate_data</span><span class="p">(</span><span class="n">n_trials</span><span class="p">,</span> <span class="n">n_times</span><span class="p">,</span> <span class="n">n_times_atom</span><span class="p">,</span>
+                                   <span class="n">n_atoms</span><span class="p">,</span> <span class="n">random_state_simulate</span><span class="p">,</span>
+                                   <span class="n">constant_amplitude</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">n_times_atom</span> <span class="o">=</span> <span class="n">n_times_atom</span> <span class="o">*</span> <span class="mi">7</span>  <span class="c1"># XXX: hack</span>
+<span class="n">n_iter</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">max_shift</span> <span class="o">=</span> <span class="mi">11</span>  <span class="c1"># after this, the algorithm breaks</span>
+</pre></div>
+</div>
+<p>Note, how we use constant_amplitude=True since
+MoTIF cannot handle atoms of varying amplitudes. Check out our examples
+on <span class="xref std std-ref">vanilla CSC</span> and
+<span class="xref std std-ref">alphaCSC</span> to learn
+how to deal with such cases.
+Finally, let us estimate the atoms.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ds_hat</span> <span class="o">=</span> <span class="n">learn_atoms</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_times_atom</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="n">n_iter</span><span class="p">,</span>
+                     <span class="n">max_shift</span><span class="o">=</span><span class="n">max_shift</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ds_hat</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_simulate_motif_001.png" srcset="../../_images/sphx_glr_plot_simulate_motif_001.png" alt="plot simulate motif" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/sed-sac/hgozukan/dev/alphacsc/alphacsc/other/motif.py:34: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  match = np.zeros((n_atoms, n_trials), dtype=np.int)
+[seed 42] Atom 0 Iteration 0
+[seed 42] Atom 0 Iteration 1
+[seed 42] Atom 0 Iteration 2
+[seed 42] Atom 0 Iteration 3
+[seed 42] Atom 0 Iteration 4
+[seed 42] Atom 0 Iteration 5
+[seed 42] Atom 0 Iteration 6
+[seed 42] Atom 0 Iteration 7
+[seed 42] Atom 0 Iteration 8
+[seed 42] Atom 0 Iteration 9
+[seed 42] Atom 1 Iteration 0
+[seed 42] Atom 1 Iteration 1
+[seed 42] Atom 1 Iteration 2
+[seed 42] Atom 1 Iteration 3
+[seed 42] Atom 1 Iteration 4
+[seed 42] Atom 1 Iteration 5
+[seed 42] Atom 1 Iteration 6
+[seed 42] Atom 1 Iteration 7
+[seed 42] Atom 1 Iteration 8
+[seed 42] Atom 1 Iteration 9
+
+[&lt;matplotlib.lines.Line2D object at 0x7f5582417610&gt;, &lt;matplotlib.lines.Line2D object at 0x7f5582417fd0&gt;]
+</pre></div>
+</div>
+<p>Compare this to the original atoms</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ds_true</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_simulate_motif_002.png" srcset="../../_images/sphx_glr_plot_simulate_motif_002.png" alt="plot simulate motif" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.748 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-other-plot-simulate-motif-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/0b12a6d60c0fbcf3fc91d6fcd57bc109/plot_simulate_motif.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_simulate_motif.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/9441e67bc81fa1228fa3eff505cf9eef/plot_simulate_motif.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_simulate_motif.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017-2018, Mainak Jas.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

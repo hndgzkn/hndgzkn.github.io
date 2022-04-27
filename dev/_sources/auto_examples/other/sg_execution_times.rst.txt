@@ -5,10 +5,10 @@
 
 Computation times
 =================
-**00:09.686** total execution time for **auto_examples_other** files:
+**00:08.242** total execution time for **auto_examples_other** files:
 
 +-----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_examples_other_plot_simulate_swm.py` (``plot_simulate_swm.py``)     | 00:08.886 | 0.0 MB |
+| :ref:`sphx_glr_auto_examples_other_plot_simulate_swm.py` (``plot_simulate_swm.py``)     | 00:07.601 | 0.0 MB |
 +-----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_examples_other_plot_simulate_motif.py` (``plot_simulate_motif.py``) | 00:00.801 | 0.0 MB |
+| :ref:`sphx_glr_auto_examples_other_plot_simulate_motif.py` (``plot_simulate_motif.py``) | 00:00.641 | 0.0 MB |
 +-----------------------------------------------------------------------------------------+-----------+--------+

@@ -32,27 +32,6 @@ Univariate CSC
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Here, we show how CSC can be used to learn spiking atoms from Local Field Potential (LFP) data ...">
-
-.. only:: html
-
- .. figure:: /auto_examples/csc/images/thumb/sphx_glr_plot_lfp_data_thumb.png
-     :alt: CSC to learn LFP spiking atoms
-
-     :ref:`sphx_glr_auto_examples_csc_plot_lfp_data.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /auto_examples/csc/plot_lfp_data
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="The CSC problem is non-convex. Therefore, the solution depends on the initialization. Here, we ...">
 
 .. only:: html
@@ -71,6 +50,27 @@ Univariate CSC
    :hidden:
 
    /auto_examples/csc/plot_simulate_randomstate
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Here, we show how CSC can be used to learn spiking atoms from Local Field Potential (LFP) data ...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/csc/images/thumb/sphx_glr_plot_lfp_data_thumb.png
+     :alt: CSC to learn LFP spiking atoms
+
+     :ref:`sphx_glr_auto_examples_csc_plot_lfp_data.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/csc/plot_lfp_data
 
 .. raw:: html
 
@@ -113,6 +113,41 @@ Univariate CSC
    :hidden:
 
    /auto_examples/csc/plot_simulate_csc
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_auto_examples_dicodile:
+
+.. _dicodile_examples:
+
+Univariate and Multivariate CSC with 'dicodile' solver
+------------------------------------------------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Gait (steps) example">
+
+.. only:: html
+
+ .. figure:: /auto_examples/dicodile/images/thumb/sphx_glr_plot_gait_thumb.png
+     :alt: Gait (steps) example
+
+     :ref:`sphx_glr_auto_examples_dicodile_plot_gait.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/dicodile/plot_gait
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>

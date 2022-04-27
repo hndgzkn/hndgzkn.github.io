@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Examples Gallery &#8212; alphacsc 0.3.dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CSC to learn LFP spiking atoms" href="csc/plot_lfp_data.html" />
+    <link rel="prev" title="Model descriptions" href="../models.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          alphacsc</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.dev</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../models.html">Models</a></li>
+                <li><a href="#">Examples</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="https://github.com/alphacsc/alphacsc">GitHub</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">alphaCSC: Convolution sparse coding for time-series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../models.html">Model descriptions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/alphacsc/alphacsc">Fork alphacsc on Github</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="examples-gallery">
+<span id="general-examples"></span><span id="sphx-glr-auto-examples"></span><h1>Examples Gallery<a class="headerlink" href="#examples-gallery" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#univariate-csc" id="id11">Univariate CSC</a></p></li>
+<li><p><a class="reference internal" href="#multivariate-csc-with-rank-1-constraints" id="id12">Multivariate CSC with rank 1 constraints</a></p></li>
+<li><p><a class="reference internal" href="#univariate-csc-with-an-alpha-stable-distribution" id="id13">Univariate CSC with an alpha-stable distribution</a></p></li>
+<li><p><a class="reference internal" href="#other-shift-invariant-dictionary-learning-algorithms" id="id14">Other shift-invariant dictionary learning algorithms</a></p></li>
+</ul>
+</div>
+<div class="sphx-glr-clear"></div><section id="univariate-csc">
+<span id="csc-examples"></span><span id="sphx-glr-auto-examples-csc"></span><h2><a class="toc-backref" href="#id11">Univariate CSC</a><a class="headerlink" href="#univariate-csc" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="Here, we show how CSC can be used to learn spiking atoms from Local Field Potential (LFP) data ..."><figure class="align-default" id="id1">
+<img alt="CSC to learn LFP spiking atoms" src="../_images/sphx_glr_plot_lfp_data_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="csc/plot_lfp_data.html#sphx-glr-auto-examples-csc-plot-lfp-data-py"><span class="std std-ref">CSC to learn LFP spiking atoms</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The CSC problem is non-convex. Therefore, the solution depends on the initialization. Here, we ..."><figure class="align-default" id="id2">
+<img alt="Selecting random state for CSC" src="../_images/sphx_glr_plot_simulate_randomstate_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="csc/plot_simulate_randomstate.html#sphx-glr-auto-examples-csc-plot-simulate-randomstate-py"><span class="std std-ref">Selecting random state for CSC</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to learn univariate atoms on a univariate time-serie. The data is ..."><figure class="align-default" id="id3">
+<img alt="Extracting cross-frequency coupling waveforms from rodent LFP data" src="../_images/sphx_glr_plot_cross_frequency_coupling_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="csc/plot_cross_frequency_coupling.html#sphx-glr-auto-examples-csc-plot-cross-frequency-coupling-py"><span class="std std-ref">Extracting cross-frequency coupling waveforms from rodent LFP data</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates vanilla CSC on simulated data. Note that vanilla CSC is just a specia..."><figure class="align-default" id="id4">
+<img alt="Vanilla CSC on simulated data" src="../_images/sphx_glr_plot_simulate_csc_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="csc/plot_simulate_csc.html#sphx-glr-auto-examples-csc-plot-simulate-csc-py"><span class="std std-ref">Vanilla CSC on simulated data</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div></section>
+<section id="multivariate-csc-with-rank-1-constraints">
+<span id="multicsc-examples"></span><span id="sphx-glr-auto-examples-multicsc"></span><h2><a class="toc-backref" href="#id12">Multivariate CSC with rank 1 constraints</a><a class="headerlink" href="#multivariate-csc-with-rank-1-constraints" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to learn rank-1 atoms [1]_ on the multivariate somato-sensorymotor..."><figure class="align-default" id="id5">
+<img alt="Extracting :math:`\mu`-wave from the somato-sensory dataset" src="../_images/sphx_glr_plot_somato_mu_waves_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="multicsc/plot_somato_mu_waves.html#sphx-glr-auto-examples-multicsc-plot-somato-mu-waves-py"><span class="std std-ref">Extracting \mu-wave from the somato-sensory dataset</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to learn rank-1 [1]_ atoms on the multivariate sample dataset from..."><figure class="align-default" id="id6">
+<img alt="Extracting artifact and evoked response atoms from the sample dataset" src="../_images/sphx_glr_plot_sample_evoked_response_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="multicsc/plot_sample_evoked_response.html#sphx-glr-auto-examples-multicsc-plot-sample-evoked-response-py"><span class="std std-ref">Extracting artifact and evoked response atoms from the sample dataset</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div></section>
+<section id="univariate-csc-with-an-alpha-stable-distribution">
+<span id="alphacsc-examples"></span><span id="sphx-glr-auto-examples-noise-alpha"></span><h2><a class="toc-backref" href="#id13">Univariate CSC with an alpha-stable distribution</a><a class="headerlink" href="#univariate-csc-with-an-alpha-stable-distribution" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates alphaCSC [1]_ on simulated data."><figure class="align-default" id="id7">
+<img alt="Alpha CSC on simulated data" src="../_images/sphx_glr_plot_simulate_alphacsc_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="noise_alpha/plot_simulate_alphacsc.html#sphx-glr-auto-examples-noise-alpha-plot-simulate-alphacsc-py"><span class="std std-ref">Alpha CSC on simulated data</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to learn univariate atoms on a univariate time-serie affected by s..."><figure class="align-default" id="id8">
+<img alt="Alpha CSC on empirical time-series with strong artifacts" src="../_images/sphx_glr_plot_empirical_strong_artifacts_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="noise_alpha/plot_empirical_strong_artifacts.html#sphx-glr-auto-examples-noise-alpha-plot-empirical-strong-artifacts-py"><span class="std std-ref">Alpha CSC on empirical time-series with strong artifacts</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div></section>
+<section id="other-shift-invariant-dictionary-learning-algorithms">
+<span id="other-examples"></span><span id="sphx-glr-auto-examples-other"></span><h2><a class="toc-backref" href="#id14">Other shift-invariant dictionary learning algorithms</a><a class="headerlink" href="#other-shift-invariant-dictionary-learning-algorithms" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates MoTIF [1] on simulated data. In the alphacsc module, we are offering ..."><figure class="align-default" id="id9">
+<img alt="MoTIF on simulated data" src="../_images/sphx_glr_plot_simulate_motif_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="other/plot_simulate_motif.html#sphx-glr-auto-examples-other-plot-simulate-motif-py"><span class="std std-ref">MoTIF on simulated data</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how the sliding window method (SWM) [1] works on simulated data. The code is..."><figure class="align-default" id="id10">
+<img alt="SWM on simulated data" src="../_images/sphx_glr_plot_simulate_swm_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="other/plot_simulate_swm.html#sphx-glr-auto-examples-other-plot-simulate-swm-py"><span class="std std-ref">SWM on simulated data</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div><div class="sphx-glr-footer class sphx-glr-footer-gallery docutils container">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/07fcc19ba03226cd3d83d4e40ec44385/auto_examples_python.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">auto_examples_python.zip</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/6f1e7a639e0699d6164445b55e6c116d/auto_examples_jupyter.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Jupyter</span> <span class="pre">notebooks:</span> <span class="pre">auto_examples_jupyter.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017-2018, Mainak Jas.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

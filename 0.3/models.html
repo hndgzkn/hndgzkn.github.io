@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Model descriptions &#8212; alphacsc 0.3.dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples Gallery" href="auto_examples/index.html" />
+    <link rel="prev" title="alphaCSC: Convolution sparse coding for time-series" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          alphacsc</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.dev</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="#">Models</a></li>
+                <li><a href="auto_examples/index.html">Examples</a></li>
+                <li><a href="api.html">API</a></li>
+                <li><a href="https://github.com/alphacsc/alphacsc">GitHub</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">alphaCSC: Convolution sparse coding for time-series</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Model descriptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/alphacsc/alphacsc">Fork alphacsc on Github</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="model-descriptions">
+<h1>Model descriptions<a class="headerlink" href="#model-descriptions" title="Permalink to this headline">¶</a></h1>
+<p>AlphaCSC is a library to perform shift-invariant <a class="reference external" href="https://en.wikipedia.org/wiki/Sparse_dictionary_learning">sparse dictionary learning</a>, also known as
+convolutional sparse coding (CSC), on time-series data.
+It includes a number of different models:</p>
+<ol class="arabic simple">
+<li><p>univariate CSC</p></li>
+<li><p>multivariate CSC</p></li>
+<li><p>multivariate CSC with a rank-1 constraint <a class="footnote-reference brackets" href="#id5" id="id1">1</a></p></li>
+<li><p>univariate CSC with an alpha-stable distribution <a class="footnote-reference brackets" href="#id6" id="id2">2</a></p></li>
+</ol>
+<section id="univariate-csc">
+<h2>1. Univariate CSC<a class="headerlink" href="#univariate-csc" title="Permalink to this headline">¶</a></h2>
+<p>Framed mathematically, if we are giving a signal <span class="math notranslate nohighlight">\(x^n \in \mathbb{R}^T\)</span>,
+we want to learn <span class="math notranslate nohighlight">\(k\)</span> atoms <span class="math notranslate nohighlight">\(d^k \in \mathbb{R}^{L}\)</span> and their
+associated activations <span class="math notranslate nohighlight">\(z_k^n \in \mathbb{R}^{T - L + 1}\)</span>. The
+optimization problem boils down to minimizing an <span class="math notranslate nohighlight">\(\ell_2\)</span> reconstruction
+loss, which corresponds to a Gaussian noise model, with a sparsity-inducing
+<span class="math notranslate nohighlight">\(\ell_1\)</span> penalty term:</p>
+<div class="math notranslate nohighlight">
+\[\min_{d,z} \sum_n \left(\|x^n - \sum_k d^k * z_k^n \|_2^2 + \lambda \sum_k z_k^n \right)\]</div>
+<p>subject to <span class="math notranslate nohighlight">\(z_k^n \ge 0\)</span> and <span class="math notranslate nohighlight">\(||d_k||_2 \le 1\)</span>. The shift invariance
+is encoded by the convolution operator <span class="math notranslate nohighlight">\(*\)</span> which is why these methods are
+called <strong>convolutional</strong> sparse coding.</p>
+</section>
+<section id="multivariate-csc">
+<h2>2. Multivariate CSC<a class="headerlink" href="#multivariate-csc" title="Permalink to this headline">¶</a></h2>
+<p>In the multivariate case, we are giving a multivariate signal <span class="math notranslate nohighlight">\(X^n \in
+\mathbb{R}^{T \times P}\)</span>, where <span class="math notranslate nohighlight">\(P\)</span> is the dimension of the signal, and
+we want to learn <span class="math notranslate nohighlight">\(k\)</span> multivariate atoms <span class="math notranslate nohighlight">\(D_k \in \mathbb{R}^{L
+\times P}\)</span> and their associated activations <span class="math notranslate nohighlight">\(z_k^n \in \mathbb{R}^{T - L +
+1}\)</span>. The objective function reads:</p>
+<div class="math notranslate nohighlight">
+\[\min_{D,z} \sum_n \left(\|X^n - \sum_k D_k * z_k^n \|_2^2 + \lambda \sum_k z_k^n \right)\]</div>
+<p>subject to <span class="math notranslate nohighlight">\(z_k^n \ge 0\)</span> and <span class="math notranslate nohighlight">\(||D_k||_2 \le 1\)</span>.</p>
+</section>
+<section id="multivariate-csc-with-a-rank-1-constraint">
+<h2>3. Multivariate CSC with a rank-1 constraint<a class="headerlink" href="#multivariate-csc-with-a-rank-1-constraint" title="Permalink to this headline">¶</a></h2>
+<p>A variant of the multivariate CSC model considers an additional constraint on
+the multivariate atoms, stating that they need to be rank-1. In other words,
+each atom can be written as a product of univariate vectors <span class="math notranslate nohighlight">\(D_k = u_k
+v_k^\top\)</span>, where <span class="math notranslate nohighlight">\(u_k^\top \in \mathbb{R}^{P}\)</span> is the pattern over
+channels, and <span class="math notranslate nohighlight">\(v_k^\top \in \mathbb{R}^{L}\)</span> is the pattern over time. The
+objective function reads:</p>
+<div class="math notranslate nohighlight">
+\[\min_{u, v, z} \sum_n \left(\|X^n - \sum_k (u_k v_k^\top) * z_k^n \|_2^2 + \lambda \sum_k z_k^n \right)\]</div>
+<p>subject to <span class="math notranslate nohighlight">\(z_k^n \ge 0\)</span>, <span class="math notranslate nohighlight">\(||u_k||_2 \le 1\)</span>, and <span class="math notranslate nohighlight">\(||v_k||_2
+\le 1\)</span>. This rank-1 formulation is particularly meaningful in the case of
+magnetoencephalography (MEG), due to the physical properties of electromagnetic
+waves, which propagate instantaneously and add up linearly. It also brings
+robustness to the atom estimates, since less parameters are estimated.</p>
+<p>This model is described in details in the original NIPS paper <a class="footnote-reference brackets" href="#id5" id="id3">1</a>.</p>
+</section>
+<section id="univariate-csc-with-an-alpha-stable-distribution">
+<h2>4. Univariate CSC with an alpha-stable distribution<a class="headerlink" href="#univariate-csc-with-an-alpha-stable-distribution" title="Permalink to this headline">¶</a></h2>
+<p>The name alphaCSC originally referred to a particular model which uses an
+<a class="reference external" href="https://en.wikipedia.org/wiki/Stable_distribution">alpha-stable distribution</a>
+for the noise, instead of the more classical Gaussian distribution. Note that
+the <code class="docutils literal notranslate"><span class="pre">alphaCSC</span></code> library is <strong>not</strong> limited to this particular model.</p>
+<p>This model leads to a weighted formulation of univariate CSC, the weights being
+used to downweight noisy portions of the data:</p>
+<div class="math notranslate nohighlight">
+\[\min_{d,z} \sum_n \left( \|\sqrt{w_n} \odot (x^n - \sum_k d_k * z_k^n) \|_2^2 + \lambda \sum_k z_k^n \right)\]</div>
+<p>subject to <span class="math notranslate nohighlight">\(z_k^n \ge 0\)</span> and <span class="math notranslate nohighlight">\(||d_k||_2 \le 1\)</span>, and  where
+<span class="math notranslate nohighlight">\(w_n\)</span> are the weights which are learned using an <a class="reference external" href="https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm">EM algorithm</a>.</p>
+<p>This model is described in details in the original NIPS paper <a class="footnote-reference brackets" href="#id6" id="id4">2</a>.</p>
+</section>
+<section id="cite-our-work">
+<h2>Cite our work<a class="headerlink" href="#cite-our-work" title="Permalink to this headline">¶</a></h2>
+<p>If you use this code in your project, please consider citing our work:</p>
+<dl class="footnote brackets">
+<dt class="label" id="id5"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>)</span></dt>
+<dd><p>Dupré La Tour, T., Moreau, T., Jas, M., &amp; Gramfort, A. (2018).
+<a class="reference external" href="https://arxiv.org/abs/1805.09654v2">Multivariate Convolutional Sparse Coding for Electromagnetic Brain Signals</a>. Advances in Neural Information
+Processing Systems (NIPS).</p>
+</dd>
+<dt class="label" id="id6"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id4">2</a>)</span></dt>
+<dd><p>Jas, M., Dupré La Tour, T., Şimşekli, U., &amp; Gramfort, A. (2017). <a class="reference external" href="https://papers.nips.cc/paper/6710-learning-the-morphology-of-brain-signals-using-alpha-stable-convolutional-sparse-coding.pdf">Learning
+the Morphology of Brain Signals Using Alpha-Stable Convolutional Sparse Coding</a>.
+Advances in Neural Information Processing Systems (NIPS), pages 1099–1108.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017-2018, Mainak Jas.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

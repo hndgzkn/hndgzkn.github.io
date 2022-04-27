@@ -1,0 +1,14 @@
+
+:orphan:
+
+.. _sphx_glr_auto_examples_other_sg_execution_times:
+
+Computation times
+=================
+**00:09.317** total execution time for **auto_examples_other** files:
+
++-----------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_other_plot_simulate_swm.py` (``plot_simulate_swm.py``)     | 00:07.569 | 0.0 MB |
++-----------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_other_plot_simulate_motif.py` (``plot_simulate_motif.py``) | 00:01.748 | 0.0 MB |
++-----------------------------------------------------------------------------------------+-----------+--------+

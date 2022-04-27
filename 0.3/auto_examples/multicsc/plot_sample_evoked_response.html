@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Extracting artifact and evoked response atoms from the sample dataset &#8212; alphacsc 0.3.dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Alpha CSC on simulated data" href="../noise_alpha/plot_simulate_alphacsc.html" />
+    <link rel="prev" title="Extracting \(\mu\)-wave from the somato-sensory dataset" href="plot_somato_mu_waves.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          alphacsc</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.dev</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../models.html">Models</a></li>
+                <li><a href="../index.html">Examples</a></li>
+                <li><a href="../../api.html">API</a></li>
+                <li><a href="https://github.com/alphacsc/alphacsc">GitHub</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">alphaCSC: Convolution sparse coding for time-series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../models.html">Model descriptions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/alphacsc/alphacsc">Fork alphacsc on Github</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-multicsc-plot-sample-evoked-response-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="extracting-artifact-and-evoked-response-atoms-from-the-sample-dataset">
+<span id="sphx-glr-auto-examples-multicsc-plot-sample-evoked-response-py"></span><h1>Extracting artifact and evoked response atoms from the sample dataset<a class="headerlink" href="#extracting-artifact-and-evoked-response-atoms-from-the-sample-dataset" title="Permalink to this headline">¶</a></h1>
+<p>This example illustrates how to learn rank-1 <a class="footnote-reference brackets" href="#id2" id="id1">1</a> atoms on the multivariate
+sample dataset from <code class="code docutils literal notranslate"><span class="pre">mne</span></code>. We display a selection of atoms, featuring
+heartbeat and eyeblink artifacts, three atoms of evoked responses, and a
+non-sinusoidal oscillation.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Dupré La Tour, T., Moreau, T., Jas, M., &amp; Gramfort, A. (2018).
+<a class="reference external" href="https://arxiv.org/abs/1805.09654v2">Multivariate Convolutional Sparse Coding for Electromagnetic Brain Signals</a>. Advances in Neural Information
+Processing Systems (NIPS).</p>
+</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: Thomas Moreau &lt;thomas.moreau@inria.fr&gt;</span>
+<span class="c1">#          Mainak Jas &lt;mainak.jas@telecom-paristech.fr&gt;</span>
+<span class="c1">#          Tom Dupre La Tour &lt;tom.duprelatour@telecom-paristech.fr&gt;</span>
+<span class="c1">#          Alexandre Gramfort &lt;alexandre.gramfort@telecom-paristech.fr&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># License: BSD (3-clause)</span>
+</pre></div>
+</div>
+<p>Let us first define the parameters of our model.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sample frequency</span>
+<span class="n">sfreq</span> <span class="o">=</span> <span class="mf">150.</span>
+
+<span class="c1"># Define the shape of the dictionary</span>
+<span class="n">n_atoms</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">n_times_atom</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">sfreq</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">))</span>  <span class="c1"># 1000. ms</span>
+
+<span class="c1"># Regularization parameter which control sparsity</span>
+<span class="n">reg</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="c1"># number of processors for parallel computing</span>
+<span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>Next, we define the parameters for multivariate CSC</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alphacsc</span> <span class="kn">import</span> <span class="n">GreedyCDL</span>
+<span class="n">cdl</span> <span class="o">=</span> <span class="n">GreedyCDL</span><span class="p">(</span>
+    <span class="c1"># Shape of the dictionary</span>
+    <span class="n">n_atoms</span><span class="o">=</span><span class="n">n_atoms</span><span class="p">,</span>
+    <span class="n">n_times_atom</span><span class="o">=</span><span class="n">n_times_atom</span><span class="p">,</span>
+    <span class="c1"># Request a rank1 dictionary with unit norm temporal and spatial maps</span>
+    <span class="n">rank1</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">uv_constraint</span><span class="o">=</span><span class="s1">&#39;separate&#39;</span><span class="p">,</span>
+    <span class="c1"># apply a temporal window reparametrization</span>
+    <span class="n">window</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="c1"># at the end, refit the activations with fixed support and no reg to unbias</span>
+    <span class="n">unbiased_z_hat</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="c1"># Initialize the dictionary with random chunk from the data</span>
+    <span class="n">D_init</span><span class="o">=</span><span class="s1">&#39;chunk&#39;</span><span class="p">,</span>
+    <span class="c1"># rescale the regularization parameter to be a percentage of lambda_max</span>
+    <span class="n">lmbd_max</span><span class="o">=</span><span class="s2">&quot;scaled&quot;</span><span class="p">,</span>
+    <span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span>
+    <span class="c1"># Number of iteration for the alternate minimization and cvg threshold</span>
+    <span class="n">n_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">eps</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
+    <span class="c1"># solver for the z-step</span>
+    <span class="n">solver_z</span><span class="o">=</span><span class="s2">&quot;lgcd&quot;</span><span class="p">,</span>
+    <span class="n">solver_z_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tol&#39;</span><span class="p">:</span> <span class="mf">1e-2</span><span class="p">,</span>
+                     <span class="s1">&#39;max_iter&#39;</span><span class="p">:</span> <span class="mi">10000</span><span class="p">},</span>
+    <span class="c1"># solver for the d-step</span>
+    <span class="n">solver_d</span><span class="o">=</span><span class="s1">&#39;alternate_adaptive&#39;</span><span class="p">,</span>
+    <span class="n">solver_d_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;max_iter&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">},</span>
+    <span class="c1"># sort atoms by explained variances</span>
+    <span class="n">sort_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="c1"># Technical parameters</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, we load the data from the sample datase. The data is not epoched yet,
+but we split it into 12 parts to make the most of multiple processors during
+the model fitting.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alphacsc.datasets.somato</span> <span class="kn">import</span> <span class="n">load_data</span>
+<span class="n">X_split</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n_jobs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Fit the model and learn rank1 atoms</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cdl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_split</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>./home/sed-sac/hgozukan/dev/alphacsc/alphacsc/utils/optim.py:124: DeprecationWarning: Please use `line_search_armijo` from the `scipy.optimize` namespace, the `scipy.optimize.linesearch` namespace is deprecated.
+  step_size, _, obj_uv = optimize.linesearch.line_search_armijo(
+................................................+
+..
+[GreedyCDL] Converged after 52 iteration, (dz, du) = 8.622e-05, 8.677e-05
+[GreedyCDL] Fit in 1346.4s
+
+&lt;alphacsc.convolutional_dictionary_learning.GreedyCDL object at 0x7f558007a070&gt;
+</pre></div>
+</div>
+<p>To avoid artifacts due to the splitting, we can optionally reload the data.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then we call the <cite>transform</cite> method, which returns the sparse codes
+associated with X, without changing the dictionary learned during the <cite>fit</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">z_hat</span> <span class="o">=</span> <span class="n">cdl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Refitting the activation to avoid amplitude bias...
+done
+</pre></div>
+</div>
+<p>Display a selection of atoms. We recognize a heartbeat artifact, an
+eyeblink artifact, three atoms of evoked responses, and a non-sinusoidal
+oscillation.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">alphacsc.utils.convolution</span> <span class="kn">import</span> <span class="n">construct_X_multi</span>
+<span class="kn">from</span> <span class="nn">alphacsc.viz.epoch</span> <span class="kn">import</span> <span class="n">plot_evoked_surrogates</span>
+
+<span class="c1"># preselected atoms of interest</span>
+<span class="n">plotted_atoms</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+
+<span class="n">n_plots</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># number of plots by atom</span>
+<span class="n">n_columns</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">plotted_atoms</span><span class="p">))</span>
+<span class="n">split</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">plotted_atoms</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_columns</span><span class="p">))</span>
+<span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n_columns</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">n_plots</span> <span class="o">*</span> <span class="n">split</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">n_plots</span> <span class="o">*</span> <span class="n">split</span><span class="p">,</span> <span class="n">n_columns</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">kk</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plotted_atoms</span><span class="p">):</span>
+
+    <span class="c1"># Select the axes to display the current atom</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">Displaying </span><span class="si">{}</span><span class="s2">-th atom&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kk</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">i_row</span><span class="p">,</span> <span class="n">i_col</span> <span class="o">=</span> <span class="n">ii</span> <span class="o">//</span> <span class="n">n_columns</span><span class="p">,</span> <span class="n">ii</span> <span class="o">%</span> <span class="n">n_columns</span>
+    <span class="n">it_axes</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="n">i_row</span> <span class="o">*</span> <span class="n">n_plots</span><span class="p">:(</span><span class="n">i_row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">n_plots</span><span class="p">,</span> <span class="n">i_col</span><span class="p">])</span>
+
+    <span class="c1"># Select the current atom</span>
+    <span class="n">u_k</span> <span class="o">=</span> <span class="n">cdl</span><span class="o">.</span><span class="n">u_hat_</span><span class="p">[</span><span class="n">kk</span><span class="p">]</span>
+    <span class="n">v_k</span> <span class="o">=</span> <span class="n">cdl</span><span class="o">.</span><span class="n">v_hat_</span><span class="p">[</span><span class="n">kk</span><span class="p">]</span>
+
+    <span class="c1"># Plot the spatial map of the atom using mne topomap</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">it_axes</span><span class="p">)</span>
+    <span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_topomap</span><span class="p">(</span><span class="n">u_k</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Spatial pattern </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">kk</span><span class="p">,</span> <span class="p">))</span>
+
+    <span class="c1"># Plot the temporal pattern of the atom</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">it_axes</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times_atom</span><span class="p">)</span> <span class="o">/</span> <span class="n">sfreq</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">v_k</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_times_atom</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Time (sec)&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Temporal pattern </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">kk</span><span class="p">)</span>
+
+    <span class="c1"># Plot the power spectral density (PSD)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">it_axes</span><span class="p">)</span>
+    <span class="n">psd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">v_k</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">256</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">frequencies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sfreq</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">psd</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">frequencies</span><span class="p">,</span> <span class="n">psd</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PSD&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Frequencies (Hz)&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Power spectral density </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">kk</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">1e-4</span><span class="p">,</span> <span class="mf">1e2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_sample_evoked_response_001.png" srcset="../../_images/sphx_glr_plot_sample_evoked_response_001.png" alt="Spatial pattern 2, Spatial pattern 0, Spatial pattern 3, Spatial pattern 15, Spatial pattern 20, Spatial pattern 11, Temporal pattern 2, Temporal pattern 0, Temporal pattern 3, Temporal pattern 15, Temporal pattern 20, Temporal pattern 11, Power spectral density 2, Power spectral density 0, Power spectral density 3, Power spectral density 15, Power spectral density 20, Power spectral density 11" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Displaying 2-th atom/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/channels/layout.py:128: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pos.append(np.array([x, y, dx, dy], dtype=np.float))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/viz/topomap.py:482: DeprecationWarning: Please use `Delaunay` from the `scipy.spatial` namespace, the `scipy.spatial.qhull` namespace is deprecated.
+  from scipy.spatial.qhull import Delaunay
+
+Displaying 0-th atom/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/channels/layout.py:128: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pos.append(np.array([x, y, dx, dy], dtype=np.float))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/viz/topomap.py:482: DeprecationWarning: Please use `Delaunay` from the `scipy.spatial` namespace, the `scipy.spatial.qhull` namespace is deprecated.
+  from scipy.spatial.qhull import Delaunay
+
+Displaying 3-th atom/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/channels/layout.py:128: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pos.append(np.array([x, y, dx, dy], dtype=np.float))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/viz/topomap.py:482: DeprecationWarning: Please use `Delaunay` from the `scipy.spatial` namespace, the `scipy.spatial.qhull` namespace is deprecated.
+  from scipy.spatial.qhull import Delaunay
+
+Displaying 15-th atom/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/channels/layout.py:128: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pos.append(np.array([x, y, dx, dy], dtype=np.float))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/viz/topomap.py:482: DeprecationWarning: Please use `Delaunay` from the `scipy.spatial` namespace, the `scipy.spatial.qhull` namespace is deprecated.
+  from scipy.spatial.qhull import Delaunay
+
+Displaying 20-th atom/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/channels/layout.py:128: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pos.append(np.array([x, y, dx, dy], dtype=np.float))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/viz/topomap.py:482: DeprecationWarning: Please use `Delaunay` from the `scipy.spatial` namespace, the `scipy.spatial.qhull` namespace is deprecated.
+  from scipy.spatial.qhull import Delaunay
+
+Displaying 11-th atom/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/channels/layout.py:128: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pos.append(np.array([x, y, dx, dy], dtype=np.float))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/viz/topomap.py:482: DeprecationWarning: Please use `Delaunay` from the `scipy.spatial` namespace, the `scipy.spatial.qhull` namespace is deprecated.
+  from scipy.spatial.qhull import Delaunay
+</pre></div>
+</div>
+<p>Display the evoked reconstructed enveloppe:
+For each atom (columns), and for each event (rows), we compute the enveloppe
+of the reconstructed signal, align it with respect to the event onsets, and
+take the average. For some atoms, the activations are correlated with the
+events, leading to a large evoked enveloppe. The gray area corresponds to
+not statistically significant values.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">alphacsc.utils.signal</span> <span class="kn">import</span> <span class="n">fast_hilbert</span>
+
+<span class="c1"># time window around the events</span>
+<span class="n">t_lim</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">n_plots</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;event_id&#39;</span><span class="p">]))</span>
+<span class="n">n_columns</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">plotted_atoms</span><span class="p">))</span>
+<span class="n">split</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">plotted_atoms</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_columns</span><span class="p">))</span>
+<span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n_columns</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">n_plots</span> <span class="o">*</span> <span class="n">split</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">n_plots</span> <span class="o">*</span> <span class="n">split</span><span class="p">,</span> <span class="n">n_columns</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">kk</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plotted_atoms</span><span class="p">):</span>
+
+    <span class="c1"># Select the axes to display the current atom</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">Displaying </span><span class="si">{}</span><span class="s2">-th atom&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kk</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">i_row</span><span class="p">,</span> <span class="n">i_col</span> <span class="o">=</span> <span class="n">ii</span> <span class="o">//</span> <span class="n">n_columns</span><span class="p">,</span> <span class="n">ii</span> <span class="o">%</span> <span class="n">n_columns</span>
+    <span class="n">it_axes</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="n">i_row</span> <span class="o">*</span> <span class="n">n_plots</span><span class="p">:(</span><span class="n">i_row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">n_plots</span><span class="p">,</span> <span class="n">i_col</span><span class="p">])</span>
+
+    <span class="c1"># Select the current atom</span>
+    <span class="n">v_k</span> <span class="o">=</span> <span class="n">cdl</span><span class="o">.</span><span class="n">v_hat_</span><span class="p">[</span><span class="n">kk</span><span class="p">]</span>
+    <span class="n">v_k_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v_k</span><span class="p">][</span><span class="kc">None</span><span class="p">]</span>
+    <span class="n">z_k</span> <span class="o">=</span> <span class="n">z_hat</span><span class="p">[:,</span> <span class="n">kk</span><span class="p">:</span><span class="n">kk</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">X_k</span> <span class="o">=</span> <span class="n">construct_X_multi</span><span class="p">(</span><span class="n">z_k</span><span class="p">,</span> <span class="n">v_k_1</span><span class="p">,</span> <span class="n">n_channels</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># compute the &#39;enveloppe&#39; of the reconstructed signal X_k</span>
+    <span class="n">correlation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fast_hilbert</span><span class="p">(</span><span class="n">X_k</span><span class="p">))</span>
+
+    <span class="c1"># loop over all events IDs</span>
+    <span class="k">for</span> <span class="n">this_event_id</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;event_id&#39;</span><span class="p">]):</span>
+        <span class="c1"># select the event by its ID, and create a new info dictionary</span>
+        <span class="n">this_info</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+        <span class="n">this_info</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">this_info</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">][</span><span class="n">this_info</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">][:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span>
+                                                  <span class="n">this_event_id</span><span class="p">]</span>
+        <span class="n">this_info</span><span class="p">[</span><span class="s1">&#39;event_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">this_event_id</span>
+
+        <span class="c1"># plotting function</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">it_axes</span><span class="p">)</span>
+        <span class="n">plot_evoked_surrogates</span><span class="p">(</span><span class="n">correlation</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="n">this_info</span><span class="p">,</span> <span class="n">t_lim</span><span class="o">=</span><span class="n">t_lim</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                               <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;event </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">this_event_id</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Time (sec)&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Evoked enveloppe </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">kk</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_sample_evoked_response_002.png" srcset="../../_images/sphx_glr_plot_sample_evoked_response_002.png" alt="Evoked enveloppe 2, Evoked enveloppe 0, Evoked enveloppe 3, Evoked enveloppe 15, Evoked enveloppe 20, Evoked enveloppe 11, Evoked enveloppe 2, Evoked enveloppe 0, Evoked enveloppe 3, Evoked enveloppe 15, Evoked enveloppe 20, Evoked enveloppe 11, Evoked enveloppe 2, Evoked enveloppe 0, Evoked enveloppe 3, Evoked enveloppe 15, Evoked enveloppe 20, Evoked enveloppe 11, Evoked enveloppe 2, Evoked enveloppe 0, Evoked enveloppe 3, Evoked enveloppe 15, Evoked enveloppe 20, Evoked enveloppe 11" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Displaying 2-th atom/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+
+Displaying 0-th atom/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+
+Displaying 3-th atom/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+
+Displaying 15-th atom/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+
+Displaying 20-th atom/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+
+Displaying 11-th atom/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/meas_info.py:1775: DeprecationWarning: `np.str` is a deprecated alias for the builtin `str`. To silence this warning, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  ch_types = np.atleast_1d(np.array(ch_types, np.str))
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/io/pick.py:360: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  pick = np.zeros(nchan, dtype=np.bool)
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 24 minutes  53.371 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-multicsc-plot-sample-evoked-response-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/b5f4fe8b8b1715cdf1a5937177423d6c/plot_sample_evoked_response.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_sample_evoked_response.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/1c39b7d57f0cbdd5e17b12b075249eb0/plot_sample_evoked_response.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_sample_evoked_response.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017-2018, Mainak Jas.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

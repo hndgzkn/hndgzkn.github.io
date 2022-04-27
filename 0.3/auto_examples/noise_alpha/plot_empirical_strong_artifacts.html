@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Alpha CSC on empirical time-series with strong artifacts &#8212; alphacsc 0.3.dev documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="MoTIF on simulated data" href="../other/plot_simulate_motif.html" />
+    <link rel="prev" title="Alpha CSC on simulated data" href="plot_simulate_alphacsc.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          alphacsc</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.dev</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../models.html">Models</a></li>
+                <li><a href="../index.html">Examples</a></li>
+                <li><a href="../../api.html">API</a></li>
+                <li><a href="https://github.com/alphacsc/alphacsc">GitHub</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">alphaCSC: Convolution sparse coding for time-series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../models.html">Model descriptions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/alphacsc/alphacsc">Fork alphacsc on Github</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-noise-alpha-plot-empirical-strong-artifacts-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="alpha-csc-on-empirical-time-series-with-strong-artifacts">
+<span id="sphx-glr-auto-examples-noise-alpha-plot-empirical-strong-artifacts-py"></span><h1>Alpha CSC on empirical time-series with strong artifacts<a class="headerlink" href="#alpha-csc-on-empirical-time-series-with-strong-artifacts" title="Permalink to this headline">¶</a></h1>
+<p>This example illustrates how to learn univariate atoms on a univariate
+time-serie affected by strong artifacts. The data is a single LFP channel
+recorded on a rodent’s striatum <a class="footnote-reference brackets" href="#id3" id="id1">1</a>. Interestingly in this time-serie, the
+high frequency oscillations around 80 Hz are modulated in amplitude by the
+low-frequency oscillation around 3 Hz, a phenomenon known as cross-frequency
+coupling (CFC).</p>
+<p>The convolutional sparse coding (CSC) model is able to learn the prototypical
+waveforms of the signal, on which we can clearly see the CFC. However, when the
+CSC model is fitted on a data section with strong artifacts, the learned atoms
+do not show the expected CFC waveforms. To solve this problem, another model
+can be used, called alpha-CSC <a class="footnote-reference brackets" href="#id4" id="id2">2</a>, which is less affected by strong artifacts
+in the data.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>G. Dallérac, M. Graupner, J. Knippenberg, R. C. R. Martinez,
+T. F. Tavares, L. Tallot, N. El Massioui, A. Verschueren, S. Höhn,
+J.B. Bertolus, et al. Updating temporal expectancy of an aversive event
+engages striatal plasticity under amygdala control.
+Nature Communications, 8:13920, 2017</p>
+</dd>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Jas, M., Dupré La Tour, T., Şimşekli, U., &amp; Gramfort, A. (2017).
+<a class="reference external" href="https://papers.nips.cc/paper/6710-learning-the-morphology-of-brain-signals-using-alpha-stable-convolutional-sparse-coding.pdf">Learning the Morphology of Brain Signals Using Alpha-Stable Convolutional
+Sparse Coding</a>.
+Advances in Neural Information Processing Systems (NIPS), pages 1099–1108.</p>
+</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: Tom Dupre La Tour &lt;tom.duprelatour@telecom-paristech.fr&gt;</span>
+<span class="c1">#          Mainak Jas &lt;mainak.jas@telecom-paristech.fr&gt;</span>
+<span class="c1">#          Umut Simsekli &lt;umut.simsekli@telecom-paristech.fr&gt;</span>
+<span class="c1">#          Alexandre Gramfort &lt;alexandre.gramfort@telecom-paristech.fr&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># License: BSD (3-clause)</span>
+</pre></div>
+</div>
+<p>Let us first load the data sample.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mne</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># sample frequency</span>
+<span class="n">sfreq</span> <span class="o">=</span> <span class="mf">350.</span>
+
+<span class="c1"># We load the signal. It is an LFP channel recorded on a rodent&#39;s striatum.</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;../rodent_striatum.npy&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(1, 630000)
+</pre></div>
+</div>
+<p>Now let us take a closer look, plotting the 100 first seconds of the signal.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>  <span class="c1"># in seconds</span>
+<span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start</span> <span class="o">*</span> <span class="n">sfreq</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">stop</span> <span class="o">*</span> <span class="n">sfreq</span><span class="p">)</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span> <span class="o">/</span> <span class="n">sfreq</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_empirical_strong_artifacts_001.png" srcset="../../_images/sphx_glr_plot_empirical_strong_artifacts_001.png" alt="plot empirical strong artifacts" class = "sphx-glr-single-img"/><p>As we can see, the data contains severe artifacts. We will thus compare three
+approaches to tackle these artifacts:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>First, we will fit a CSC model on a section not affected by artifacts.</p></li>
+<li><p>Then, we will fit a CSC model on a section affected by artifacts.</p></li>
+<li><p>Finally, we will fit an alpha-CSC model on a section affected by
+artifacts.</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a clean data section.</span>
+<span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">600</span><span class="p">]</span>  <span class="c1"># in seconds</span>
+<span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start</span> <span class="o">*</span> <span class="n">sfreq</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">stop</span> <span class="o">*</span> <span class="n">sfreq</span><span class="p">)</span>
+<span class="n">data_clean</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Define a dirty data section (same length).</span>
+<span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">]</span>  <span class="c1"># in seconds</span>
+<span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start</span> <span class="o">*</span> <span class="n">sfreq</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">stop</span> <span class="o">*</span> <span class="n">sfreq</span><span class="p">)</span>
+<span class="n">data_dirty</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># We also remove the slow drift, which accounts for a lot of variance.</span>
+<span class="n">data_clean</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">filter_data</span><span class="p">(</span><span class="n">data_clean</span><span class="p">,</span> <span class="n">sfreq</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">data_dirty</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">filter_data</span><span class="p">(</span><span class="n">data_dirty</span><span class="p">,</span> <span class="n">sfreq</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># To make the most of parallel computing, we split the data into trials.</span>
+<span class="n">data_clean</span> <span class="o">=</span> <span class="n">data_clean</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">data_dirty</span> <span class="o">=</span> <span class="n">data_dirty</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># We scale the data, since parameter alpha is scale dependant.</span>
+<span class="n">scale</span> <span class="o">=</span> <span class="n">data_clean</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">data_clean</span> <span class="o">/=</span> <span class="n">scale</span>
+<span class="n">data_dirty</span> <span class="o">/=</span> <span class="n">scale</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Setting up high-pass filter at 1 Hz
+
+FIR filter parameters
+---------------------
+Designing a one-pass, zero-phase, non-causal highpass filter:
+- Windowed time-domain design (firwin) method
+- Hamming window with 0.0194 passband ripple and 53 dB stopband attenuation
+- Lower passband edge: 1.00
+- Lower transition bandwidth: 1.00 Hz (-6 dB cutoff frequency: 0.50 Hz)
+- Filter length: 1155 samples (3.300 sec)
+
+/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/filter.py:182: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  cost = (np.ceil(n_x / (N - len(h) + 1).astype(np.float)) *
+Setting up high-pass filter at 1 Hz
+
+FIR filter parameters
+---------------------
+Designing a one-pass, zero-phase, non-causal highpass filter:
+- Windowed time-domain design (firwin) method
+- Hamming window with 0.0194 passband ripple and 53 dB stopband attenuation
+- Lower passband edge: 1.00
+- Lower transition bandwidth: 1.00 Hz (-6 dB cutoff frequency: 0.50 Hz)
+- Filter length: 1155 samples (3.300 sec)
+</pre></div>
+</div>
+<p>This sample contains CFC between 3 Hz and 80 Hz. This phenomenon can be
+described with a comodulogram, computed for instance with the <a class="reference external" href="http://pactools.github.io/">pactools</a> Python library.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pactools</span> <span class="kn">import</span> <span class="n">Comodulogram</span>
+
+<span class="n">comod</span> <span class="o">=</span> <span class="n">Comodulogram</span><span class="p">(</span><span class="n">fs</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">low_fq_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">10.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+                     <span class="n">low_fq_width</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;duprelatour&#39;</span><span class="p">)</span>
+<span class="n">comod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_clean</span><span class="p">)</span>
+<span class="n">comod</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_empirical_strong_artifacts_002.png" srcset="../../_images/sphx_glr_plot_empirical_strong_artifacts_002.png" alt="plot empirical strong artifacts" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[                                        ] 0% | 0.00 sec | comodulogram: DAR(10, 1)
+[                                        ] 2% | 0.44 sec | comodulogram: DAR(10, 1)
+[.                                       ] 4% | 0.74 sec | comodulogram: DAR(10, 1)
+[..                                      ] 6% | 1.03 sec | comodulogram: DAR(10, 1)
+[...                                     ] 8% | 1.29 sec | comodulogram: DAR(10, 1)
+[....                                    ] 10% | 1.59 sec | comodulogram: DAR(10, 1)
+[....                                    ] 12% | 1.90 sec | comodulogram: DAR(10, 1)
+[.....                                   ] 14% | 2.19 sec | comodulogram: DAR(10, 1)
+[......                                  ] 16% | 2.49 sec | comodulogram: DAR(10, 1)
+[.......                                 ] 18% | 2.80 sec | comodulogram: DAR(10, 1)
+[........                                ] 20% | 3.09 sec | comodulogram: DAR(10, 1)
+[........                                ] 22% | 3.39 sec | comodulogram: DAR(10, 1)
+[.........                               ] 24% | 3.68 sec | comodulogram: DAR(10, 1)
+[..........                              ] 26% | 3.99 sec | comodulogram: DAR(10, 1)
+[...........                             ] 28% | 4.29 sec | comodulogram: DAR(10, 1)
+[............                            ] 30% | 4.58 sec | comodulogram: DAR(10, 1)
+[............                            ] 32% | 4.89 sec | comodulogram: DAR(10, 1)
+[.............                           ] 34% | 5.20 sec | comodulogram: DAR(10, 1)
+[..............                          ] 36% | 5.50 sec | comodulogram: DAR(10, 1)
+[...............                         ] 38% | 5.80 sec | comodulogram: DAR(10, 1)
+[................                        ] 40% | 6.11 sec | comodulogram: DAR(10, 1)
+[................                        ] 42% | 6.41 sec | comodulogram: DAR(10, 1)
+[.................                       ] 44% | 6.71 sec | comodulogram: DAR(10, 1)
+[..................                      ] 46% | 7.00 sec | comodulogram: DAR(10, 1)
+[...................                     ] 48% | 7.30 sec | comodulogram: DAR(10, 1)
+[....................                    ] 50% | 7.60 sec | comodulogram: DAR(10, 1)
+[....................                    ] 52% | 7.89 sec | comodulogram: DAR(10, 1)
+[.....................                   ] 54% | 8.21 sec | comodulogram: DAR(10, 1)
+[......................                  ] 56% | 8.51 sec | comodulogram: DAR(10, 1)
+[.......................                 ] 58% | 8.82 sec | comodulogram: DAR(10, 1)
+[........................                ] 60% | 9.14 sec | comodulogram: DAR(10, 1)
+[........................                ] 62% | 9.44 sec | comodulogram: DAR(10, 1)
+[.........................               ] 64% | 9.76 sec | comodulogram: DAR(10, 1)
+[..........................              ] 66% | 10.07 sec | comodulogram: DAR(10, 1)
+[...........................             ] 68% | 10.39 sec | comodulogram: DAR(10, 1)
+[............................            ] 70% | 10.70 sec | comodulogram: DAR(10, 1)
+[............................            ] 72% | 11.02 sec | comodulogram: DAR(10, 1)
+[.............................           ] 74% | 11.34 sec | comodulogram: DAR(10, 1)
+[..............................          ] 76% | 11.66 sec | comodulogram: DAR(10, 1)
+[...............................         ] 78% | 11.98 sec | comodulogram: DAR(10, 1)
+[................................        ] 80% | 12.30 sec | comodulogram: DAR(10, 1)
+[................................        ] 82% | 12.61 sec | comodulogram: DAR(10, 1)
+[.................................       ] 84% | 12.93 sec | comodulogram: DAR(10, 1)
+[..................................      ] 86% | 13.27 sec | comodulogram: DAR(10, 1)
+[...................................     ] 88% | 13.58 sec | comodulogram: DAR(10, 1)
+[....................................    ] 90% | 13.90 sec | comodulogram: DAR(10, 1)
+[....................................    ] 92% | 14.22 sec | comodulogram: DAR(10, 1)
+[.....................................   ] 94% | 14.53 sec | comodulogram: DAR(10, 1)
+[......................................  ] 96% | 14.85 sec | comodulogram: DAR(10, 1)
+[....................................... ] 98% | 15.17 sec | comodulogram: DAR(10, 1)
+[........................................] 100% | 15.48 sec | comodulogram: DAR(10, 1)
+
+[........................................] 100% | 15.49 sec | comodulogram: DAR(10, 1)
+</pre></div>
+</div>
+<p>Here we define the plotting function which display the learned atoms.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_atoms</span><span class="p">(</span><span class="n">d_hat</span><span class="p">):</span>
+    <span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_times_atom</span> <span class="o">=</span> <span class="n">d_hat</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">n_columns</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">n_atoms</span><span class="p">)</span>
+    <span class="n">n_rows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_atoms</span> <span class="o">//</span> <span class="n">n_columns</span><span class="p">))</span>
+    <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n_columns</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">n_rows</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">n_rows</span><span class="p">,</span> <span class="n">n_columns</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+    <span class="c1"># Plot the temporal pattern of the atom</span>
+    <span class="k">for</span> <span class="n">kk</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_atoms</span><span class="p">):</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">kk</span><span class="p">]</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_times_atom</span><span class="p">)</span> <span class="o">/</span> <span class="n">sfreq</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">d_hat</span><span class="p">[</span><span class="n">kk</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">kk</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_times_atom</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Time (sec)&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Temporal pattern </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">kk</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then we define the common parameters of the different models.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">common_params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">n_atoms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">n_times_atom</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">sfreq</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">),</span>  <span class="c1"># 1000. ms</span>
+    <span class="n">reg</span><span class="o">=</span><span class="mf">3.</span><span class="p">,</span>
+    <span class="n">solver_z</span><span class="o">=</span><span class="s1">&#39;l-bfgs&#39;</span><span class="p">,</span>
+    <span class="n">solver_z_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">factr</span><span class="o">=</span><span class="mf">1e9</span><span class="p">),</span>
+    <span class="n">solver_d_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">factr</span><span class="o">=</span><span class="mf">1e2</span><span class="p">),</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># number of iterations</span>
+<span class="n">n_iter</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># Parameter of the alpha-stable distribution for the alpha-CSC model.</span>
+<span class="c1"># 0 &lt; alpha &lt; 2</span>
+<span class="c1"># A value of 2 would correspond to the Gaussian noise model, as in vanilla CSC.</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.2</span>
+</pre></div>
+</div>
+<p>First, we fit a CSC model on the clean data. Interestingly, we obtain
+prototypical waveforms of the signal on which we can clearly see the CFC.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alphacsc</span> <span class="kn">import</span> <span class="n">learn_d_z</span><span class="p">,</span> <span class="n">learn_d_z_weighted</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">data_clean</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">d_hat</span><span class="p">,</span> <span class="n">z_hat</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">learn_d_z</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="n">n_iter</span><span class="p">,</span> <span class="o">**</span><span class="n">common_params</span><span class="p">)</span>
+
+<span class="n">plot_atoms</span><span class="p">(</span><span class="n">d_hat</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_empirical_strong_artifacts_003.png" srcset="../../_images/sphx_glr_plot_empirical_strong_artifacts_003.png" alt="Temporal pattern 0, Temporal pattern 1, Temporal pattern 2" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>V_0/10 /scratch/hgozukan/miniconda3/lib/python3.8/site-packages/joblib/externals/loky/process_executor.py:702: UserWarning: A worker stopped while some jobs were given to the executor. This can be caused by a too short worker timeout or by a memory leak.
+  warnings.warn(
+.........
+</pre></div>
+</div>
+<p>Then, if we fit a CSC model on the dirty data, the model is strongly affected
+by the artifacts, and we cannot see CFC anymore in the temporal waveforms.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">data_dirty</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">d_hat</span><span class="p">,</span> <span class="n">z_hat</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">learn_d_z</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="n">n_iter</span><span class="p">,</span> <span class="o">**</span><span class="n">common_params</span><span class="p">)</span>
+
+<span class="n">plot_atoms</span><span class="p">(</span><span class="n">d_hat</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_empirical_strong_artifacts_004.png" srcset="../../_images/sphx_glr_plot_empirical_strong_artifacts_004.png" alt="Temporal pattern 0, Temporal pattern 1, Temporal pattern 2" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>V_0/10 .........
+</pre></div>
+</div>
+<p>Finally, If we fit an alpha-CSC model on the dirty data, the model is less
+affected by the artifacts, and we are able to see CFC in the temporal
+waveforms.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">data_dirty</span>
+
+<span class="n">d_hat</span><span class="p">,</span> <span class="n">z_hat</span><span class="p">,</span> <span class="n">tau</span> <span class="o">=</span> <span class="n">learn_d_z_weighted</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">n_iter_optim</span><span class="o">=</span><span class="n">n_iter</span><span class="p">,</span> <span class="n">n_iter_global</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_iter_mcmc</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+    <span class="n">n_burnin_mcmc</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="o">**</span><span class="n">common_params</span><span class="p">)</span>
+
+<span class="n">plot_atoms</span><span class="p">(</span><span class="n">d_hat</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_empirical_strong_artifacts_005.png" srcset="../../_images/sphx_glr_plot_empirical_strong_artifacts_005.png" alt="Temporal pattern 0, Temporal pattern 1, Temporal pattern 2" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Global Iter: 0/3        V_0/10 .........
+Global Iter: 1/3        V_0/10 .........
+Global Iter: 2/3        V_0/10 .........
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 7 minutes  15.737 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-noise-alpha-plot-empirical-strong-artifacts-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/c755b1e80e91eb8cf29e0bbfd8b65a16/plot_empirical_strong_artifacts.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_empirical_strong_artifacts.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/09f1cbbf66b701ac299c2ee78fa652cd/plot_empirical_strong_artifacts.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_empirical_strong_artifacts.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017-2018, Mainak Jas.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
