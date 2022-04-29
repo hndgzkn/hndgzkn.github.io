@@ -5,10 +5,10 @@
 
 Computation times
 =================
-**15:34.172** total execution time for **auto_examples_noise_alpha** files:
+**14:22.519** total execution time for **auto_examples_noise_alpha** files:
 
 +-----------------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_examples_noise_alpha_plot_empirical_strong_artifacts.py` (``plot_empirical_strong_artifacts.py``) | 13:05.088 | 0.0 MB |
+| :ref:`sphx_glr_auto_examples_noise_alpha_plot_empirical_strong_artifacts.py` (``plot_empirical_strong_artifacts.py``) | 11:51.636 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_examples_noise_alpha_plot_simulate_alphacsc.py` (``plot_simulate_alphacsc.py``)                   | 02:29.085 | 0.0 MB |
+| :ref:`sphx_glr_auto_examples_noise_alpha_plot_simulate_alphacsc.py` (``plot_simulate_alphacsc.py``)                   | 02:30.883 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------------+-----------+--------+
