@@ -1,0 +1,346 @@
+:orphan:
+
+
+
+.. _sphx_glr_auto_examples:
+
+.. _general_examples:
+
+Examples Gallery
+================
+
+.. contents:: Contents
+   :local:
+   :depth: 3
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_auto_examples_csc:
+
+.. _csc_examples:
+
+Univariate CSC
+--------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The CSC problem is non-convex. Therefore, the solution depends on the initialization. Here, we ...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/csc/images/thumb/sphx_glr_plot_simulate_randomstate_thumb.png
+     :alt: Selecting random state for CSC
+
+     :ref:`sphx_glr_auto_examples_csc_plot_simulate_randomstate.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/csc/plot_simulate_randomstate
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Here, we show how CSC can be used to learn spiking atoms from Local Field Potential (LFP) data ...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/csc/images/thumb/sphx_glr_plot_lfp_data_thumb.png
+     :alt: CSC to learn LFP spiking atoms
+
+     :ref:`sphx_glr_auto_examples_csc_plot_lfp_data.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/csc/plot_lfp_data
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to learn univariate atoms on a univariate time-serie. The data is ...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/csc/images/thumb/sphx_glr_plot_cross_frequency_coupling_thumb.png
+     :alt: Extracting cross-frequency coupling waveforms from rodent LFP data
+
+     :ref:`sphx_glr_auto_examples_csc_plot_cross_frequency_coupling.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/csc/plot_cross_frequency_coupling
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates vanilla CSC on simulated data. Note that vanilla CSC is just a specia...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/csc/images/thumb/sphx_glr_plot_simulate_csc_thumb.png
+     :alt: Vanilla CSC on simulated data
+
+     :ref:`sphx_glr_auto_examples_csc_plot_simulate_csc.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/csc/plot_simulate_csc
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_auto_examples_dicodile:
+
+.. _dicodile_examples:
+
+Univariate and Multivariate CSC with 'dicodile' solver
+------------------------------------------------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Gait (steps) example">
+
+.. only:: html
+
+ .. figure:: /auto_examples/dicodile/images/thumb/sphx_glr_plot_gait_thumb.png
+     :alt: Gait (steps) example
+
+     :ref:`sphx_glr_auto_examples_dicodile_plot_gait.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/dicodile/plot_gait
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_auto_examples_multicsc:
+
+.. _multicsc_examples:
+
+Multivariate CSC with rank 1 constraints
+----------------------------------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to learn rank-1 atoms [1]_ on the multivariate somato-sensorymotor...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/multicsc/images/thumb/sphx_glr_plot_somato_mu_waves_thumb.png
+     :alt: Extracting :math:`\mu`-wave from the somato-sensory dataset
+
+     :ref:`sphx_glr_auto_examples_multicsc_plot_somato_mu_waves.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/multicsc/plot_somato_mu_waves
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to learn rank-1 [1]_ atoms on the multivariate sample dataset from...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/multicsc/images/thumb/sphx_glr_plot_sample_evoked_response_thumb.png
+     :alt: Extracting artifact and evoked response atoms from the sample dataset
+
+     :ref:`sphx_glr_auto_examples_multicsc_plot_sample_evoked_response.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/multicsc/plot_sample_evoked_response
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_auto_examples_noise_alpha:
+
+.. _alphacsc_examples:
+
+Univariate CSC with an alpha-stable distribution
+------------------------------------------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates alphaCSC [1]_ on simulated data.">
+
+.. only:: html
+
+ .. figure:: /auto_examples/noise_alpha/images/thumb/sphx_glr_plot_simulate_alphacsc_thumb.png
+     :alt: Alpha CSC on simulated data
+
+     :ref:`sphx_glr_auto_examples_noise_alpha_plot_simulate_alphacsc.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/noise_alpha/plot_simulate_alphacsc
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to learn univariate atoms on a univariate time-serie affected by s...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/noise_alpha/images/thumb/sphx_glr_plot_empirical_strong_artifacts_thumb.png
+     :alt: Alpha CSC on empirical time-series with strong artifacts
+
+     :ref:`sphx_glr_auto_examples_noise_alpha_plot_empirical_strong_artifacts.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/noise_alpha/plot_empirical_strong_artifacts
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. _sphx_glr_auto_examples_other:
+
+.. _other_examples:
+
+Other shift-invariant dictionary learning algorithms
+----------------------------------------------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates MoTIF [1] on simulated data. In the alphacsc module, we are offering ...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/other/images/thumb/sphx_glr_plot_simulate_motif_thumb.png
+     :alt: MoTIF on simulated data
+
+     :ref:`sphx_glr_auto_examples_other_plot_simulate_motif.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/other/plot_simulate_motif
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how the sliding window method (SWM) [1] works on simulated data. The code is...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/other/images/thumb/sphx_glr_plot_simulate_swm_thumb.png
+     :alt: SWM on simulated data
+
+     :ref:`sphx_glr_auto_examples_other_plot_simulate_swm.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/other/plot_simulate_swm
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-gallery
+
+
+  .. container:: sphx-glr-download sphx-glr-download-python
+
+    :download:`Download all examples in Python source code: auto_examples_python.zip </auto_examples/auto_examples_python.zip>`
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+    :download:`Download all examples in Jupyter notebooks: auto_examples_jupyter.zip </auto_examples/auto_examples_jupyter.zip>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

@@ -1,0 +1,2006 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gait (steps) example &#8212; alphacsc 0.1.dev1+g01cd451 documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Extracting \(\mu\)-wave from the somato-sensory dataset" href="../multicsc/plot_somato_mu_waves.html" />
+    <link rel="prev" title="Vanilla CSC on simulated data" href="../csc/plot_simulate_csc.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../index.html">
+<p class="title">alphacsc</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../models.html">
+  Model descriptions
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  Examples Gallery
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../api.html">
+  API Documentation
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <div class="dropdown" id="version_switcher">
+    <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
+        dev  <!-- this text may get changed later by javascript -->
+        <span class="caret"></span>
+    </button>
+    <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+</div>
+
+<!-- NOTE: this JS must live here (not in our global JS file) because it relies
+     on being processed by Jinja before it is run (specifically for replacing
+     variables auto_examples/dicodile/plot_gait and {'json_url': '/stable/_static/switcher.json', 'version_match': 'dev'}.
+-->
+
+<script type="text/javascript">
+// Check if corresponding page path exists in other version of docs
+// and, if so, go there instead of the homepage of the other docs version
+function checkPageExistsAndRedirect(event) {
+    const currentFilePath = "auto_examples/dicodile/plot_gait.html",
+          tryUrl = event.target.getAttribute("href");
+    let otherDocsHomepage = tryUrl.replace(currentFilePath, "");
+    $.ajax({
+        type: 'HEAD',
+        url: tryUrl,
+        // if the page exists, go there
+        success: function() {
+            location.href = tryUrl;
+        }
+    }).fail(function() {
+        location.href = otherDocsHomepage;
+    });
+    // this prevents the browser from following the href of the clicked node
+    // (which is fine because this function takes care of redirecting)
+    return false;
+}
+
+// Populate the version switcher from the JSON config file
+(function () {
+    $.getJSON("/stable/_static/switcher.json", function(data, textStatus, jqXHR) {
+        const currentFilePath = "auto_examples/dicodile/plot_gait.html";
+        // create links to the corresponding page in the other docs versions
+        $.each(data, function(index, entry) {
+            // if no custom name specified (e.g., "latest"), use version string
+            if (!("name" in entry)) {
+                entry.name = entry.version;
+            }
+            // create the node
+            const node = document.createElement("a");
+            node.setAttribute("class", "list-group-item list-group-item-action py-1");
+            node.textContent = `${entry.name}`;
+            node.setAttribute("href", `${entry.url}${currentFilePath}`);
+            // on click, AJAX calls will check if the linked page exists before
+            // trying to redirect, and if not, will redirect to the homepage
+            // for that version of the docs.
+            node.onclick = checkPageExistsAndRedirect;
+            // Add dataset values for the version and name in case people want
+            // to apply CSS styling based on this information.
+            node.dataset["versionName"] = entry.name;
+            node.dataset["version"] = entry.version;
+
+            $("#version_switcher_menu").append(node);
+            // replace dropdown button text with the preferred display name of
+            // this version, rather than using sphinx's 0.1.dev1+g01cd451 variable.
+            // also highlight the dropdown entry for the currently-viewed
+            // version's entry
+            if (entry.version == "dev") {
+                node.classList.add("active");
+                let btn = document.getElementById("version_switcher_button");
+                btn.innerText = btn.dataset["activeVersionName"] = entry.name;
+                btn.dataset["activeVersion"] = entry.version;
+            }
+        });
+    });
+})();
+</script>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/alphacsc/alphacsc" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/alphacsc/" rel="noopener" target="_blank" title="PyPI"><span><i class="fas fa-box"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../csc/plot_simulate_randomstate.html">
+   Selecting random state for CSC
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../csc/plot_lfp_data.html">
+   CSC to learn LFP spiking atoms
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../csc/plot_cross_frequency_coupling.html">
+   Extracting cross-frequency coupling waveforms from rodent LFP data
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../csc/plot_simulate_csc.html">
+   Vanilla CSC on simulated data
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Gait (steps) example
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../multicsc/plot_somato_mu_waves.html">
+   Extracting
+   <span class="math notranslate nohighlight">
+    \(\mu\)
+   </span>
+   -wave from the somato-sensory dataset
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../multicsc/plot_sample_evoked_response.html">
+   Extracting artifact and evoked response atoms from the sample dataset
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../noise_alpha/plot_simulate_alphacsc.html">
+   Alpha CSC on simulated data
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../noise_alpha/plot_empirical_strong_artifacts.html">
+   Alpha CSC on empirical time-series with strong artifacts
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../other/plot_simulate_motif.html">
+   MoTIF on simulated data
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../other/plot_simulate_swm.html">
+   SWM on simulated data
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-dicodile-plot-gait-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="gait-steps-example">
+<span id="sphx-glr-auto-examples-dicodile-plot-gait-py"></span><h1>Gait (steps) example<a class="headerlink" href="#gait-steps-example" title="Permalink to this headline">#</a></h1>
+<p>In this example, we use DiCoDiLe on an open dataset of gait (steps) IMU
+time-series to discover patterns in the data. We will then use those to attempt
+to detect steps and compare our findings with the ground truth.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<p># Retrieve trial data</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dicodile.data.gait</span> <span class="kn">import</span> <span class="n">get_gait_data</span>
+
+<span class="n">trial</span> <span class="o">=</span> <span class="n">get_gait_data</span><span class="p">(</span><span class="n">subject</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">trial</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading data from http://dev.ipol.im/~truong/GaitData.zip (192.3 MB)
+
+
+file_sizes:   0%|                                    | 0.00/202M [00:00&lt;?, ?B/s]
+file_sizes:   0%|                            | 24.6k/202M [00:00&lt;25:26, 132kB/s]
+file_sizes:   0%|                            | 49.2k/202M [00:00&lt;25:27, 132kB/s]
+file_sizes:   0%|                             | 106k/202M [00:00&lt;15:50, 212kB/s]
+file_sizes:   0%|                             | 131k/202M [00:00&lt;18:37, 180kB/s]
+file_sizes:   0%|                             | 377k/202M [00:00&lt;05:45, 583kB/s]
+file_sizes:   0%|                             | 442k/202M [00:01&lt;06:38, 505kB/s]
+file_sizes:   0%|                             | 541k/202M [00:01&lt;06:32, 512kB/s]
+file_sizes:   0%|                             | 639k/202M [00:01&lt;06:28, 517kB/s]
+file_sizes:   0%|1                            | 737k/202M [00:01&lt;06:25, 521kB/s]
+file_sizes:   0%|1                            | 836k/202M [00:01&lt;06:23, 523kB/s]
+file_sizes:   0%|1                            | 934k/202M [00:02&lt;08:17, 403kB/s]
+file_sizes:   1%|1                           | 1.16M/202M [00:02&lt;06:50, 488kB/s]
+file_sizes:   1%|1                           | 1.29M/202M [00:02&lt;06:15, 533kB/s]
+file_sizes:   1%|1                           | 1.38M/202M [00:02&lt;06:31, 511kB/s]
+file_sizes:   1%|2                           | 1.44M/202M [00:03&lt;07:04, 472kB/s]
+file_sizes:   1%|2                           | 1.54M/202M [00:03&lt;06:52, 485kB/s]
+file_sizes:   1%|2                           | 1.64M/202M [00:03&lt;06:42, 497kB/s]
+file_sizes:   1%|2                           | 1.74M/202M [00:03&lt;06:35, 505kB/s]
+file_sizes:   1%|2                           | 1.84M/202M [00:03&lt;06:30, 511kB/s]
+file_sizes:   1%|2                           | 1.92M/202M [00:04&lt;06:46, 491kB/s]
+file_sizes:   1%|2                           | 1.98M/202M [00:04&lt;07:22, 451kB/s]
+file_sizes:   1%|2                           | 2.08M/202M [00:04&lt;07:01, 474kB/s]
+file_sizes:   1%|3                           | 2.18M/202M [00:04&lt;06:47, 489kB/s]
+file_sizes:   1%|3                           | 2.28M/202M [00:04&lt;06:38, 500kB/s]
+file_sizes:   1%|3                           | 2.38M/202M [00:05&lt;06:32, 508kB/s]
+file_sizes:   1%|3                           | 2.47M/202M [00:05&lt;06:27, 514kB/s]
+file_sizes:   1%|3                           | 2.57M/202M [00:05&lt;06:24, 518kB/s]
+file_sizes:   1%|3                           | 2.67M/202M [00:05&lt;06:22, 520kB/s]
+file_sizes:   1%|3                           | 2.77M/202M [00:05&lt;06:20, 522kB/s]
+file_sizes:   1%|3                           | 2.83M/202M [00:05&lt;07:01, 472kB/s]
+file_sizes:   1%|4                           | 2.93M/202M [00:06&lt;06:47, 488kB/s]
+file_sizes:   2%|4                           | 3.03M/202M [00:06&lt;06:37, 499kB/s]
+file_sizes:   2%|4                           | 3.13M/202M [00:06&lt;06:31, 508kB/s]
+file_sizes:   2%|4                           | 3.23M/202M [00:06&lt;06:26, 513kB/s]
+file_sizes:   2%|4                           | 3.33M/202M [00:06&lt;06:23, 517kB/s]
+file_sizes:   2%|4                           | 3.42M/202M [00:07&lt;06:21, 520kB/s]
+file_sizes:   2%|4                           | 3.52M/202M [00:07&lt;06:19, 522kB/s]
+file_sizes:   2%|4                           | 3.59M/202M [00:07&lt;06:59, 472kB/s]
+file_sizes:   2%|5                           | 3.70M/202M [00:07&lt;06:25, 514kB/s]
+file_sizes:   2%|5                           | 3.80M/202M [00:07&lt;06:21, 518kB/s]
+file_sizes:   2%|5                           | 3.90M/202M [00:08&lt;06:19, 521kB/s]
+file_sizes:   2%|5                           | 4.00M/202M [00:08&lt;06:18, 523kB/s]
+file_sizes:   2%|5                           | 4.10M/202M [00:08&lt;06:19, 521kB/s]
+file_sizes:   2%|5                           | 4.19M/202M [00:08&lt;06:16, 524kB/s]
+file_sizes:   2%|5                           | 4.29M/202M [00:08&lt;05:40, 580kB/s]
+file_sizes:   2%|6                           | 4.42M/202M [00:08&lt;05:51, 562kB/s]
+file_sizes:   2%|6                           | 4.52M/202M [00:09&lt;05:23, 609kB/s]
+file_sizes:   2%|6                           | 4.65M/202M [00:09&lt;05:08, 638kB/s]
+file_sizes:   2%|6                           | 4.73M/202M [00:09&lt;08:04, 407kB/s]
+file_sizes:   2%|6                           | 4.93M/202M [00:09&lt;05:50, 562kB/s]
+file_sizes:   2%|6                           | 5.03M/202M [00:10&lt;05:55, 553kB/s]
+file_sizes:   3%|7                           | 5.10M/202M [00:10&lt;06:32, 501kB/s]
+file_sizes:   3%|7                           | 5.19M/202M [00:10&lt;06:26, 508kB/s]
+file_sizes:   3%|7                           | 5.29M/202M [00:10&lt;06:22, 513kB/s]
+file_sizes:   3%|7                           | 5.39M/202M [00:10&lt;05:45, 569kB/s]
+file_sizes:   3%|7                           | 5.52M/202M [00:11&lt;05:52, 556kB/s]
+file_sizes:   3%|7                           | 5.62M/202M [00:11&lt;05:25, 602kB/s]
+file_sizes:   3%|7                           | 5.75M/202M [00:11&lt;05:31, 591kB/s]
+file_sizes:   3%|8                           | 5.88M/202M [00:11&lt;05:21, 609kB/s]
+file_sizes:   3%|8                           | 5.98M/202M [00:11&lt;05:03, 644kB/s]
+file_sizes:   3%|8                           | 6.11M/202M [00:12&lt;06:49, 478kB/s]
+file_sizes:   3%|8                           | 6.34M/202M [00:12&lt;05:01, 647kB/s]
+file_sizes:   3%|8                           | 6.44M/202M [00:12&lt;05:16, 616kB/s]
+file_sizes:   3%|9                           | 6.54M/202M [00:12&lt;05:29, 593kB/s]
+file_sizes:   3%|9                           | 6.60M/202M [00:12&lt;05:38, 576kB/s]
+file_sizes:   3%|9                           | 6.70M/202M [00:13&lt;05:47, 561kB/s]
+file_sizes:   3%|9                           | 6.80M/202M [00:13&lt;05:53, 551kB/s]
+file_sizes:   3%|9                           | 6.90M/202M [00:13&lt;05:58, 544kB/s]
+file_sizes:   3%|9                           | 7.00M/202M [00:13&lt;06:01, 539kB/s]
+file_sizes:   4%|9                           | 7.09M/202M [00:13&lt;06:00, 539kB/s]
+file_sizes:   4%|9                           | 7.16M/202M [00:13&lt;05:48, 557kB/s]
+file_sizes:   4%|#                           | 7.23M/202M [00:13&lt;06:08, 528kB/s]
+file_sizes:   4%|#                           | 7.31M/202M [00:14&lt;05:46, 561kB/s]
+file_sizes:   4%|#                           | 7.37M/202M [00:14&lt;05:36, 578kB/s]
+file_sizes:   4%|#                           | 7.44M/202M [00:14&lt;06:01, 538kB/s]
+file_sizes:   4%|#                           | 7.52M/202M [00:14&lt;05:42, 567kB/s]
+file_sizes:   4%|#                           | 7.59M/202M [00:14&lt;05:29, 588kB/s]
+file_sizes:   4%|#                           | 7.65M/202M [00:14&lt;05:57, 543kB/s]
+file_sizes:   4%|#                           | 7.73M/202M [00:14&lt;05:39, 572kB/s]
+file_sizes:   4%|#                           | 7.80M/202M [00:14&lt;05:27, 592kB/s]
+file_sizes:   4%|#                           | 7.86M/202M [00:15&lt;05:55, 545kB/s]
+file_sizes:   4%|#1                          | 7.95M/202M [00:15&lt;05:37, 574kB/s]
+file_sizes:   4%|#1                          | 8.01M/202M [00:15&lt;05:26, 594kB/s]
+file_sizes:   4%|#1                          | 8.08M/202M [00:15&lt;05:54, 546kB/s]
+file_sizes:   4%|#1                          | 8.16M/202M [00:15&lt;05:36, 574kB/s]
+file_sizes:   4%|#1                          | 8.22M/202M [00:15&lt;05:25, 594kB/s]
+file_sizes:   4%|#1                          | 8.29M/202M [00:15&lt;05:54, 546kB/s]
+file_sizes:   4%|#1                          | 8.37M/202M [00:15&lt;05:36, 575kB/s]
+file_sizes:   4%|#1                          | 8.44M/202M [00:16&lt;05:25, 594kB/s]
+file_sizes:   4%|#1                          | 8.50M/202M [00:16&lt;05:53, 546kB/s]
+file_sizes:   4%|#1                          | 8.59M/202M [00:16&lt;05:35, 575kB/s]
+file_sizes:   4%|#2                          | 8.65M/202M [00:16&lt;05:25, 594kB/s]
+file_sizes:   4%|#2                          | 8.72M/202M [00:16&lt;05:53, 546kB/s]
+file_sizes:   4%|#2                          | 8.81M/202M [00:16&lt;05:46, 556kB/s]
+file_sizes:   4%|#2                          | 8.91M/202M [00:16&lt;05:23, 597kB/s]
+file_sizes:   4%|#2                          | 8.98M/202M [00:17&lt;05:16, 608kB/s]
+file_sizes:   4%|#2                          | 9.04M/202M [00:17&lt;05:44, 559kB/s]
+file_sizes:   5%|#2                          | 9.14M/202M [00:17&lt;05:41, 563kB/s]
+file_sizes:   5%|#2                          | 9.24M/202M [00:17&lt;05:19, 602kB/s]
+file_sizes:   5%|#2                          | 9.31M/202M [00:17&lt;05:14, 612kB/s]
+file_sizes:   5%|#3                          | 9.37M/202M [00:17&lt;05:32, 579kB/s]
+file_sizes:   5%|#3                          | 9.47M/202M [00:17&lt;05:11, 617kB/s]
+file_sizes:   5%|#3                          | 9.54M/202M [00:17&lt;05:08, 623kB/s]
+file_sizes:   5%|#3                          | 9.60M/202M [00:18&lt;05:27, 586kB/s]
+file_sizes:   5%|#3                          | 9.70M/202M [00:18&lt;05:07, 623kB/s]
+file_sizes:   5%|#3                          | 9.76M/202M [00:18&lt;05:05, 628kB/s]
+file_sizes:   5%|#3                          | 9.85M/202M [00:18&lt;05:49, 549kB/s]
+file_sizes:   5%|#3                          | 9.98M/202M [00:18&lt;05:15, 607kB/s]
+file_sizes:   5%|#3                          | 10.0M/202M [00:18&lt;05:40, 563kB/s]
+file_sizes:   5%|#4                          | 10.1M/202M [00:19&lt;06:30, 490kB/s]
+file_sizes:   5%|#4                          | 10.2M/202M [00:19&lt;06:01, 530kB/s]
+file_sizes:   5%|#4                          | 10.3M/202M [00:19&lt;05:44, 555kB/s]
+file_sizes:   5%|#4                          | 10.3M/202M [00:19&lt;06:05, 523kB/s]
+file_sizes:   5%|#4                          | 10.4M/202M [00:19&lt;06:05, 523kB/s]
+file_sizes:   5%|#4                          | 10.5M/202M [00:19&lt;06:30, 490kB/s]
+file_sizes:   5%|#4                          | 10.6M/202M [00:19&lt;05:55, 537kB/s]
+file_sizes:   5%|#4                          | 10.7M/202M [00:20&lt;06:39, 478kB/s]
+file_sizes:   5%|#4                          | 10.8M/202M [00:20&lt;06:49, 466kB/s]
+file_sizes:   5%|#5                          | 10.8M/202M [00:20&lt;06:57, 457kB/s]
+file_sizes:   5%|#5                          | 10.9M/202M [00:20&lt;07:02, 452kB/s]
+file_sizes:   5%|#5                          | 11.0M/202M [00:20&lt;07:05, 448kB/s]
+file_sizes:   6%|#5                          | 11.1M/202M [00:21&lt;07:08, 445kB/s]
+file_sizes:   6%|#5                          | 11.2M/202M [00:21&lt;06:27, 491kB/s]
+file_sizes:   6%|#5                          | 11.2M/202M [00:21&lt;06:03, 524kB/s]
+file_sizes:   6%|#5                          | 11.3M/202M [00:21&lt;06:20, 501kB/s]
+file_sizes:   6%|#5                          | 11.4M/202M [00:21&lt;07:04, 449kB/s]
+file_sizes:   6%|#5                          | 11.5M/202M [00:21&lt;06:20, 499kB/s]
+file_sizes:   6%|#5                          | 11.5M/202M [00:21&lt;06:30, 487kB/s]
+file_sizes:   6%|#6                          | 11.6M/202M [00:22&lt;06:11, 511kB/s]
+file_sizes:   6%|#6                          | 11.7M/202M [00:22&lt;06:26, 492kB/s]
+file_sizes:   6%|#6                          | 11.7M/202M [00:22&lt;06:19, 500kB/s]
+file_sizes:   6%|#6                          | 11.8M/202M [00:22&lt;06:29, 487kB/s]
+file_sizes:   6%|#6                          | 11.9M/202M [00:22&lt;06:11, 511kB/s]
+file_sizes:   6%|#6                          | 11.9M/202M [00:22&lt;06:25, 492kB/s]
+file_sizes:   6%|#6                          | 12.0M/202M [00:22&lt;06:18, 501kB/s]
+file_sizes:   6%|#6                          | 12.1M/202M [00:23&lt;06:29, 487kB/s]
+file_sizes:   6%|#6                          | 12.1M/202M [00:23&lt;06:31, 484kB/s]
+file_sizes:   6%|#6                          | 12.2M/202M [00:23&lt;06:22, 496kB/s]
+file_sizes:   6%|#7                          | 12.3M/202M [00:23&lt;06:32, 482kB/s]
+file_sizes:   6%|#7                          | 12.3M/202M [00:23&lt;06:34, 480kB/s]
+file_sizes:   6%|#7                          | 12.4M/202M [00:23&lt;06:22, 494kB/s]
+file_sizes:   6%|#7                          | 12.4M/202M [00:23&lt;06:34, 480kB/s]
+file_sizes:   6%|#7                          | 12.5M/202M [00:23&lt;06:05, 518kB/s]
+file_sizes:   6%|#7                          | 12.6M/202M [00:24&lt;06:57, 453kB/s]
+file_sizes:   6%|#7                          | 12.6M/202M [00:24&lt;06:11, 509kB/s]
+file_sizes:   6%|#7                          | 12.7M/202M [00:24&lt;06:24, 491kB/s]
+file_sizes:   6%|#7                          | 12.8M/202M [00:24&lt;06:33, 480kB/s]
+file_sizes:   6%|#7                          | 12.9M/202M [00:24&lt;06:13, 505kB/s]
+file_sizes:   6%|#7                          | 12.9M/202M [00:24&lt;06:09, 511kB/s]
+file_sizes:   6%|#8                          | 13.0M/202M [00:24&lt;05:48, 541kB/s]
+file_sizes:   6%|#8                          | 13.1M/202M [00:25&lt;06:09, 511kB/s]
+file_sizes:   7%|#8                          | 13.1M/202M [00:25&lt;06:05, 516kB/s]
+file_sizes:   7%|#8                          | 13.2M/202M [00:25&lt;06:20, 495kB/s]
+file_sizes:   7%|#8                          | 13.3M/202M [00:25&lt;05:56, 529kB/s]
+file_sizes:   7%|#8                          | 13.3M/202M [00:25&lt;05:56, 529kB/s]
+file_sizes:   7%|#8                          | 13.4M/202M [00:25&lt;06:13, 504kB/s]
+file_sizes:   7%|#8                          | 13.5M/202M [00:25&lt;05:51, 536kB/s]
+file_sizes:   7%|#8                          | 13.5M/202M [00:25&lt;05:53, 533kB/s]
+file_sizes:   7%|#8                          | 13.6M/202M [00:25&lt;05:35, 561kB/s]
+file_sizes:   7%|#8                          | 13.6M/202M [00:26&lt;05:59, 522kB/s]
+file_sizes:   7%|#9                          | 13.7M/202M [00:26&lt;05:34, 562kB/s]
+file_sizes:   7%|#9                          | 13.8M/202M [00:26&lt;05:22, 582kB/s]
+file_sizes:   7%|#9                          | 13.9M/202M [00:26&lt;05:05, 614kB/s]
+file_sizes:   7%|#9                          | 14.0M/202M [00:26&lt;05:18, 589kB/s]
+file_sizes:   7%|#9                          | 14.0M/202M [00:26&lt;05:12, 600kB/s]
+file_sizes:   7%|#9                          | 14.1M/202M [00:26&lt;04:59, 626kB/s]
+file_sizes:   7%|#9                          | 14.2M/202M [00:26&lt;04:37, 675kB/s]
+file_sizes:   7%|#9                          | 14.3M/202M [00:27&lt;04:36, 677kB/s]
+file_sizes:   7%|##                          | 14.4M/202M [00:27&lt;04:36, 677kB/s]
+file_sizes:   7%|##                          | 14.5M/202M [00:27&lt;04:36, 676kB/s]
+file_sizes:   7%|##                          | 14.6M/202M [00:27&lt;04:23, 709kB/s]
+file_sizes:   7%|##                          | 14.7M/202M [00:27&lt;04:02, 770kB/s]
+file_sizes:   7%|##                          | 14.8M/202M [00:27&lt;04:11, 741kB/s]
+file_sizes:   7%|##                          | 15.0M/202M [00:27&lt;03:56, 790kB/s]
+file_sizes:   8%|##1                         | 15.1M/202M [00:28&lt;03:47, 821kB/s]
+file_sizes:   8%|##1                         | 15.3M/202M [00:28&lt;03:41, 841kB/s]
+file_sizes:   8%|##1                         | 15.5M/202M [00:28&lt;03:30, 885kB/s]
+file_sizes:   8%|##1                         | 15.6M/202M [00:28&lt;03:12, 969kB/s]
+file_sizes:   8%|##1                         | 15.7M/202M [00:28&lt;03:16, 947kB/s]
+file_sizes:   8%|##2                         | 15.9M/202M [00:28&lt;03:10, 974kB/s]
+file_sizes:   8%|##1                        | 16.0M/202M [00:29&lt;02:56, 1.05MB/s]
+file_sizes:   8%|##1                        | 16.1M/202M [00:29&lt;02:48, 1.10MB/s]
+file_sizes:   8%|##1                        | 16.3M/202M [00:29&lt;02:49, 1.09MB/s]
+file_sizes:   8%|##1                        | 16.4M/202M [00:29&lt;02:43, 1.13MB/s]
+file_sizes:   8%|##2                        | 16.6M/202M [00:29&lt;02:33, 1.21MB/s]
+file_sizes:   8%|##2                        | 16.8M/202M [00:29&lt;02:19, 1.32MB/s]
+file_sizes:   8%|##2                        | 17.0M/202M [00:29&lt;02:18, 1.33MB/s]
+file_sizes:   9%|##2                        | 17.2M/202M [00:29&lt;02:17, 1.34MB/s]
+file_sizes:   9%|##3                        | 17.4M/202M [00:30&lt;02:16, 1.35MB/s]
+file_sizes:   9%|##3                        | 17.7M/202M [00:30&lt;02:03, 1.49MB/s]
+file_sizes:   9%|##3                        | 17.9M/202M [00:30&lt;02:00, 1.53MB/s]
+file_sizes:   9%|##4                        | 18.2M/202M [00:30&lt;01:54, 1.60MB/s]
+file_sizes:   9%|##4                        | 18.4M/202M [00:30&lt;01:49, 1.67MB/s]
+file_sizes:   9%|##4                        | 18.6M/202M [00:30&lt;01:51, 1.64MB/s]
+file_sizes:   9%|##5                        | 18.9M/202M [00:30&lt;01:38, 1.85MB/s]
+file_sizes:   9%|##5                        | 19.1M/202M [00:30&lt;01:38, 1.86MB/s]
+file_sizes:  10%|##5                        | 19.3M/202M [00:31&lt;01:33, 1.95MB/s]
+file_sizes:  10%|##6                        | 19.7M/202M [00:31&lt;01:46, 1.72MB/s]
+file_sizes:  10%|##6                        | 19.9M/202M [00:31&lt;01:35, 1.90MB/s]
+file_sizes:  10%|##7                        | 20.3M/202M [00:31&lt;01:38, 1.84MB/s]
+file_sizes:  10%|##7                        | 20.4M/202M [00:31&lt;01:46, 1.70MB/s]
+file_sizes:  10%|##7                        | 20.6M/202M [00:31&lt;01:52, 1.61MB/s]
+file_sizes:  10%|##8                        | 21.0M/202M [00:32&lt;01:48, 1.66MB/s]
+file_sizes:  11%|##8                        | 21.3M/202M [00:32&lt;01:46, 1.69MB/s]
+file_sizes:  11%|##8                        | 21.6M/202M [00:32&lt;01:45, 1.71MB/s]
+file_sizes:  11%|##9                        | 22.0M/202M [00:32&lt;01:44, 1.73MB/s]
+file_sizes:  11%|##9                        | 22.3M/202M [00:32&lt;01:39, 1.81MB/s]
+file_sizes:  11%|###                        | 22.5M/202M [00:32&lt;01:32, 1.94MB/s]
+file_sizes:  11%|###                        | 22.9M/202M [00:33&lt;01:35, 1.88MB/s]
+file_sizes:  11%|###                        | 23.1M/202M [00:33&lt;01:35, 1.88MB/s]
+file_sizes:  12%|###1                       | 23.3M/202M [00:33&lt;01:39, 1.80MB/s]
+file_sizes:  12%|###1                       | 23.6M/202M [00:33&lt;01:31, 1.95MB/s]
+file_sizes:  12%|###1                       | 23.9M/202M [00:33&lt;01:33, 1.90MB/s]
+file_sizes:  12%|###2                       | 24.1M/202M [00:33&lt;01:34, 1.88MB/s]
+file_sizes:  12%|###2                       | 24.4M/202M [00:33&lt;01:25, 2.08MB/s]
+file_sizes:  12%|###3                       | 24.7M/202M [00:34&lt;01:28, 2.00MB/s]
+file_sizes:  12%|###3                       | 25.0M/202M [00:34&lt;01:40, 1.76MB/s]
+file_sizes:  13%|###4                       | 25.6M/202M [00:34&lt;01:33, 1.89MB/s]
+file_sizes:  13%|###4                       | 25.8M/202M [00:34&lt;01:40, 1.75MB/s]
+file_sizes:  13%|###4                       | 26.0M/202M [00:34&lt;01:49, 1.61MB/s]
+file_sizes:  13%|###5                       | 26.2M/202M [00:34&lt;01:45, 1.66MB/s]
+file_sizes:  13%|###5                       | 26.4M/202M [00:35&lt;01:42, 1.70MB/s]
+file_sizes:  13%|###5                       | 26.7M/202M [00:35&lt;01:49, 1.60MB/s]
+file_sizes:  13%|###5                       | 26.9M/202M [00:35&lt;01:49, 1.60MB/s]
+file_sizes:  13%|###6                       | 27.1M/202M [00:35&lt;01:45, 1.65MB/s]
+file_sizes:  14%|###6                       | 27.3M/202M [00:35&lt;01:51, 1.57MB/s]
+file_sizes:  14%|###6                       | 27.6M/202M [00:35&lt;01:46, 1.64MB/s]
+file_sizes:  14%|###7                       | 27.8M/202M [00:35&lt;01:46, 1.63MB/s]
+file_sizes:  14%|###7                       | 28.0M/202M [00:36&lt;01:43, 1.68MB/s]
+file_sizes:  14%|###7                       | 28.2M/202M [00:36&lt;01:49, 1.59MB/s]
+file_sizes:  14%|###8                       | 28.5M/202M [00:36&lt;01:45, 1.65MB/s]
+file_sizes:  14%|###8                       | 28.8M/202M [00:36&lt;01:42, 1.68MB/s]
+file_sizes:  14%|###9                       | 29.2M/202M [00:36&lt;01:40, 1.71MB/s]
+file_sizes:  15%|###9                       | 29.5M/202M [00:36&lt;01:39, 1.72MB/s]
+file_sizes:  15%|###9                       | 29.7M/202M [00:37&lt;01:41, 1.69MB/s]
+file_sizes:  15%|####                       | 29.9M/202M [00:37&lt;01:39, 1.73MB/s]
+file_sizes:  15%|####                       | 30.1M/202M [00:37&lt;01:40, 1.71MB/s]
+file_sizes:  15%|####                       | 30.3M/202M [00:37&lt;01:38, 1.75MB/s]
+file_sizes:  15%|####                       | 30.5M/202M [00:37&lt;01:36, 1.78MB/s]
+file_sizes:  15%|####1                      | 30.7M/202M [00:37&lt;01:39, 1.72MB/s]
+file_sizes:  15%|####1                      | 30.9M/202M [00:37&lt;01:36, 1.76MB/s]
+file_sizes:  15%|####1                      | 31.1M/202M [00:37&lt;01:39, 1.72MB/s]
+file_sizes:  16%|####1                      | 31.3M/202M [00:37&lt;01:36, 1.76MB/s]
+file_sizes:  16%|####2                      | 31.5M/202M [00:38&lt;01:34, 1.79MB/s]
+file_sizes:  16%|####2                      | 31.7M/202M [00:38&lt;01:38, 1.73MB/s]
+file_sizes:  16%|####2                      | 31.9M/202M [00:38&lt;01:35, 1.77MB/s]
+file_sizes:  16%|####2                      | 32.0M/202M [00:38&lt;01:38, 1.72MB/s]
+file_sizes:  16%|####3                      | 32.2M/202M [00:38&lt;01:35, 1.77MB/s]
+file_sizes:  16%|####3                      | 32.4M/202M [00:38&lt;02:16, 1.24MB/s]
+file_sizes:  16%|####3                      | 32.8M/202M [00:38&lt;01:42, 1.65MB/s]
+file_sizes:  16%|####4                      | 33.0M/202M [00:39&lt;01:47, 1.56MB/s]
+file_sizes:  16%|####4                      | 33.2M/202M [00:39&lt;02:00, 1.39MB/s]
+file_sizes:  17%|####4                      | 33.4M/202M [00:39&lt;01:52, 1.49MB/s]
+file_sizes:  17%|####5                      | 33.7M/202M [00:39&lt;01:54, 1.46MB/s]
+file_sizes:  17%|####5                      | 33.9M/202M [00:39&lt;01:56, 1.44MB/s]
+file_sizes:  17%|####5                      | 34.2M/202M [00:39&lt;01:56, 1.43MB/s]
+file_sizes:  17%|####6                      | 34.4M/202M [00:40&lt;02:02, 1.36MB/s]
+file_sizes:  17%|####6                      | 34.6M/202M [00:40&lt;01:53, 1.47MB/s]
+file_sizes:  17%|####6                      | 34.8M/202M [00:40&lt;01:46, 1.56MB/s]
+file_sizes:  17%|####6                      | 35.1M/202M [00:40&lt;01:50, 1.51MB/s]
+file_sizes:  17%|####7                      | 35.3M/202M [00:40&lt;01:48, 1.53MB/s]
+file_sizes:  18%|####7                      | 35.5M/202M [00:40&lt;01:52, 1.48MB/s]
+file_sizes:  18%|####7                      | 35.7M/202M [00:40&lt;01:45, 1.57MB/s]
+file_sizes:  18%|####7                      | 35.8M/202M [00:40&lt;01:45, 1.58MB/s]
+file_sizes:  18%|####8                      | 36.1M/202M [00:41&lt;01:40, 1.65MB/s]
+file_sizes:  18%|####8                      | 36.3M/202M [00:41&lt;01:46, 1.55MB/s]
+file_sizes:  18%|####8                      | 36.6M/202M [00:41&lt;01:41, 1.63MB/s]
+file_sizes:  18%|####9                      | 36.9M/202M [00:41&lt;01:38, 1.68MB/s]
+file_sizes:  18%|####9                      | 37.1M/202M [00:41&lt;01:39, 1.66MB/s]
+file_sizes:  19%|#####                      | 37.4M/202M [00:41&lt;01:36, 1.70MB/s]
+file_sizes:  19%|#####                      | 37.6M/202M [00:41&lt;01:34, 1.73MB/s]
+file_sizes:  19%|#####                      | 37.8M/202M [00:42&lt;01:40, 1.62MB/s]
+file_sizes:  19%|#####1                     | 38.1M/202M [00:42&lt;01:37, 1.67MB/s]
+file_sizes:  19%|#####1                     | 38.5M/202M [00:42&lt;01:36, 1.70MB/s]
+file_sizes:  19%|#####1                     | 38.8M/202M [00:42&lt;01:34, 1.72MB/s]
+file_sizes:  19%|#####2                     | 39.1M/202M [00:42&lt;01:33, 1.73MB/s]
+file_sizes:  20%|#####2                     | 39.5M/202M [00:43&lt;01:33, 1.74MB/s]
+file_sizes:  20%|#####3                     | 39.8M/202M [00:43&lt;01:32, 1.74MB/s]
+file_sizes:  20%|#####3                     | 40.1M/202M [00:43&lt;01:32, 1.75MB/s]
+file_sizes:  20%|#####4                     | 40.4M/202M [00:43&lt;01:35, 1.69MB/s]
+file_sizes:  20%|#####4                     | 40.7M/202M [00:43&lt;01:40, 1.60MB/s]
+file_sizes:  20%|#####4                     | 40.9M/202M [00:44&lt;01:51, 1.45MB/s]
+file_sizes:  20%|#####5                     | 41.1M/202M [00:44&lt;01:52, 1.43MB/s]
+file_sizes:  20%|#####5                     | 41.3M/202M [00:44&lt;01:57, 1.36MB/s]
+file_sizes:  21%|#####5                     | 41.5M/202M [00:44&lt;01:49, 1.47MB/s]
+file_sizes:  21%|#####5                     | 41.7M/202M [00:44&lt;01:52, 1.43MB/s]
+file_sizes:  21%|#####6                     | 41.9M/202M [00:44&lt;01:54, 1.40MB/s]
+file_sizes:  21%|#####6                     | 42.1M/202M [00:44&lt;01:58, 1.35MB/s]
+file_sizes:  21%|#####6                     | 42.3M/202M [00:45&lt;01:48, 1.47MB/s]
+file_sizes:  21%|#####6                     | 42.5M/202M [00:45&lt;01:51, 1.42MB/s]
+file_sizes:  21%|#####7                     | 42.7M/202M [00:45&lt;01:53, 1.40MB/s]
+file_sizes:  21%|#####7                     | 43.0M/202M [00:45&lt;01:43, 1.53MB/s]
+file_sizes:  21%|#####7                     | 43.2M/202M [00:45&lt;01:50, 1.43MB/s]
+file_sizes:  22%|#####8                     | 43.5M/202M [00:45&lt;01:34, 1.67MB/s]
+file_sizes:  22%|#####8                     | 43.7M/202M [00:45&lt;01:40, 1.57MB/s]
+file_sizes:  22%|#####8                     | 43.9M/202M [00:46&lt;01:45, 1.50MB/s]
+file_sizes:  22%|#####9                     | 44.2M/202M [00:46&lt;01:38, 1.59MB/s]
+file_sizes:  22%|#####9                     | 44.5M/202M [00:46&lt;01:35, 1.64MB/s]
+file_sizes:  22%|######                     | 44.9M/202M [00:46&lt;01:33, 1.68MB/s]
+file_sizes:  22%|######                     | 45.1M/202M [00:46&lt;01:34, 1.66MB/s]
+file_sizes:  22%|######                     | 45.3M/202M [00:46&lt;01:31, 1.72MB/s]
+file_sizes:  23%|######                     | 45.5M/202M [00:47&lt;01:30, 1.73MB/s]
+file_sizes:  23%|######1                    | 45.8M/202M [00:47&lt;01:36, 1.62MB/s]
+file_sizes:  23%|######1                    | 46.1M/202M [00:47&lt;01:33, 1.66MB/s]
+file_sizes:  23%|######2                    | 46.4M/202M [00:47&lt;01:31, 1.69MB/s]
+file_sizes:  23%|######2                    | 46.8M/202M [00:47&lt;01:30, 1.71MB/s]
+file_sizes:  23%|######3                    | 47.1M/202M [00:47&lt;01:29, 1.73MB/s]
+file_sizes:  24%|######3                    | 47.4M/202M [00:48&lt;01:28, 1.74MB/s]
+file_sizes:  24%|######3                    | 47.7M/202M [00:48&lt;01:28, 1.74MB/s]
+file_sizes:  24%|######4                    | 48.1M/202M [00:48&lt;01:28, 1.74MB/s]
+file_sizes:  24%|######4                    | 48.4M/202M [00:48&lt;01:27, 1.75MB/s]
+file_sizes:  24%|######5                    | 48.7M/202M [00:48&lt;01:27, 1.75MB/s]
+file_sizes:  24%|######5                    | 49.1M/202M [00:49&lt;01:27, 1.75MB/s]
+file_sizes:  24%|######6                    | 49.4M/202M [00:49&lt;01:26, 1.75MB/s]
+file_sizes:  25%|######6                    | 49.7M/202M [00:49&lt;01:26, 1.75MB/s]
+file_sizes:  25%|######6                    | 50.0M/202M [00:49&lt;01:26, 1.75MB/s]
+file_sizes:  25%|######7                    | 50.4M/202M [00:49&lt;01:26, 1.76MB/s]
+file_sizes:  25%|######7                    | 50.6M/202M [00:50&lt;01:46, 1.42MB/s]
+file_sizes:  25%|######8                    | 51.0M/202M [00:50&lt;01:27, 1.72MB/s]
+file_sizes:  25%|######8                    | 51.2M/202M [00:50&lt;01:33, 1.61MB/s]
+file_sizes:  25%|######8                    | 51.4M/202M [00:50&lt;01:39, 1.50MB/s]
+file_sizes:  26%|######9                    | 51.6M/202M [00:50&lt;01:34, 1.59MB/s]
+file_sizes:  26%|######9                    | 51.8M/202M [00:50&lt;01:46, 1.41MB/s]
+file_sizes:  26%|######9                    | 52.0M/202M [00:50&lt;01:47, 1.39MB/s]
+file_sizes:  26%|######9                    | 52.2M/202M [00:51&lt;01:47, 1.39MB/s]
+file_sizes:  26%|#######                    | 52.5M/202M [00:51&lt;01:40, 1.49MB/s]
+file_sizes:  26%|#######                    | 52.7M/202M [00:51&lt;01:45, 1.41MB/s]
+file_sizes:  26%|#######                    | 52.9M/202M [00:51&lt;01:37, 1.52MB/s]
+file_sizes:  26%|#######1                   | 53.1M/202M [00:51&lt;01:41, 1.47MB/s]
+file_sizes:  26%|#######1                   | 53.3M/202M [00:51&lt;01:35, 1.55MB/s]
+file_sizes:  27%|#######1                   | 53.5M/202M [00:51&lt;01:34, 1.57MB/s]
+file_sizes:  27%|#######1                   | 53.7M/202M [00:52&lt;01:37, 1.52MB/s]
+file_sizes:  27%|#######2                   | 53.9M/202M [00:52&lt;01:33, 1.58MB/s]
+file_sizes:  27%|#######2                   | 54.3M/202M [00:52&lt;01:29, 1.65MB/s]
+file_sizes:  27%|#######2                   | 54.5M/202M [00:52&lt;01:29, 1.64MB/s]
+file_sizes:  27%|#######3                   | 54.7M/202M [00:52&lt;01:33, 1.57MB/s]
+file_sizes:  27%|#######3                   | 54.9M/202M [00:52&lt;01:30, 1.62MB/s]
+file_sizes:  27%|#######3                   | 55.2M/202M [00:52&lt;01:27, 1.67MB/s]
+file_sizes:  28%|#######4                   | 55.5M/202M [00:53&lt;01:25, 1.70MB/s]
+file_sizes:  28%|#######4                   | 55.7M/202M [00:53&lt;01:26, 1.68MB/s]
+file_sizes:  28%|#######4                   | 56.0M/202M [00:53&lt;01:24, 1.73MB/s]
+file_sizes:  28%|#######5                   | 56.2M/202M [00:53&lt;01:23, 1.74MB/s]
+file_sizes:  28%|#######5                   | 56.4M/202M [00:53&lt;01:29, 1.62MB/s]
+file_sizes:  28%|#######5                   | 56.8M/202M [00:53&lt;01:26, 1.67MB/s]
+file_sizes:  28%|#######6                   | 57.1M/202M [00:54&lt;01:25, 1.70MB/s]
+file_sizes:  28%|#######6                   | 57.3M/202M [00:54&lt;01:26, 1.67MB/s]
+file_sizes:  29%|#######7                   | 57.7M/202M [00:54&lt;01:24, 1.70MB/s]
+file_sizes:  29%|#######7                   | 57.9M/202M [00:54&lt;01:36, 1.49MB/s]
+file_sizes:  29%|#######8                   | 58.3M/202M [00:54&lt;01:25, 1.67MB/s]
+file_sizes:  29%|#######8                   | 58.6M/202M [00:55&lt;01:29, 1.59MB/s]
+file_sizes:  29%|#######8                   | 58.8M/202M [00:55&lt;01:39, 1.43MB/s]
+file_sizes:  29%|#######8                   | 59.0M/202M [00:55&lt;01:39, 1.43MB/s]
+file_sizes:  29%|#######9                   | 59.2M/202M [00:55&lt;01:33, 1.52MB/s]
+file_sizes:  29%|#######9                   | 59.4M/202M [00:55&lt;01:36, 1.47MB/s]
+file_sizes:  30%|#######9                   | 59.6M/202M [00:55&lt;01:39, 1.43MB/s]
+file_sizes:  30%|########                   | 59.8M/202M [00:55&lt;01:35, 1.48MB/s]
+file_sizes:  30%|########                   | 60.0M/202M [00:56&lt;01:29, 1.58MB/s]
+file_sizes:  30%|########                   | 60.2M/202M [00:56&lt;01:33, 1.51MB/s]
+file_sizes:  30%|########                   | 60.4M/202M [00:56&lt;01:37, 1.45MB/s]
+file_sizes:  30%|########1                  | 60.8M/202M [00:56&lt;01:30, 1.56MB/s]
+file_sizes:  30%|########1                  | 60.9M/202M [00:56&lt;01:36, 1.46MB/s]
+file_sizes:  30%|########1                  | 61.1M/202M [00:56&lt;01:30, 1.56MB/s]
+file_sizes:  30%|########2                  | 61.3M/202M [00:56&lt;01:26, 1.62MB/s]
+file_sizes:  31%|########2                  | 61.5M/202M [00:57&lt;01:26, 1.61MB/s]
+file_sizes:  31%|########2                  | 61.8M/202M [00:57&lt;01:22, 1.69MB/s]
+file_sizes:  31%|########3                  | 62.0M/202M [00:57&lt;01:28, 1.58MB/s]
+file_sizes:  31%|########3                  | 62.2M/202M [00:57&lt;01:28, 1.58MB/s]
+file_sizes:  31%|########3                  | 62.4M/202M [00:57&lt;01:23, 1.67MB/s]
+file_sizes:  31%|########3                  | 62.6M/202M [00:57&lt;01:21, 1.70MB/s]
+file_sizes:  31%|########4                  | 62.9M/202M [00:57&lt;01:20, 1.72MB/s]
+file_sizes:  31%|########4                  | 63.2M/202M [00:58&lt;01:19, 1.73MB/s]
+file_sizes:  31%|########4                  | 63.4M/202M [00:58&lt;01:21, 1.70MB/s]
+file_sizes:  32%|########5                  | 63.7M/202M [00:58&lt;01:18, 1.75MB/s]
+file_sizes:  32%|########5                  | 63.9M/202M [00:58&lt;01:46, 1.29MB/s]
+file_sizes:  32%|########6                  | 64.3M/202M [00:58&lt;01:17, 1.78MB/s]
+file_sizes:  32%|########6                  | 64.6M/202M [00:58&lt;01:29, 1.53MB/s]
+file_sizes:  32%|########6                  | 64.7M/202M [00:59&lt;01:31, 1.50MB/s]
+file_sizes:  32%|########6                  | 64.9M/202M [00:59&lt;01:40, 1.36MB/s]
+file_sizes:  32%|########7                  | 65.1M/202M [00:59&lt;01:41, 1.35MB/s]
+file_sizes:  32%|########7                  | 65.3M/202M [00:59&lt;01:41, 1.34MB/s]
+file_sizes:  32%|########7                  | 65.5M/202M [00:59&lt;01:36, 1.41MB/s]
+file_sizes:  33%|########8                  | 65.7M/202M [00:59&lt;01:36, 1.40MB/s]
+file_sizes:  33%|########8                  | 65.9M/202M [00:59&lt;01:38, 1.38MB/s]
+file_sizes:  33%|########8                  | 66.1M/202M [01:00&lt;01:39, 1.37MB/s]
+file_sizes:  33%|########8                  | 66.3M/202M [01:00&lt;01:42, 1.32MB/s]
+file_sizes:  33%|########9                  | 66.5M/202M [01:00&lt;01:33, 1.45MB/s]
+file_sizes:  33%|########9                  | 66.7M/202M [01:00&lt;01:35, 1.41MB/s]
+file_sizes:  33%|########9                  | 66.9M/202M [01:00&lt;01:37, 1.39MB/s]
+file_sizes:  33%|########9                  | 67.1M/202M [01:00&lt;01:32, 1.45MB/s]
+file_sizes:  33%|#########                  | 67.3M/202M [01:00&lt;01:34, 1.43MB/s]
+file_sizes:  33%|#########                  | 67.5M/202M [01:01&lt;01:35, 1.40MB/s]
+file_sizes:  34%|#########                  | 67.7M/202M [01:01&lt;01:37, 1.38MB/s]
+file_sizes:  34%|#########                  | 67.9M/202M [01:01&lt;01:32, 1.45MB/s]
+file_sizes:  34%|#########1                 | 68.1M/202M [01:01&lt;01:33, 1.42MB/s]
+file_sizes:  34%|#########1                 | 68.3M/202M [01:01&lt;01:28, 1.51MB/s]
+file_sizes:  34%|#########1                 | 68.5M/202M [01:01&lt;01:55, 1.16MB/s]
+file_sizes:  34%|#########5                  | 68.7M/202M [01:02&lt;02:14, 990kB/s]
+file_sizes:  34%|#########2                 | 69.0M/202M [01:02&lt;01:56, 1.14MB/s]
+file_sizes:  34%|#########2                 | 69.2M/202M [01:02&lt;02:02, 1.08MB/s]
+file_sizes:  34%|#########6                  | 69.3M/202M [01:02&lt;02:16, 970kB/s]
+file_sizes:  34%|#########6                  | 69.4M/202M [01:02&lt;02:22, 929kB/s]
+file_sizes:  34%|#########6                  | 69.6M/202M [01:03&lt;02:33, 861kB/s]
+file_sizes:  35%|#########6                  | 69.7M/202M [01:03&lt;02:30, 880kB/s]
+file_sizes:  35%|#########6                  | 69.8M/202M [01:03&lt;02:29, 880kB/s]
+file_sizes:  35%|#########7                  | 69.9M/202M [01:03&lt;02:31, 868kB/s]
+file_sizes:  35%|#########7                  | 70.0M/202M [01:03&lt;02:42, 811kB/s]
+file_sizes:  35%|#########7                  | 70.1M/202M [01:03&lt;02:38, 830kB/s]
+file_sizes:  35%|#########7                  | 70.2M/202M [01:03&lt;02:34, 848kB/s]
+file_sizes:  35%|#########7                  | 70.4M/202M [01:04&lt;02:32, 858kB/s]
+file_sizes:  35%|#########7                  | 70.5M/202M [01:04&lt;02:33, 852kB/s]
+file_sizes:  35%|#########8                  | 70.6M/202M [01:04&lt;02:30, 870kB/s]
+file_sizes:  35%|#########8                  | 70.7M/202M [01:04&lt;02:41, 809kB/s]
+file_sizes:  35%|#########8                  | 70.8M/202M [01:04&lt;02:41, 808kB/s]
+file_sizes:  35%|#########8                  | 71.0M/202M [01:04&lt;02:36, 834kB/s]
+file_sizes:  35%|#########8                  | 71.1M/202M [01:04&lt;02:33, 849kB/s]
+file_sizes:  35%|#########9                  | 71.3M/202M [01:05&lt;02:31, 859kB/s]
+file_sizes:  35%|#########9                  | 71.4M/202M [01:05&lt;02:28, 877kB/s]
+file_sizes:  35%|#########9                  | 71.5M/202M [01:05&lt;02:28, 879kB/s]
+file_sizes:  36%|#########9                  | 71.7M/202M [01:05&lt;02:27, 879kB/s]
+file_sizes:  36%|#########9                  | 71.8M/202M [01:05&lt;02:27, 878kB/s]
+file_sizes:  36%|#########9                  | 72.0M/202M [01:05&lt;02:27, 878kB/s]
+file_sizes:  36%|##########                  | 72.2M/202M [01:06&lt;02:27, 878kB/s]
+file_sizes:  36%|##########                  | 72.3M/202M [01:06&lt;02:27, 877kB/s]
+file_sizes:  36%|##########                  | 72.5M/202M [01:06&lt;02:27, 877kB/s]
+file_sizes:  36%|##########                  | 72.6M/202M [01:06&lt;02:28, 870kB/s]
+file_sizes:  36%|##########                  | 72.7M/202M [01:06&lt;02:27, 874kB/s]
+file_sizes:  36%|##########1                 | 72.8M/202M [01:06&lt;02:28, 867kB/s]
+file_sizes:  36%|##########1                 | 72.9M/202M [01:06&lt;02:25, 883kB/s]
+file_sizes:  36%|##########1                 | 73.0M/202M [01:07&lt;02:37, 815kB/s]
+file_sizes:  36%|##########1                 | 73.1M/202M [01:07&lt;02:33, 838kB/s]
+file_sizes:  36%|##########1                 | 73.3M/202M [01:07&lt;02:30, 852kB/s]
+file_sizes:  36%|##########2                 | 73.5M/202M [01:07&lt;02:28, 860kB/s]
+file_sizes:  37%|##########2                 | 73.6M/202M [01:07&lt;02:28, 865kB/s]
+file_sizes:  37%|##########2                 | 73.8M/202M [01:07&lt;02:17, 927kB/s]
+file_sizes:  37%|##########2                 | 73.9M/202M [01:08&lt;02:21, 900kB/s]
+file_sizes:  37%|##########2                 | 74.1M/202M [01:08&lt;02:11, 972kB/s]
+file_sizes:  37%|##########3                 | 74.2M/202M [01:08&lt;02:25, 878kB/s]
+file_sizes:  37%|##########3                 | 74.3M/202M [01:08&lt;02:24, 882kB/s]
+file_sizes:  37%|##########3                 | 74.4M/202M [01:08&lt;02:24, 881kB/s]
+file_sizes:  37%|##########3                 | 74.6M/202M [01:08&lt;02:15, 938kB/s]
+file_sizes:  37%|##########3                 | 74.7M/202M [01:08&lt;02:17, 926kB/s]
+file_sizes:  37%|##########3                 | 74.8M/202M [01:09&lt;02:18, 915kB/s]
+file_sizes:  37%|##########4                 | 75.0M/202M [01:09&lt;02:12, 956kB/s]
+file_sizes:  37%|##########                 | 75.1M/202M [01:09&lt;02:03, 1.03MB/s]
+file_sizes:  37%|##########4                 | 75.2M/202M [01:09&lt;02:08, 984kB/s]
+file_sizes:  37%|##########4                 | 75.4M/202M [01:09&lt;02:12, 951kB/s]
+file_sizes:  37%|##########4                 | 75.5M/202M [01:09&lt;02:08, 978kB/s]
+file_sizes:  38%|##########1                | 75.7M/202M [01:09&lt;02:01, 1.04MB/s]
+file_sizes:  38%|##########5                 | 75.8M/202M [01:10&lt;02:06, 995kB/s]
+file_sizes:  38%|##########1                | 75.9M/202M [01:10&lt;02:03, 1.02MB/s]
+file_sizes:  38%|##########1                | 76.1M/202M [01:10&lt;01:56, 1.08MB/s]
+file_sizes:  38%|##########2                | 76.2M/202M [01:10&lt;02:03, 1.02MB/s]
+file_sizes:  38%|##########2                | 76.4M/202M [01:10&lt;01:52, 1.11MB/s]
+file_sizes:  38%|##########2                | 76.6M/202M [01:10&lt;01:54, 1.09MB/s]
+file_sizes:  38%|##########2                | 76.8M/202M [01:10&lt;01:49, 1.14MB/s]
+file_sizes:  38%|##########3                | 77.0M/202M [01:11&lt;01:41, 1.23MB/s]
+file_sizes:  38%|##########3                | 77.2M/202M [01:11&lt;01:40, 1.24MB/s]
+file_sizes:  38%|##########3                | 77.3M/202M [01:11&lt;01:41, 1.23MB/s]
+file_sizes:  38%|##########3                | 77.5M/202M [01:11&lt;01:32, 1.34MB/s]
+file_sizes:  39%|##########4                | 77.7M/202M [01:11&lt;01:31, 1.35MB/s]
+file_sizes:  39%|##########4                | 77.9M/202M [01:11&lt;01:32, 1.34MB/s]
+file_sizes:  39%|##########4                | 78.1M/202M [01:11&lt;01:53, 1.09MB/s]
+file_sizes:  39%|##########5                | 78.5M/202M [01:12&lt;01:35, 1.29MB/s]
+file_sizes:  39%|##########5                | 78.8M/202M [01:12&lt;01:38, 1.25MB/s]
+file_sizes:  39%|##########5                | 78.9M/202M [01:12&lt;01:40, 1.22MB/s]
+file_sizes:  39%|##########5                | 79.0M/202M [01:12&lt;01:39, 1.23MB/s]
+file_sizes:  39%|##########6                | 79.2M/202M [01:12&lt;01:40, 1.21MB/s]
+file_sizes:  39%|##########6                | 79.4M/202M [01:12&lt;01:39, 1.22MB/s]
+file_sizes:  39%|##########6                | 79.5M/202M [01:13&lt;01:39, 1.23MB/s]
+file_sizes:  40%|##########6                | 79.7M/202M [01:13&lt;01:36, 1.26MB/s]
+file_sizes:  40%|##########6                | 79.9M/202M [01:13&lt;01:35, 1.28MB/s]
+file_sizes:  40%|##########7                | 80.1M/202M [01:13&lt;01:35, 1.27MB/s]
+file_sizes:  40%|##########7                | 80.3M/202M [01:13&lt;01:26, 1.41MB/s]
+file_sizes:  40%|##########7                | 80.5M/202M [01:13&lt;01:34, 1.28MB/s]
+file_sizes:  40%|##########8                | 80.7M/202M [01:13&lt;01:33, 1.30MB/s]
+file_sizes:  40%|##########8                | 80.9M/202M [01:14&lt;01:30, 1.34MB/s]
+file_sizes:  40%|##########8                | 81.2M/202M [01:14&lt;01:28, 1.36MB/s]
+file_sizes:  40%|##########8                | 81.4M/202M [01:14&lt;01:25, 1.41MB/s]
+file_sizes:  40%|##########9                | 81.7M/202M [01:14&lt;01:25, 1.41MB/s]
+file_sizes:  41%|##########9                | 81.9M/202M [01:14&lt;01:18, 1.52MB/s]
+file_sizes:  41%|##########9                | 82.1M/202M [01:14&lt;01:22, 1.46MB/s]
+file_sizes:  41%|###########                | 82.2M/202M [01:15&lt;01:24, 1.42MB/s]
+file_sizes:  41%|###########                | 82.6M/202M [01:15&lt;01:23, 1.43MB/s]
+file_sizes:  41%|###########                | 82.8M/202M [01:15&lt;01:23, 1.43MB/s]
+file_sizes:  41%|###########1               | 83.0M/202M [01:15&lt;01:21, 1.46MB/s]
+file_sizes:  41%|###########1               | 83.2M/202M [01:15&lt;01:15, 1.57MB/s]
+file_sizes:  41%|###########1               | 83.4M/202M [01:15&lt;01:19, 1.49MB/s]
+file_sizes:  42%|###########2               | 83.7M/202M [01:15&lt;01:20, 1.46MB/s]
+file_sizes:  42%|###########2               | 84.0M/202M [01:16&lt;01:16, 1.55MB/s]
+file_sizes:  42%|###########2               | 84.1M/202M [01:16&lt;01:21, 1.45MB/s]
+file_sizes:  42%|###########2               | 84.3M/202M [01:16&lt;01:15, 1.56MB/s]
+file_sizes:  42%|###########3               | 84.5M/202M [01:16&lt;01:18, 1.48MB/s]
+file_sizes:  42%|###########3               | 84.8M/202M [01:16&lt;01:20, 1.46MB/s]
+file_sizes:  42%|###########3               | 85.0M/202M [01:16&lt;01:39, 1.17MB/s]
+file_sizes:  42%|###########4               | 85.4M/202M [01:17&lt;01:30, 1.28MB/s]
+file_sizes:  42%|###########4               | 85.6M/202M [01:17&lt;01:31, 1.27MB/s]
+file_sizes:  43%|###########4               | 85.8M/202M [01:17&lt;01:33, 1.24MB/s]
+file_sizes:  43%|###########4               | 85.9M/202M [01:17&lt;01:33, 1.24MB/s]
+file_sizes:  43%|###########5               | 86.0M/202M [01:17&lt;01:37, 1.19MB/s]
+file_sizes:  43%|###########5               | 86.2M/202M [01:17&lt;01:32, 1.24MB/s]
+file_sizes:  43%|###########5               | 86.3M/202M [01:18&lt;01:32, 1.25MB/s]
+file_sizes:  43%|###########5               | 86.5M/202M [01:18&lt;01:36, 1.19MB/s]
+file_sizes:  43%|###########6               | 86.7M/202M [01:18&lt;01:23, 1.38MB/s]
+file_sizes:  43%|###########6               | 86.9M/202M [01:18&lt;01:31, 1.25MB/s]
+file_sizes:  43%|###########6               | 87.1M/202M [01:18&lt;01:29, 1.28MB/s]
+file_sizes:  43%|###########6               | 87.3M/202M [01:18&lt;01:28, 1.29MB/s]
+file_sizes:  43%|###########7               | 87.5M/202M [01:18&lt;01:22, 1.38MB/s]
+file_sizes:  43%|###########7               | 87.7M/202M [01:19&lt;01:22, 1.38MB/s]
+file_sizes:  44%|###########7               | 87.9M/202M [01:19&lt;01:23, 1.36MB/s]
+file_sizes:  44%|###########7               | 88.0M/202M [01:19&lt;01:24, 1.35MB/s]
+file_sizes:  44%|###########8               | 88.2M/202M [01:19&lt;01:19, 1.43MB/s]
+file_sizes:  44%|###########8               | 88.4M/202M [01:19&lt;01:20, 1.41MB/s]
+file_sizes:  44%|###########8               | 88.6M/202M [01:19&lt;01:21, 1.39MB/s]
+file_sizes:  44%|###########8               | 88.8M/202M [01:19&lt;01:18, 1.43MB/s]
+file_sizes:  44%|###########9               | 89.0M/202M [01:19&lt;01:12, 1.56MB/s]
+file_sizes:  44%|###########9               | 89.2M/202M [01:20&lt;01:15, 1.48MB/s]
+file_sizes:  44%|###########9               | 89.4M/202M [01:20&lt;01:18, 1.43MB/s]
+file_sizes:  44%|###########9               | 89.6M/202M [01:20&lt;01:22, 1.36MB/s]
+file_sizes:  45%|############               | 89.8M/202M [01:20&lt;01:14, 1.49MB/s]
+file_sizes:  45%|############               | 90.0M/202M [01:20&lt;01:11, 1.56MB/s]
+file_sizes:  45%|############               | 90.3M/202M [01:20&lt;01:14, 1.50MB/s]
+file_sizes:  45%|############1              | 90.5M/202M [01:20&lt;01:18, 1.42MB/s]
+file_sizes:  45%|############1              | 90.7M/202M [01:21&lt;01:12, 1.53MB/s]
+file_sizes:  45%|############1              | 90.9M/202M [01:21&lt;01:15, 1.47MB/s]
+file_sizes:  45%|############1              | 91.0M/202M [01:21&lt;01:35, 1.16MB/s]
+file_sizes:  45%|############2              | 91.5M/202M [01:21&lt;01:19, 1.38MB/s]
+file_sizes:  45%|############2              | 91.7M/202M [01:21&lt;01:25, 1.29MB/s]
+file_sizes:  46%|############2              | 91.8M/202M [01:21&lt;01:25, 1.29MB/s]
+file_sizes:  46%|############3              | 91.9M/202M [01:22&lt;01:26, 1.26MB/s]
+file_sizes:  46%|############7               | 92.1M/202M [01:22&lt;02:13, 820kB/s]
+file_sizes:  46%|############3              | 92.3M/202M [01:22&lt;01:37, 1.12MB/s]
+file_sizes:  46%|############8               | 92.5M/202M [01:22&lt;01:53, 965kB/s]
+file_sizes:  46%|############8               | 92.7M/202M [01:23&lt;01:55, 941kB/s]
+file_sizes:  46%|############8               | 92.9M/202M [01:23&lt;01:57, 923kB/s]
+file_sizes:  46%|############9               | 93.0M/202M [01:23&lt;01:51, 973kB/s]
+file_sizes:  46%|############4              | 93.2M/202M [01:23&lt;01:45, 1.03MB/s]
+file_sizes:  46%|############9               | 93.3M/202M [01:23&lt;01:50, 978kB/s]
+file_sizes:  46%|############9               | 93.5M/202M [01:23&lt;01:48, 995kB/s]
+file_sizes:  46%|############9               | 93.6M/202M [01:23&lt;02:00, 898kB/s]
+file_sizes:  46%|#############               | 93.7M/202M [01:24&lt;01:51, 965kB/s]
+file_sizes:  47%|############5              | 93.9M/202M [01:24&lt;01:45, 1.03MB/s]
+file_sizes:  47%|############5              | 94.0M/202M [01:24&lt;01:44, 1.03MB/s]
+file_sizes:  47%|#############               | 94.1M/202M [01:24&lt;01:57, 914kB/s]
+file_sizes:  47%|#############               | 94.3M/202M [01:24&lt;01:49, 980kB/s]
+file_sizes:  47%|#############1              | 94.5M/202M [01:24&lt;01:53, 944kB/s]
+file_sizes:  47%|############6              | 94.6M/202M [01:24&lt;01:46, 1.00MB/s]
+file_sizes:  47%|#############1              | 94.7M/202M [01:25&lt;01:59, 897kB/s]
+file_sizes:  47%|#############1              | 94.8M/202M [01:25&lt;02:02, 872kB/s]
+file_sizes:  47%|#############1              | 94.9M/202M [01:25&lt;02:21, 753kB/s]
+file_sizes:  47%|#############2              | 95.1M/202M [01:25&lt;02:14, 795kB/s]
+file_sizes:  47%|#############2              | 95.2M/202M [01:25&lt;02:08, 828kB/s]
+file_sizes:  47%|#############2              | 95.3M/202M [01:25&lt;02:05, 845kB/s]
+file_sizes:  47%|#############2              | 95.4M/202M [01:26&lt;02:57, 597kB/s]
+file_sizes:  47%|#############2              | 95.6M/202M [01:26&lt;02:15, 780kB/s]
+file_sizes:  47%|#############2              | 95.7M/202M [01:26&lt;02:20, 752kB/s]
+file_sizes:  48%|#############3              | 95.8M/202M [01:26&lt;02:35, 680kB/s]
+file_sizes:  48%|#############3              | 95.9M/202M [01:26&lt;02:36, 676kB/s]
+file_sizes:  48%|#############3              | 96.0M/202M [01:26&lt;02:37, 669kB/s]
+file_sizes:  48%|#############3              | 96.1M/202M [01:27&lt;02:40, 656kB/s]
+file_sizes:  48%|#############3              | 96.2M/202M [01:27&lt;02:39, 663kB/s]
+file_sizes:  48%|#############3              | 96.3M/202M [01:27&lt;02:38, 666kB/s]
+file_sizes:  48%|#############3              | 96.4M/202M [01:27&lt;02:37, 666kB/s]
+file_sizes:  48%|#############3              | 96.5M/202M [01:27&lt;02:38, 661kB/s]
+file_sizes:  48%|#############4              | 96.6M/202M [01:27&lt;02:41, 651kB/s]
+file_sizes:  48%|#############4              | 96.7M/202M [01:27&lt;02:42, 645kB/s]
+file_sizes:  48%|#############4              | 96.8M/202M [01:28&lt;02:28, 705kB/s]
+file_sizes:  48%|#############4              | 96.9M/202M [01:28&lt;02:34, 680kB/s]
+file_sizes:  48%|#############4              | 97.0M/202M [01:28&lt;02:47, 624kB/s]
+file_sizes:  48%|#############4              | 97.1M/202M [01:28&lt;02:30, 694kB/s]
+file_sizes:  48%|#############4              | 97.2M/202M [01:28&lt;02:29, 697kB/s]
+file_sizes:  48%|#############5              | 97.3M/202M [01:28&lt;02:29, 699kB/s]
+file_sizes:  48%|#############5              | 97.5M/202M [01:29&lt;02:39, 655kB/s]
+file_sizes:  48%|#############5              | 97.6M/202M [01:29&lt;02:35, 669kB/s]
+file_sizes:  48%|#############5              | 97.7M/202M [01:29&lt;02:24, 719kB/s]
+file_sizes:  48%|#############5              | 97.8M/202M [01:29&lt;02:28, 700kB/s]
+file_sizes:  49%|#############5              | 97.9M/202M [01:29&lt;02:32, 678kB/s]
+file_sizes:  49%|#############6              | 98.0M/202M [01:29&lt;02:32, 678kB/s]
+file_sizes:  49%|#############6              | 98.1M/202M [01:30&lt;02:33, 675kB/s]
+file_sizes:  49%|#############6              | 98.2M/202M [01:30&lt;02:22, 726kB/s]
+file_sizes:  49%|#############6              | 98.3M/202M [01:30&lt;02:29, 693kB/s]
+file_sizes:  49%|#############6              | 98.4M/202M [01:30&lt;02:29, 689kB/s]
+file_sizes:  49%|#############6              | 98.5M/202M [01:30&lt;02:31, 683kB/s]
+file_sizes:  49%|#############6              | 98.6M/202M [01:30&lt;03:11, 538kB/s]
+file_sizes:  49%|#############7              | 98.8M/202M [01:31&lt;02:33, 671kB/s]
+file_sizes:  49%|#############7              | 98.9M/202M [01:31&lt;02:53, 594kB/s]
+file_sizes:  49%|#############7              | 98.9M/202M [01:31&lt;02:56, 581kB/s]
+file_sizes:  49%|#############7              | 99.0M/202M [01:31&lt;03:10, 538kB/s]
+file_sizes:  49%|#############7              | 99.1M/202M [01:31&lt;03:05, 554kB/s]
+file_sizes:  49%|#############7              | 99.1M/202M [01:31&lt;03:02, 563kB/s]
+file_sizes:  49%|#############7              | 99.2M/202M [01:31&lt;03:17, 518kB/s]
+file_sizes:  49%|#############7              | 99.3M/202M [01:32&lt;02:57, 577kB/s]
+file_sizes:  49%|#############8              | 99.4M/202M [01:32&lt;03:09, 538kB/s]
+file_sizes:  49%|#############8              | 99.5M/202M [01:32&lt;02:45, 618kB/s]
+file_sizes:  49%|#############8              | 99.6M/202M [01:32&lt;02:50, 599kB/s]
+file_sizes:  49%|#############8              | 99.7M/202M [01:32&lt;02:43, 621kB/s]
+file_sizes:  50%|#############8              | 99.9M/202M [01:33&lt;02:37, 648kB/s]
+file_sizes:  50%|##############3              | 100M/202M [01:33&lt;02:44, 620kB/s]
+file_sizes:  50%|##############4              | 100M/202M [01:33&lt;02:37, 644kB/s]
+file_sizes:  50%|##############4              | 100M/202M [01:33&lt;02:24, 702kB/s]
+file_sizes:  50%|##############4              | 100M/202M [01:33&lt;02:25, 698kB/s]
+file_sizes:  50%|##############4              | 100M/202M [01:33&lt;02:38, 640kB/s]
+file_sizes:  50%|##############4              | 101M/202M [01:33&lt;02:37, 643kB/s]
+file_sizes:  50%|##############4              | 101M/202M [01:34&lt;02:32, 663kB/s]
+file_sizes:  50%|##############4              | 101M/202M [01:34&lt;02:19, 723kB/s]
+file_sizes:  50%|##############5              | 101M/202M [01:34&lt;02:23, 703kB/s]
+file_sizes:  50%|##############5              | 101M/202M [01:34&lt;02:28, 680kB/s]
+file_sizes:  50%|##############5              | 101M/202M [01:34&lt;02:29, 673kB/s]
+file_sizes:  50%|##############5              | 101M/202M [01:34&lt;02:16, 735kB/s]
+file_sizes:  50%|##############5              | 101M/202M [01:34&lt;02:19, 722kB/s]
+file_sizes:  50%|##############5              | 101M/202M [01:35&lt;02:34, 649kB/s]
+file_sizes:  50%|##############5              | 101M/202M [01:35&lt;02:34, 650kB/s]
+file_sizes:  50%|##############5              | 102M/202M [01:35&lt;02:19, 719kB/s]
+file_sizes:  50%|##############6              | 102M/202M [01:35&lt;02:23, 699kB/s]
+file_sizes:  50%|##############6              | 102M/202M [01:35&lt;02:27, 677kB/s]
+file_sizes:  50%|##############6              | 102M/202M [01:35&lt;02:29, 669kB/s]
+file_sizes:  51%|##############6              | 102M/202M [01:35&lt;02:15, 735kB/s]
+file_sizes:  51%|##############6              | 102M/202M [01:36&lt;02:20, 708kB/s]
+file_sizes:  51%|##############6              | 102M/202M [01:36&lt;02:25, 682kB/s]
+file_sizes:  51%|##############6              | 102M/202M [01:36&lt;02:38, 628kB/s]
+file_sizes:  51%|##############7              | 102M/202M [01:36&lt;02:23, 693kB/s]
+file_sizes:  51%|##############7              | 102M/202M [01:36&lt;02:22, 697kB/s]
+file_sizes:  51%|##############7              | 103M/202M [01:36&lt;02:21, 699kB/s]
+file_sizes:  51%|##############7              | 103M/202M [01:37&lt;02:21, 700kB/s]
+file_sizes:  51%|##############7              | 103M/202M [01:37&lt;02:51, 575kB/s]
+file_sizes:  51%|##############8              | 103M/202M [01:37&lt;02:32, 646kB/s]
+file_sizes:  51%|##############8              | 103M/202M [01:37&lt;02:46, 593kB/s]
+file_sizes:  51%|##############8              | 103M/202M [01:37&lt;02:42, 605kB/s]
+file_sizes:  51%|##############8              | 103M/202M [01:38&lt;02:40, 615kB/s]
+file_sizes:  51%|##############8              | 103M/202M [01:38&lt;02:44, 598kB/s]
+file_sizes:  51%|##############8              | 103M/202M [01:38&lt;02:43, 600kB/s]
+file_sizes:  51%|##############8              | 103M/202M [01:38&lt;02:44, 598kB/s]
+file_sizes:  51%|##############8              | 103M/202M [01:38&lt;02:40, 610kB/s]
+file_sizes:  51%|##############8              | 104M/202M [01:38&lt;02:40, 611kB/s]
+file_sizes:  51%|##############9              | 104M/202M [01:38&lt;02:41, 605kB/s]
+file_sizes:  51%|##############9              | 104M/202M [01:38&lt;02:39, 615kB/s]
+file_sizes:  51%|##############9              | 104M/202M [01:38&lt;02:39, 615kB/s]
+file_sizes:  52%|##############9              | 104M/202M [01:39&lt;02:21, 689kB/s]
+file_sizes:  52%|##############9              | 104M/202M [01:39&lt;02:36, 625kB/s]
+file_sizes:  52%|##############9              | 104M/202M [01:39&lt;02:36, 625kB/s]
+file_sizes:  52%|##############9              | 104M/202M [01:39&lt;02:19, 698kB/s]
+file_sizes:  52%|##############9              | 104M/202M [01:39&lt;02:21, 688kB/s]
+file_sizes:  52%|###############              | 104M/202M [01:39&lt;02:23, 678kB/s]
+file_sizes:  52%|###############              | 104M/202M [01:39&lt;02:27, 660kB/s]
+file_sizes:  52%|###############              | 105M/202M [01:40&lt;02:13, 725kB/s]
+file_sizes:  52%|###############              | 105M/202M [01:40&lt;02:17, 707kB/s]
+file_sizes:  52%|###############              | 105M/202M [01:40&lt;02:20, 691kB/s]
+file_sizes:  52%|###############              | 105M/202M [01:40&lt;02:24, 669kB/s]
+file_sizes:  52%|###############              | 105M/202M [01:40&lt;02:11, 732kB/s]
+file_sizes:  52%|###############1             | 105M/202M [01:40&lt;02:13, 721kB/s]
+file_sizes:  52%|###############1             | 105M/202M [01:40&lt;02:06, 761kB/s]
+file_sizes:  52%|###############1             | 105M/202M [01:41&lt;02:14, 715kB/s]
+file_sizes:  52%|###############1             | 105M/202M [01:41&lt;02:05, 768kB/s]
+file_sizes:  52%|###############1             | 105M/202M [01:41&lt;02:10, 736kB/s]
+file_sizes:  52%|###############1             | 106M/202M [01:41&lt;02:15, 711kB/s]
+file_sizes:  52%|###############2             | 106M/202M [01:41&lt;02:20, 681kB/s]
+file_sizes:  52%|###############2             | 106M/202M [01:41&lt;02:09, 742kB/s]
+file_sizes:  53%|###############2             | 106M/202M [01:41&lt;02:13, 720kB/s]
+file_sizes:  53%|###############2             | 106M/202M [01:42&lt;02:16, 699kB/s]
+file_sizes:  53%|###############2             | 106M/202M [01:42&lt;02:22, 672kB/s]
+file_sizes:  53%|###############2             | 106M/202M [01:42&lt;02:09, 737kB/s]
+file_sizes:  53%|###############2             | 106M/202M [01:42&lt;02:13, 717kB/s]
+file_sizes:  53%|###############2             | 106M/202M [01:42&lt;02:16, 696kB/s]
+file_sizes:  53%|###############3             | 106M/202M [01:42&lt;02:21, 670kB/s]
+file_sizes:  53%|###############3             | 107M/202M [01:42&lt;02:09, 736kB/s]
+file_sizes:  53%|###############3             | 107M/202M [01:43&lt;02:02, 773kB/s]
+file_sizes:  53%|###############3             | 107M/202M [01:43&lt;02:07, 747kB/s]
+file_sizes:  53%|###############3             | 107M/202M [01:43&lt;02:09, 732kB/s]
+file_sizes:  53%|###############3             | 107M/202M [01:43&lt;02:15, 697kB/s]
+file_sizes:  53%|###############4             | 107M/202M [01:43&lt;02:05, 753kB/s]
+file_sizes:  53%|###############4             | 107M/202M [01:43&lt;02:09, 728kB/s]
+file_sizes:  53%|###############4             | 107M/202M [01:43&lt;02:13, 705kB/s]
+file_sizes:  53%|###############4             | 107M/202M [01:44&lt;02:02, 766kB/s]
+file_sizes:  53%|###############4             | 108M/202M [01:44&lt;02:10, 721kB/s]
+file_sizes:  53%|###############4             | 108M/202M [01:44&lt;02:01, 772kB/s]
+file_sizes:  53%|###############5             | 108M/202M [01:44&lt;01:57, 801kB/s]
+file_sizes:  54%|###############5             | 108M/202M [01:44&lt;02:02, 764kB/s]
+file_sizes:  54%|###############5             | 108M/202M [01:44&lt;01:59, 781kB/s]
+file_sizes:  54%|###############5             | 108M/202M [01:44&lt;01:54, 820kB/s]
+file_sizes:  54%|###############5             | 108M/202M [01:45&lt;02:01, 766kB/s]
+file_sizes:  54%|###############5             | 108M/202M [01:45&lt;01:55, 807kB/s]
+file_sizes:  54%|###############6             | 109M/202M [01:45&lt;01:51, 832kB/s]
+file_sizes:  54%|###############6             | 109M/202M [01:45&lt;02:43, 569kB/s]
+file_sizes:  54%|###############6             | 109M/202M [01:45&lt;02:00, 771kB/s]
+file_sizes:  54%|###############6             | 109M/202M [01:46&lt;02:03, 751kB/s]
+file_sizes:  54%|###############6             | 109M/202M [01:46&lt;01:57, 787kB/s]
+file_sizes:  54%|###############7             | 109M/202M [01:46&lt;02:02, 755kB/s]
+file_sizes:  54%|###############7             | 109M/202M [01:46&lt;02:06, 729kB/s]
+file_sizes:  54%|###############7             | 109M/202M [01:46&lt;02:02, 752kB/s]
+file_sizes:  54%|###############7             | 110M/202M [01:46&lt;01:55, 799kB/s]
+file_sizes:  54%|###############7             | 110M/202M [01:46&lt;01:52, 819kB/s]
+file_sizes:  54%|###############7             | 110M/202M [01:47&lt;02:08, 713kB/s]
+file_sizes:  55%|###############8             | 110M/202M [01:47&lt;01:59, 770kB/s]
+file_sizes:  55%|###############8             | 110M/202M [01:47&lt;01:53, 805kB/s]
+file_sizes:  55%|###############8             | 110M/202M [01:47&lt;01:52, 811kB/s]
+file_sizes:  55%|###############8             | 110M/202M [01:47&lt;01:49, 834kB/s]
+file_sizes:  55%|###############8             | 110M/202M [01:47&lt;01:38, 922kB/s]
+file_sizes:  55%|###############8             | 111M/202M [01:48&lt;01:48, 842kB/s]
+file_sizes:  55%|###############9             | 111M/202M [01:48&lt;01:54, 794kB/s]
+file_sizes:  55%|###############9             | 111M/202M [01:48&lt;01:44, 865kB/s]
+file_sizes:  55%|###############9             | 111M/202M [01:48&lt;01:43, 873kB/s]
+file_sizes:  55%|###############9             | 111M/202M [01:48&lt;01:35, 949kB/s]
+file_sizes:  55%|###############9             | 111M/202M [01:48&lt;01:36, 933kB/s]
+file_sizes:  55%|################             | 111M/202M [01:48&lt;01:46, 851kB/s]
+file_sizes:  55%|################             | 112M/202M [01:49&lt;01:44, 861kB/s]
+file_sizes:  55%|################             | 112M/202M [01:49&lt;01:43, 867kB/s]
+file_sizes:  55%|################             | 112M/202M [01:49&lt;01:38, 914kB/s]
+file_sizes:  56%|################1            | 112M/202M [01:49&lt;01:39, 903kB/s]
+file_sizes:  56%|################1            | 112M/202M [01:49&lt;01:31, 975kB/s]
+file_sizes:  56%|################1            | 112M/202M [01:49&lt;01:34, 942kB/s]
+file_sizes:  56%|################1            | 112M/202M [01:50&lt;01:36, 928kB/s]
+file_sizes:  56%|################1            | 113M/202M [01:50&lt;01:44, 851kB/s]
+file_sizes:  56%|################2            | 113M/202M [01:50&lt;01:43, 860kB/s]
+file_sizes:  56%|################2            | 113M/202M [01:50&lt;01:37, 910kB/s]
+file_sizes:  56%|################2            | 113M/202M [01:50&lt;01:30, 984kB/s]
+file_sizes:  56%|################2            | 113M/202M [01:50&lt;01:33, 946kB/s]
+file_sizes:  56%|################2            | 113M/202M [01:51&lt;01:34, 933kB/s]
+file_sizes:  56%|################3            | 113M/202M [01:51&lt;01:43, 852kB/s]
+file_sizes:  56%|################3            | 114M/202M [01:51&lt;01:42, 861kB/s]
+file_sizes:  56%|################3            | 114M/202M [01:51&lt;01:41, 867kB/s]
+file_sizes:  56%|################3            | 114M/202M [01:51&lt;01:35, 915kB/s]
+file_sizes:  57%|################3            | 114M/202M [01:51&lt;01:29, 983kB/s]
+file_sizes:  57%|###############8            | 114M/202M [01:51&lt;01:25, 1.02MB/s]
+file_sizes:  57%|################4            | 114M/202M [01:52&lt;01:30, 968kB/s]
+file_sizes:  57%|################4            | 114M/202M [01:52&lt;01:32, 943kB/s]
+file_sizes:  57%|################4            | 115M/202M [01:52&lt;01:40, 867kB/s]
+file_sizes:  57%|################5            | 115M/202M [01:52&lt;01:39, 870kB/s]
+file_sizes:  57%|################5            | 115M/202M [01:52&lt;01:34, 916kB/s]
+file_sizes:  57%|################5            | 115M/202M [01:52&lt;01:27, 984kB/s]
+file_sizes:  57%|################            | 115M/202M [01:53&lt;01:24, 1.02MB/s]
+file_sizes:  57%|################5            | 115M/202M [01:53&lt;01:27, 981kB/s]
+file_sizes:  57%|################6            | 116M/202M [01:53&lt;01:32, 935kB/s]
+file_sizes:  57%|################            | 116M/202M [01:53&lt;01:25, 1.00MB/s]
+file_sizes:  57%|################            | 116M/202M [01:53&lt;01:22, 1.04MB/s]
+file_sizes:  57%|################6            | 116M/202M [01:53&lt;01:26, 990kB/s]
+file_sizes:  58%|################6            | 116M/202M [01:53&lt;01:30, 941kB/s]
+file_sizes:  58%|################7            | 116M/202M [01:54&lt;01:27, 981kB/s]
+file_sizes:  58%|################1           | 116M/202M [01:54&lt;01:24, 1.00MB/s]
+file_sizes:  58%|################2           | 117M/202M [01:54&lt;01:18, 1.08MB/s]
+file_sizes:  58%|################2           | 117M/202M [01:54&lt;01:19, 1.07MB/s]
+file_sizes:  58%|################2           | 117M/202M [01:54&lt;01:15, 1.12MB/s]
+file_sizes:  58%|################2           | 117M/202M [01:55&lt;01:06, 1.27MB/s]
+file_sizes:  58%|################3           | 117M/202M [01:55&lt;01:08, 1.22MB/s]
+file_sizes:  58%|################3           | 118M/202M [01:55&lt;01:10, 1.19MB/s]
+file_sizes:  58%|################3           | 118M/202M [01:55&lt;01:08, 1.23MB/s]
+file_sizes:  59%|################3           | 118M/202M [01:55&lt;01:09, 1.20MB/s]
+file_sizes:  59%|################4           | 118M/202M [01:55&lt;01:01, 1.35MB/s]
+file_sizes:  59%|################4           | 118M/202M [01:55&lt;01:02, 1.34MB/s]
+file_sizes:  59%|################4           | 119M/202M [01:56&lt;01:01, 1.34MB/s]
+file_sizes:  59%|################5           | 119M/202M [01:56&lt;00:58, 1.42MB/s]
+file_sizes:  59%|################5           | 119M/202M [01:56&lt;00:54, 1.52MB/s]
+file_sizes:  59%|################5           | 119M/202M [01:56&lt;00:56, 1.46MB/s]
+file_sizes:  59%|################5           | 120M/202M [01:56&lt;00:54, 1.52MB/s]
+file_sizes:  59%|################6           | 120M/202M [01:56&lt;00:50, 1.61MB/s]
+file_sizes:  59%|################6           | 120M/202M [01:56&lt;00:49, 1.66MB/s]
+file_sizes:  60%|################6           | 120M/202M [01:56&lt;00:52, 1.56MB/s]
+file_sizes:  60%|################7           | 120M/202M [01:57&lt;00:47, 1.71MB/s]
+file_sizes:  60%|################7           | 121M/202M [01:57&lt;00:42, 1.90MB/s]
+file_sizes:  60%|################8           | 121M/202M [01:57&lt;00:43, 1.85MB/s]
+file_sizes:  60%|################8           | 121M/202M [01:57&lt;00:40, 1.97MB/s]
+file_sizes:  60%|################8           | 122M/202M [01:57&lt;00:42, 1.87MB/s]
+file_sizes:  60%|################9           | 122M/202M [01:57&lt;00:39, 2.03MB/s]
+file_sizes:  61%|################9           | 122M/202M [01:57&lt;00:37, 2.12MB/s]
+file_sizes:  61%|################9           | 122M/202M [01:58&lt;00:40, 1.95MB/s]
+file_sizes:  61%|#################           | 123M/202M [01:58&lt;00:35, 2.25MB/s]
+file_sizes:  61%|#################           | 123M/202M [01:58&lt;00:34, 2.29MB/s]
+file_sizes:  61%|#################1          | 123M/202M [01:58&lt;00:33, 2.34MB/s]
+file_sizes:  61%|#################1          | 124M/202M [01:58&lt;00:31, 2.46MB/s]
+file_sizes:  62%|#################2          | 124M/202M [01:58&lt;00:38, 2.04MB/s]
+file_sizes:  62%|#################3          | 125M/202M [01:58&lt;00:31, 2.46MB/s]
+file_sizes:  62%|#################3          | 125M/202M [01:59&lt;00:31, 2.46MB/s]
+file_sizes:  62%|#################3          | 125M/202M [01:59&lt;00:33, 2.25MB/s]
+file_sizes:  62%|#################4          | 125M/202M [01:59&lt;00:37, 2.06MB/s]
+file_sizes:  62%|#################4          | 126M/202M [01:59&lt;00:35, 2.16MB/s]
+file_sizes:  62%|#################4          | 126M/202M [01:59&lt;00:45, 1.66MB/s]
+file_sizes:  63%|#################5          | 127M/202M [02:00&lt;00:39, 1.88MB/s]
+file_sizes:  63%|#################6          | 127M/202M [02:00&lt;00:40, 1.86MB/s]
+file_sizes:  63%|#################6          | 127M/202M [02:00&lt;00:44, 1.68MB/s]
+file_sizes:  63%|#################6          | 127M/202M [02:00&lt;00:43, 1.73MB/s]
+file_sizes:  63%|#################6          | 127M/202M [02:00&lt;00:42, 1.74MB/s]
+file_sizes:  63%|#################7          | 128M/202M [02:00&lt;00:47, 1.57MB/s]
+file_sizes:  63%|#################7          | 128M/202M [02:00&lt;00:44, 1.65MB/s]
+file_sizes:  63%|#################7          | 128M/202M [02:00&lt;00:43, 1.69MB/s]
+file_sizes:  64%|#################7          | 128M/202M [02:01&lt;00:48, 1.53MB/s]
+file_sizes:  64%|#################8          | 128M/202M [02:01&lt;00:45, 1.62MB/s]
+file_sizes:  64%|#################8          | 129M/202M [02:01&lt;00:43, 1.67MB/s]
+file_sizes:  64%|#################8          | 129M/202M [02:01&lt;00:48, 1.51MB/s]
+file_sizes:  64%|#################9          | 129M/202M [02:01&lt;00:41, 1.76MB/s]
+file_sizes:  64%|#################9          | 129M/202M [02:01&lt;00:40, 1.77MB/s]
+file_sizes:  64%|#################9          | 129M/202M [02:01&lt;00:44, 1.63MB/s]
+file_sizes:  64%|##################          | 130M/202M [02:01&lt;00:44, 1.63MB/s]
+file_sizes:  64%|##################          | 130M/202M [02:02&lt;00:42, 1.69MB/s]
+file_sizes:  64%|##################          | 130M/202M [02:02&lt;00:42, 1.67MB/s]
+file_sizes:  65%|##################          | 130M/202M [02:02&lt;00:41, 1.73MB/s]
+file_sizes:  65%|##################1         | 130M/202M [02:02&lt;00:40, 1.75MB/s]
+file_sizes:  65%|##################1         | 131M/202M [02:02&lt;00:41, 1.72MB/s]
+file_sizes:  65%|##################1         | 131M/202M [02:02&lt;00:40, 1.76MB/s]
+file_sizes:  65%|##################1         | 131M/202M [02:02&lt;00:41, 1.71MB/s]
+file_sizes:  65%|##################2         | 131M/202M [02:02&lt;00:39, 1.76MB/s]
+file_sizes:  65%|##################2         | 131M/202M [02:02&lt;00:39, 1.78MB/s]
+file_sizes:  65%|##################2         | 132M/202M [02:03&lt;00:40, 1.73MB/s]
+file_sizes:  65%|##################3         | 132M/202M [02:03&lt;00:39, 1.77MB/s]
+file_sizes:  65%|##################3         | 132M/202M [02:03&lt;00:49, 1.41MB/s]
+file_sizes:  66%|##################3         | 132M/202M [02:03&lt;00:41, 1.66MB/s]
+file_sizes:  66%|##################4         | 133M/202M [02:03&lt;00:44, 1.56MB/s]
+file_sizes:  66%|##################4         | 133M/202M [02:03&lt;00:45, 1.50MB/s]
+file_sizes:  66%|##################4         | 133M/202M [02:04&lt;00:48, 1.42MB/s]
+file_sizes:  66%|##################5         | 133M/202M [02:04&lt;00:45, 1.52MB/s]
+file_sizes:  66%|##################5         | 133M/202M [02:04&lt;00:46, 1.46MB/s]
+file_sizes:  66%|##################5         | 134M/202M [02:04&lt;00:47, 1.43MB/s]
+file_sizes:  66%|##################5         | 134M/202M [02:04&lt;01:03, 1.06MB/s]
+file_sizes:  67%|##################6         | 134M/202M [02:04&lt;00:51, 1.32MB/s]
+file_sizes:  67%|##################6         | 135M/202M [02:05&lt;00:51, 1.29MB/s]
+file_sizes:  67%|##################7         | 135M/202M [02:05&lt;00:54, 1.23MB/s]
+file_sizes:  67%|##################7         | 135M/202M [02:05&lt;00:55, 1.20MB/s]
+file_sizes:  67%|##################7         | 135M/202M [02:05&lt;00:55, 1.21MB/s]
+file_sizes:  67%|##################7         | 135M/202M [02:05&lt;00:56, 1.17MB/s]
+file_sizes:  67%|##################7         | 135M/202M [02:05&lt;00:54, 1.22MB/s]
+file_sizes:  67%|##################8         | 135M/202M [02:05&lt;00:53, 1.23MB/s]
+file_sizes:  67%|##################8         | 136M/202M [02:06&lt;00:55, 1.19MB/s]
+file_sizes:  67%|##################8         | 136M/202M [02:06&lt;00:54, 1.21MB/s]
+file_sizes:  67%|##################8         | 136M/202M [02:06&lt;00:54, 1.21MB/s]
+file_sizes:  67%|##################8         | 136M/202M [02:06&lt;00:56, 1.17MB/s]
+file_sizes:  67%|##################8         | 136M/202M [02:06&lt;00:54, 1.19MB/s]
+file_sizes:  68%|##################9         | 136M/202M [02:06&lt;00:56, 1.16MB/s]
+file_sizes:  68%|##################9         | 136M/202M [02:06&lt;00:53, 1.22MB/s]
+file_sizes:  68%|##################9         | 137M/202M [02:06&lt;00:53, 1.23MB/s]
+file_sizes:  68%|##################9         | 137M/202M [02:07&lt;00:54, 1.18MB/s]
+file_sizes:  68%|###################         | 137M/202M [02:07&lt;00:52, 1.24MB/s]
+file_sizes:  68%|###################         | 137M/202M [02:07&lt;00:46, 1.39MB/s]
+file_sizes:  68%|###################         | 137M/202M [02:07&lt;00:50, 1.26MB/s]
+file_sizes:  68%|###################         | 137M/202M [02:07&lt;00:52, 1.21MB/s]
+file_sizes:  68%|###################1        | 138M/202M [02:07&lt;00:50, 1.26MB/s]
+file_sizes:  68%|###################1        | 138M/202M [02:07&lt;00:51, 1.25MB/s]
+file_sizes:  68%|###################1        | 138M/202M [02:07&lt;00:53, 1.20MB/s]
+file_sizes:  68%|###################1        | 138M/202M [02:08&lt;00:50, 1.25MB/s]
+file_sizes:  69%|###################1        | 138M/202M [02:08&lt;00:45, 1.40MB/s]
+file_sizes:  69%|###################2        | 138M/202M [02:08&lt;00:49, 1.27MB/s]
+file_sizes:  69%|###################2        | 139M/202M [02:08&lt;00:49, 1.28MB/s]
+file_sizes:  69%|###################2        | 139M/202M [02:08&lt;00:49, 1.27MB/s]
+file_sizes:  69%|###################2        | 139M/202M [02:08&lt;00:49, 1.27MB/s]
+file_sizes:  69%|###################3        | 139M/202M [02:08&lt;00:50, 1.25MB/s]
+file_sizes:  69%|###################3        | 139M/202M [02:09&lt;00:50, 1.24MB/s]
+file_sizes:  69%|###################3        | 139M/202M [02:09&lt;00:48, 1.28MB/s]
+file_sizes:  69%|###################3        | 140M/202M [02:09&lt;00:48, 1.27MB/s]
+file_sizes:  69%|###################4        | 140M/202M [02:09&lt;00:51, 1.21MB/s]
+file_sizes:  69%|###################4        | 140M/202M [02:09&lt;00:48, 1.26MB/s]
+file_sizes:  70%|###################4        | 140M/202M [02:09&lt;00:43, 1.41MB/s]
+file_sizes:  70%|###################4        | 140M/202M [02:09&lt;00:48, 1.27MB/s]
+file_sizes:  70%|###################5        | 141M/202M [02:10&lt;00:47, 1.28MB/s]
+file_sizes:  70%|###################5        | 141M/202M [02:10&lt;00:48, 1.27MB/s]
+file_sizes:  70%|###################5        | 141M/202M [02:10&lt;00:47, 1.27MB/s]
+file_sizes:  70%|###################5        | 141M/202M [02:10&lt;00:48, 1.24MB/s]
+file_sizes:  70%|###################6        | 141M/202M [02:10&lt;00:48, 1.24MB/s]
+file_sizes:  70%|###################6        | 141M/202M [02:10&lt;00:47, 1.28MB/s]
+file_sizes:  70%|###################6        | 142M/202M [02:10&lt;00:47, 1.27MB/s]
+file_sizes:  70%|###################6        | 142M/202M [02:10&lt;00:46, 1.28MB/s]
+file_sizes:  70%|###################6        | 142M/202M [02:11&lt;00:48, 1.24MB/s]
+file_sizes:  70%|###################7        | 142M/202M [02:11&lt;00:42, 1.40MB/s]
+file_sizes:  71%|###################7        | 142M/202M [02:11&lt;00:43, 1.36MB/s]
+file_sizes:  71%|###################7        | 142M/202M [02:11&lt;00:44, 1.32MB/s]
+file_sizes:  71%|###################8        | 143M/202M [02:11&lt;00:44, 1.34MB/s]
+file_sizes:  71%|###################8        | 143M/202M [02:11&lt;00:47, 1.24MB/s]
+file_sizes:  71%|###################8        | 143M/202M [02:11&lt;00:42, 1.37MB/s]
+file_sizes:  71%|###################8        | 143M/202M [02:12&lt;00:43, 1.35MB/s]
+file_sizes:  71%|###################9        | 143M/202M [02:12&lt;00:44, 1.31MB/s]
+file_sizes:  71%|###################9        | 144M/202M [02:12&lt;00:43, 1.33MB/s]
+file_sizes:  71%|###################9        | 144M/202M [02:12&lt;00:39, 1.45MB/s]
+file_sizes:  71%|###################9        | 144M/202M [02:12&lt;00:41, 1.40MB/s]
+file_sizes:  72%|####################        | 144M/202M [02:12&lt;00:42, 1.35MB/s]
+file_sizes:  72%|####################        | 144M/202M [02:12&lt;00:42, 1.36MB/s]
+file_sizes:  72%|####################        | 145M/202M [02:13&lt;00:38, 1.47MB/s]
+file_sizes:  72%|####################1       | 145M/202M [02:13&lt;00:40, 1.42MB/s]
+file_sizes:  72%|####################1       | 145M/202M [02:13&lt;00:37, 1.49MB/s]
+file_sizes:  72%|####################1       | 145M/202M [02:13&lt;00:35, 1.58MB/s]
+file_sizes:  72%|####################1       | 145M/202M [02:13&lt;00:37, 1.49MB/s]
+file_sizes:  72%|####################2       | 146M/202M [02:13&lt;00:39, 1.41MB/s]
+file_sizes:  72%|####################2       | 146M/202M [02:13&lt;00:36, 1.53MB/s]
+file_sizes:  72%|####################2       | 146M/202M [02:14&lt;00:34, 1.62MB/s]
+file_sizes:  73%|####################3       | 146M/202M [02:14&lt;00:33, 1.65MB/s]
+file_sizes:  73%|####################3       | 147M/202M [02:14&lt;00:33, 1.65MB/s]
+file_sizes:  73%|####################3       | 147M/202M [02:14&lt;00:32, 1.71MB/s]
+file_sizes:  73%|####################3       | 147M/202M [02:14&lt;00:32, 1.66MB/s]
+file_sizes:  73%|####################4       | 147M/202M [02:14&lt;00:31, 1.72MB/s]
+file_sizes:  73%|####################4       | 147M/202M [02:14&lt;00:30, 1.77MB/s]
+file_sizes:  73%|####################4       | 148M/202M [02:14&lt;00:31, 1.72MB/s]
+file_sizes:  73%|####################5       | 148M/202M [02:15&lt;00:30, 1.74MB/s]
+file_sizes:  73%|####################5       | 148M/202M [02:15&lt;00:27, 1.93MB/s]
+file_sizes:  74%|####################6       | 148M/202M [02:15&lt;00:28, 1.88MB/s]
+file_sizes:  74%|####################6       | 149M/202M [02:15&lt;00:26, 1.97MB/s]
+file_sizes:  74%|####################6       | 149M/202M [02:15&lt;00:25, 2.03MB/s]
+file_sizes:  74%|####################7       | 149M/202M [02:15&lt;00:33, 1.58MB/s]
+file_sizes:  74%|####################7       | 150M/202M [02:15&lt;00:24, 2.11MB/s]
+file_sizes:  74%|####################8       | 150M/202M [02:16&lt;00:27, 1.88MB/s]
+file_sizes:  75%|####################8       | 150M/202M [02:16&lt;00:25, 2.00MB/s]
+file_sizes:  75%|####################8       | 151M/202M [02:16&lt;00:28, 1.79MB/s]
+file_sizes:  75%|####################9       | 151M/202M [02:16&lt;00:29, 1.73MB/s]
+file_sizes:  75%|####################9       | 151M/202M [02:16&lt;00:28, 1.77MB/s]
+file_sizes:  75%|####################9       | 151M/202M [02:16&lt;00:28, 1.79MB/s]
+file_sizes:  75%|#####################       | 151M/202M [02:16&lt;00:29, 1.73MB/s]
+file_sizes:  75%|#####################       | 152M/202M [02:17&lt;00:28, 1.76MB/s]
+file_sizes:  75%|#####################1      | 152M/202M [02:17&lt;00:31, 1.60MB/s]
+file_sizes:  75%|#####################1      | 152M/202M [02:17&lt;00:28, 1.75MB/s]
+file_sizes:  76%|#####################1      | 152M/202M [02:17&lt;00:27, 1.77MB/s]
+file_sizes:  76%|#####################1      | 153M/202M [02:17&lt;00:32, 1.51MB/s]
+file_sizes:  76%|#####################2      | 153M/202M [02:17&lt;00:32, 1.52MB/s]
+file_sizes:  76%|#####################2      | 153M/202M [02:18&lt;00:32, 1.48MB/s]
+file_sizes:  76%|#####################2      | 153M/202M [02:18&lt;00:33, 1.45MB/s]
+file_sizes:  76%|#####################3      | 154M/202M [02:18&lt;00:33, 1.44MB/s]
+file_sizes:  76%|#####################3      | 154M/202M [02:18&lt;00:33, 1.43MB/s]
+file_sizes:  76%|#####################3      | 154M/202M [02:18&lt;00:31, 1.52MB/s]
+file_sizes:  76%|#####################4      | 154M/202M [02:18&lt;00:31, 1.53MB/s]
+file_sizes:  77%|#####################4      | 154M/202M [02:18&lt;00:31, 1.49MB/s]
+file_sizes:  77%|#####################4      | 155M/202M [02:19&lt;00:29, 1.58MB/s]
+file_sizes:  77%|#####################4      | 155M/202M [02:19&lt;00:31, 1.49MB/s]
+file_sizes:  77%|#####################5      | 155M/202M [02:19&lt;00:33, 1.41MB/s]
+file_sizes:  77%|#####################5      | 155M/202M [02:19&lt;00:30, 1.53MB/s]
+file_sizes:  77%|#####################5      | 156M/202M [02:19&lt;00:28, 1.61MB/s]
+file_sizes:  77%|#####################6      | 156M/202M [02:19&lt;00:29, 1.53MB/s]
+file_sizes:  77%|#####################6      | 156M/202M [02:19&lt;00:29, 1.55MB/s]
+file_sizes:  77%|#####################6      | 156M/202M [02:20&lt;00:27, 1.63MB/s]
+file_sizes:  78%|#####################7      | 156M/202M [02:20&lt;00:29, 1.54MB/s]
+file_sizes:  78%|#####################7      | 156M/202M [02:20&lt;00:28, 1.56MB/s]
+file_sizes:  78%|#####################7      | 157M/202M [02:20&lt;00:27, 1.64MB/s]
+file_sizes:  78%|#####################7      | 157M/202M [02:20&lt;00:26, 1.68MB/s]
+file_sizes:  78%|#####################8      | 157M/202M [02:20&lt;00:28, 1.56MB/s]
+file_sizes:  78%|#####################8      | 157M/202M [02:20&lt;00:27, 1.60MB/s]
+file_sizes:  78%|#####################8      | 158M/202M [02:20&lt;00:26, 1.66MB/s]
+file_sizes:  78%|#####################9      | 158M/202M [02:21&lt;00:28, 1.54MB/s]
+file_sizes:  78%|#####################9      | 158M/202M [02:21&lt;00:27, 1.58MB/s]
+file_sizes:  78%|#####################9      | 158M/202M [02:21&lt;00:26, 1.65MB/s]
+file_sizes:  79%|#####################9      | 158M/202M [02:21&lt;00:28, 1.53MB/s]
+file_sizes:  79%|######################      | 159M/202M [02:21&lt;00:27, 1.58MB/s]
+file_sizes:  79%|######################      | 159M/202M [02:21&lt;00:26, 1.65MB/s]
+file_sizes:  79%|######################      | 159M/202M [02:21&lt;00:27, 1.53MB/s]
+file_sizes:  79%|######################1     | 159M/202M [02:21&lt;00:26, 1.58MB/s]
+file_sizes:  79%|######################1     | 159M/202M [02:22&lt;00:25, 1.65MB/s]
+file_sizes:  79%|######################1     | 160M/202M [02:22&lt;00:24, 1.69MB/s]
+file_sizes:  79%|######################1     | 160M/202M [02:22&lt;00:26, 1.57MB/s]
+file_sizes:  79%|######################2     | 160M/202M [02:22&lt;00:25, 1.60MB/s]
+file_sizes:  79%|######################2     | 160M/202M [02:22&lt;00:24, 1.66MB/s]
+file_sizes:  80%|######################2     | 160M/202M [02:22&lt;00:26, 1.55MB/s]
+file_sizes:  80%|######################3     | 161M/202M [02:22&lt;00:25, 1.58MB/s]
+file_sizes:  80%|######################3     | 161M/202M [02:22&lt;00:24, 1.65MB/s]
+file_sizes:  80%|######################3     | 161M/202M [02:23&lt;00:26, 1.53MB/s]
+file_sizes:  80%|######################3     | 161M/202M [02:23&lt;00:25, 1.58MB/s]
+file_sizes:  80%|######################4     | 161M/202M [02:23&lt;00:24, 1.65MB/s]
+file_sizes:  80%|######################4     | 162M/202M [02:23&lt;00:24, 1.63MB/s]
+file_sizes:  80%|######################4     | 162M/202M [02:23&lt;00:25, 1.54MB/s]
+file_sizes:  80%|######################4     | 162M/202M [02:23&lt;00:34, 1.16MB/s]
+file_sizes:  81%|######################5     | 162M/202M [02:24&lt;00:24, 1.57MB/s]
+file_sizes:  81%|######################5     | 163M/202M [02:24&lt;00:26, 1.49MB/s]
+file_sizes:  81%|######################6     | 163M/202M [02:24&lt;00:28, 1.35MB/s]
+file_sizes:  81%|######################6     | 163M/202M [02:24&lt;00:29, 1.32MB/s]
+file_sizes:  81%|######################6     | 163M/202M [02:24&lt;00:28, 1.33MB/s]
+file_sizes:  81%|######################6     | 163M/202M [02:24&lt;00:26, 1.45MB/s]
+file_sizes:  81%|######################7     | 164M/202M [02:25&lt;00:28, 1.31MB/s]
+file_sizes:  81%|######################7     | 164M/202M [02:25&lt;00:28, 1.31MB/s]
+file_sizes:  81%|######################7     | 164M/202M [02:25&lt;00:26, 1.40MB/s]
+file_sizes:  81%|######################8     | 164M/202M [02:25&lt;00:27, 1.38MB/s]
+file_sizes:  82%|######################8     | 164M/202M [02:25&lt;00:25, 1.47MB/s]
+file_sizes:  82%|######################8     | 165M/202M [02:25&lt;00:26, 1.40MB/s]
+file_sizes:  82%|######################8     | 165M/202M [02:25&lt;00:26, 1.39MB/s]
+file_sizes:  82%|######################9     | 165M/202M [02:25&lt;00:24, 1.51MB/s]
+file_sizes:  82%|######################9     | 165M/202M [02:26&lt;00:25, 1.43MB/s]
+file_sizes:  82%|######################9     | 165M/202M [02:26&lt;00:24, 1.50MB/s]
+file_sizes:  82%|#######################     | 166M/202M [02:26&lt;00:22, 1.60MB/s]
+file_sizes:  82%|#######################     | 166M/202M [02:26&lt;00:24, 1.49MB/s]
+file_sizes:  82%|#######################     | 166M/202M [02:26&lt;00:25, 1.41MB/s]
+file_sizes:  83%|#######################1    | 166M/202M [02:26&lt;00:22, 1.53MB/s]
+file_sizes:  83%|#######################1    | 167M/202M [02:26&lt;00:21, 1.62MB/s]
+file_sizes:  83%|#######################1    | 167M/202M [02:27&lt;00:22, 1.54MB/s]
+file_sizes:  83%|#######################1    | 167M/202M [02:27&lt;00:31, 1.12MB/s]
+file_sizes:  83%|#######################2    | 167M/202M [02:27&lt;00:24, 1.40MB/s]
+file_sizes:  83%|#######################2    | 168M/202M [02:27&lt;00:26, 1.31MB/s]
+file_sizes:  83%|#######################3    | 168M/202M [02:27&lt;00:27, 1.24MB/s]
+file_sizes:  83%|#######################3    | 168M/202M [02:28&lt;00:29, 1.14MB/s]
+file_sizes:  83%|#######################3    | 168M/202M [02:28&lt;00:28, 1.17MB/s]
+file_sizes:  84%|#######################3    | 168M/202M [02:28&lt;00:28, 1.19MB/s]
+file_sizes:  84%|#######################4    | 169M/202M [02:28&lt;00:27, 1.20MB/s]
+file_sizes:  84%|#######################4    | 169M/202M [02:28&lt;00:27, 1.21MB/s]
+file_sizes:  84%|#######################4    | 169M/202M [02:29&lt;00:26, 1.22MB/s]
+file_sizes:  84%|#######################5    | 169M/202M [02:29&lt;00:26, 1.20MB/s]
+file_sizes:  84%|#######################5    | 170M/202M [02:29&lt;00:25, 1.28MB/s]
+file_sizes:  84%|#######################5    | 170M/202M [02:29&lt;00:28, 1.11MB/s]
+file_sizes:  84%|#######################5    | 170M/202M [02:29&lt;00:30, 1.04MB/s]
+file_sizes:  84%|#######################6    | 170M/202M [02:29&lt;00:27, 1.14MB/s]
+file_sizes:  84%|#######################6    | 170M/202M [02:30&lt;00:27, 1.14MB/s]
+file_sizes:  84%|#######################6    | 170M/202M [02:30&lt;00:29, 1.05MB/s]
+file_sizes:  85%|########################5    | 170M/202M [02:30&lt;00:31, 986kB/s]
+file_sizes:  85%|########################5    | 171M/202M [02:30&lt;00:32, 962kB/s]
+file_sizes:  85%|#######################7    | 171M/202M [02:30&lt;00:27, 1.11MB/s]
+file_sizes:  85%|#######################7    | 171M/202M [02:30&lt;00:30, 1.02MB/s]
+file_sizes:  85%|########################5    | 171M/202M [02:30&lt;00:31, 963kB/s]
+file_sizes:  85%|########################6    | 171M/202M [02:31&lt;00:30, 995kB/s]
+file_sizes:  85%|#######################8    | 171M/202M [02:31&lt;00:29, 1.01MB/s]
+file_sizes:  85%|#######################8    | 172M/202M [02:31&lt;00:29, 1.03MB/s]
+file_sizes:  85%|#######################8    | 172M/202M [02:31&lt;00:28, 1.04MB/s]
+file_sizes:  85%|#######################8    | 172M/202M [02:31&lt;00:26, 1.14MB/s]
+file_sizes:  85%|#######################8    | 172M/202M [02:31&lt;00:25, 1.15MB/s]
+file_sizes:  85%|#######################9    | 172M/202M [02:32&lt;00:27, 1.05MB/s]
+file_sizes:  86%|#######################9    | 172M/202M [02:32&lt;00:27, 1.05MB/s]
+file_sizes:  86%|#######################9    | 173M/202M [02:32&lt;00:27, 1.05MB/s]
+file_sizes:  86%|#######################9    | 173M/202M [02:32&lt;00:25, 1.15MB/s]
+file_sizes:  86%|########################    | 173M/202M [02:32&lt;00:24, 1.16MB/s]
+file_sizes:  86%|########################    | 173M/202M [02:32&lt;00:26, 1.06MB/s]
+file_sizes:  86%|########################    | 173M/202M [02:32&lt;00:26, 1.06MB/s]
+file_sizes:  86%|########################    | 173M/202M [02:33&lt;00:24, 1.16MB/s]
+file_sizes:  86%|########################    | 174M/202M [02:33&lt;00:24, 1.17MB/s]
+file_sizes:  86%|########################1   | 174M/202M [02:33&lt;00:26, 1.06MB/s]
+file_sizes:  86%|########################1   | 174M/202M [02:33&lt;00:26, 1.06MB/s]
+file_sizes:  86%|########################1   | 174M/202M [02:33&lt;00:26, 1.06MB/s]
+file_sizes:  86%|########################1   | 174M/202M [02:33&lt;00:23, 1.16MB/s]
+file_sizes:  86%|########################2   | 174M/202M [02:33&lt;00:23, 1.17MB/s]
+file_sizes:  87%|########################2   | 174M/202M [02:34&lt;00:25, 1.06MB/s]
+file_sizes:  87%|########################2   | 175M/202M [02:34&lt;00:25, 1.06MB/s]
+file_sizes:  87%|########################2   | 175M/202M [02:34&lt;00:23, 1.16MB/s]
+file_sizes:  87%|########################2   | 175M/202M [02:34&lt;00:22, 1.17MB/s]
+file_sizes:  87%|########################3   | 175M/202M [02:34&lt;00:24, 1.06MB/s]
+file_sizes:  87%|########################3   | 175M/202M [02:34&lt;00:24, 1.06MB/s]
+file_sizes:  87%|########################3   | 176M/202M [02:35&lt;00:24, 1.06MB/s]
+file_sizes:  87%|########################4   | 176M/202M [02:35&lt;00:23, 1.11MB/s]
+file_sizes:  87%|########################4   | 176M/202M [02:35&lt;00:23, 1.10MB/s]
+file_sizes:  87%|#########################3   | 176M/202M [02:35&lt;00:29, 862kB/s]
+file_sizes:  87%|########################4   | 176M/202M [02:35&lt;00:23, 1.09MB/s]
+file_sizes:  88%|########################5   | 176M/202M [02:35&lt;00:24, 1.03MB/s]
+file_sizes:  88%|########################5   | 177M/202M [02:36&lt;00:23, 1.06MB/s]
+file_sizes:  88%|#########################4   | 177M/202M [02:36&lt;00:26, 934kB/s]
+file_sizes:  88%|#########################4   | 177M/202M [02:36&lt;00:24, 999kB/s]
+file_sizes:  88%|#########################4   | 177M/202M [02:36&lt;00:25, 959kB/s]
+file_sizes:  88%|#########################4   | 177M/202M [02:36&lt;00:26, 929kB/s]
+file_sizes:  88%|#########################4   | 177M/202M [02:36&lt;00:28, 856kB/s]
+file_sizes:  88%|#########################5   | 177M/202M [02:37&lt;00:26, 910kB/s]
+file_sizes:  88%|#########################5   | 178M/202M [02:37&lt;00:26, 910kB/s]
+file_sizes:  88%|########################6   | 178M/202M [02:37&lt;00:23, 1.02MB/s]
+file_sizes:  88%|########################7   | 178M/202M [02:37&lt;00:22, 1.07MB/s]
+file_sizes:  88%|########################7   | 178M/202M [02:37&lt;00:23, 1.00MB/s]
+file_sizes:  88%|########################7   | 178M/202M [02:37&lt;00:22, 1.03MB/s]
+file_sizes:  88%|########################7   | 178M/202M [02:37&lt;00:21, 1.09MB/s]
+file_sizes:  89%|########################7   | 178M/202M [02:38&lt;00:22, 1.01MB/s]
+file_sizes:  89%|########################8   | 179M/202M [02:38&lt;00:22, 1.03MB/s]
+file_sizes:  89%|########################8   | 179M/202M [02:38&lt;00:20, 1.13MB/s]
+file_sizes:  89%|########################8   | 179M/202M [02:38&lt;00:19, 1.14MB/s]
+file_sizes:  89%|########################8   | 179M/202M [02:38&lt;00:21, 1.05MB/s]
+file_sizes:  89%|########################8   | 179M/202M [02:38&lt;00:21, 1.06MB/s]
+file_sizes:  89%|########################9   | 179M/202M [02:38&lt;00:19, 1.15MB/s]
+file_sizes:  89%|########################9   | 180M/202M [02:39&lt;00:19, 1.16MB/s]
+file_sizes:  89%|########################9   | 180M/202M [02:39&lt;00:20, 1.06MB/s]
+file_sizes:  89%|########################9   | 180M/202M [02:39&lt;00:20, 1.07MB/s]
+file_sizes:  89%|#########################   | 180M/202M [02:39&lt;00:18, 1.16MB/s]
+file_sizes:  89%|#########################   | 180M/202M [02:39&lt;00:18, 1.16MB/s]
+file_sizes:  89%|#########################   | 180M/202M [02:39&lt;00:20, 1.06MB/s]
+file_sizes:  90%|#########################   | 181M/202M [02:39&lt;00:19, 1.06MB/s]
+file_sizes:  90%|#########################   | 181M/202M [02:40&lt;00:19, 1.06MB/s]
+file_sizes:  90%|##########################   | 181M/202M [02:40&lt;00:25, 811kB/s]
+file_sizes:  90%|#########################1  | 181M/202M [02:40&lt;00:19, 1.05MB/s]
+file_sizes:  90%|##########################   | 181M/202M [02:40&lt;00:20, 994kB/s]
+file_sizes:  90%|##########################   | 181M/202M [02:40&lt;00:20, 976kB/s]
+file_sizes:  90%|##########################   | 181M/202M [02:40&lt;00:21, 943kB/s]
+file_sizes:  90%|##########################1  | 182M/202M [02:41&lt;00:21, 922kB/s]
+file_sizes:  90%|##########################1  | 182M/202M [02:41&lt;00:21, 917kB/s]
+file_sizes:  90%|##########################1  | 182M/202M [02:41&lt;00:22, 892kB/s]
+file_sizes:  90%|##########################1  | 182M/202M [02:41&lt;00:20, 967kB/s]
+file_sizes:  90%|##########################1  | 182M/202M [02:41&lt;00:20, 937kB/s]
+file_sizes:  90%|##########################2  | 182M/202M [02:41&lt;00:19, 996kB/s]
+file_sizes:  90%|##########################2  | 182M/202M [02:41&lt;00:20, 944kB/s]
+file_sizes:  91%|#########################3  | 183M/202M [02:42&lt;00:18, 1.01MB/s]
+file_sizes:  91%|#########################3  | 183M/202M [02:42&lt;00:18, 1.05MB/s]
+file_sizes:  91%|##########################2  | 183M/202M [02:42&lt;00:18, 994kB/s]
+file_sizes:  91%|##########################3  | 183M/202M [02:42&lt;00:19, 941kB/s]
+file_sizes:  91%|#########################4  | 183M/202M [02:42&lt;00:17, 1.05MB/s]
+file_sizes:  91%|#########################4  | 183M/202M [02:42&lt;00:17, 1.05MB/s]
+file_sizes:  91%|#########################4  | 184M/202M [02:42&lt;00:16, 1.11MB/s]
+file_sizes:  91%|#########################5  | 184M/202M [02:43&lt;00:17, 1.04MB/s]
+file_sizes:  91%|#########################5  | 184M/202M [02:43&lt;00:17, 1.04MB/s]
+file_sizes:  91%|#########################5  | 184M/202M [02:43&lt;00:15, 1.10MB/s]
+file_sizes:  91%|#########################5  | 184M/202M [02:43&lt;00:15, 1.13MB/s]
+file_sizes:  91%|##########################5  | 184M/202M [02:43&lt;00:19, 901kB/s]
+file_sizes:  92%|#########################6  | 185M/202M [02:44&lt;00:16, 1.01MB/s]
+file_sizes:  92%|##########################5  | 185M/202M [02:44&lt;00:17, 961kB/s]
+file_sizes:  92%|##########################5  | 185M/202M [02:44&lt;00:18, 895kB/s]
+file_sizes:  92%|##########################6  | 185M/202M [02:44&lt;00:24, 687kB/s]
+file_sizes:  92%|##########################6  | 185M/202M [02:44&lt;00:19, 820kB/s]
+file_sizes:  92%|##########################6  | 185M/202M [02:45&lt;00:25, 646kB/s]
+file_sizes:  92%|##########################6  | 186M/202M [02:45&lt;00:22, 700kB/s]
+file_sizes:  92%|##########################7  | 186M/202M [02:45&lt;00:25, 635kB/s]
+file_sizes:  92%|##########################7  | 186M/202M [02:45&lt;00:27, 583kB/s]
+file_sizes:  92%|##########################7  | 186M/202M [02:45&lt;00:27, 586kB/s]
+file_sizes:  92%|##########################7  | 186M/202M [02:46&lt;00:29, 542kB/s]
+file_sizes:  92%|##########################7  | 186M/202M [02:46&lt;00:30, 516kB/s]
+file_sizes:  92%|##########################7  | 186M/202M [02:46&lt;00:31, 500kB/s]
+file_sizes:  92%|##########################7  | 186M/202M [02:46&lt;00:28, 539kB/s]
+file_sizes:  92%|##########################7  | 186M/202M [02:46&lt;00:30, 516kB/s]
+file_sizes:  92%|##########################7  | 186M/202M [02:46&lt;00:31, 493kB/s]
+file_sizes:  92%|##########################7  | 186M/202M [02:46&lt;00:30, 511kB/s]
+file_sizes:  92%|##########################8  | 186M/202M [02:47&lt;00:28, 535kB/s]
+file_sizes:  92%|##########################8  | 186M/202M [02:47&lt;00:30, 504kB/s]
+file_sizes:  92%|##########################8  | 186M/202M [02:47&lt;00:29, 520kB/s]
+file_sizes:  93%|##########################8  | 187M/202M [02:47&lt;00:27, 542kB/s]
+file_sizes:  93%|##########################8  | 187M/202M [02:47&lt;00:29, 508kB/s]
+file_sizes:  93%|##########################8  | 187M/202M [02:47&lt;00:28, 523kB/s]
+file_sizes:  93%|##########################8  | 187M/202M [02:47&lt;00:27, 546kB/s]
+file_sizes:  93%|##########################8  | 187M/202M [02:47&lt;00:29, 508kB/s]
+file_sizes:  93%|##########################8  | 187M/202M [02:48&lt;00:28, 524kB/s]
+file_sizes:  93%|##########################8  | 187M/202M [02:48&lt;00:26, 547kB/s]
+file_sizes:  93%|##########################8  | 187M/202M [02:48&lt;00:28, 509kB/s]
+file_sizes:  93%|##########################9  | 187M/202M [02:48&lt;00:27, 524kB/s]
+file_sizes:  93%|##########################9  | 187M/202M [02:48&lt;00:26, 548kB/s]
+file_sizes:  93%|##########################9  | 187M/202M [02:48&lt;00:28, 509kB/s]
+file_sizes:  93%|##########################9  | 187M/202M [02:48&lt;00:27, 525kB/s]
+file_sizes:  93%|##########################9  | 187M/202M [02:48&lt;00:26, 548kB/s]
+file_sizes:  93%|##########################9  | 187M/202M [02:49&lt;00:27, 510kB/s]
+file_sizes:  93%|##########################9  | 187M/202M [02:49&lt;00:36, 386kB/s]
+file_sizes:  93%|##########################9  | 188M/202M [02:49&lt;00:28, 492kB/s]
+file_sizes:  93%|##########################9  | 188M/202M [02:49&lt;00:31, 446kB/s]
+file_sizes:  93%|###########################  | 188M/202M [02:49&lt;00:31, 444kB/s]
+file_sizes:  93%|###########################  | 188M/202M [02:50&lt;00:31, 442kB/s]
+file_sizes:  93%|###########################  | 188M/202M [02:50&lt;00:31, 441kB/s]
+file_sizes:  93%|###########################  | 188M/202M [02:50&lt;00:31, 441kB/s]
+file_sizes:  93%|###########################  | 188M/202M [02:50&lt;00:30, 440kB/s]
+file_sizes:  93%|###########################  | 188M/202M [02:50&lt;00:28, 468kB/s]
+file_sizes:  93%|###########################  | 188M/202M [02:50&lt;00:27, 493kB/s]
+file_sizes:  93%|###########################  | 188M/202M [02:51&lt;00:26, 505kB/s]
+file_sizes:  93%|###########################  | 188M/202M [02:51&lt;00:27, 490kB/s]
+file_sizes:  93%|###########################  | 188M/202M [02:51&lt;00:27, 473kB/s]
+file_sizes:  93%|###########################1 | 188M/202M [02:51&lt;00:26, 501kB/s]
+file_sizes:  94%|###########################1 | 189M/202M [02:51&lt;00:25, 513kB/s]
+file_sizes:  94%|###########################1 | 189M/202M [02:51&lt;00:26, 494kB/s]
+file_sizes:  94%|###########################1 | 189M/202M [02:51&lt;00:24, 525kB/s]
+file_sizes:  94%|###########################1 | 189M/202M [02:51&lt;00:24, 527kB/s]
+file_sizes:  94%|###########################1 | 189M/202M [02:52&lt;00:25, 503kB/s]
+file_sizes:  94%|###########################1 | 189M/202M [02:52&lt;00:23, 533kB/s]
+file_sizes:  94%|###########################1 | 189M/202M [02:52&lt;00:23, 532kB/s]
+file_sizes:  94%|###########################1 | 189M/202M [02:52&lt;00:24, 507kB/s]
+file_sizes:  94%|###########################1 | 189M/202M [02:52&lt;00:23, 536kB/s]
+file_sizes:  94%|###########################2 | 189M/202M [02:52&lt;00:23, 535kB/s]
+file_sizes:  94%|###########################2 | 189M/202M [02:52&lt;00:24, 508kB/s]
+file_sizes:  94%|###########################2 | 189M/202M [02:52&lt;00:22, 537kB/s]
+file_sizes:  94%|###########################2 | 189M/202M [02:53&lt;00:22, 536kB/s]
+file_sizes:  94%|###########################2 | 189M/202M [02:53&lt;00:24, 508kB/s]
+file_sizes:  94%|###########################2 | 189M/202M [02:53&lt;00:22, 537kB/s]
+file_sizes:  94%|###########################2 | 190M/202M [02:53&lt;00:22, 536kB/s]
+file_sizes:  94%|###########################2 | 190M/202M [02:53&lt;00:23, 508kB/s]
+file_sizes:  94%|###########################2 | 190M/202M [02:53&lt;00:22, 538kB/s]
+file_sizes:  94%|###########################2 | 190M/202M [02:53&lt;00:22, 536kB/s]
+file_sizes:  94%|###########################2 | 190M/202M [02:53&lt;00:23, 508kB/s]
+file_sizes:  94%|###########################3 | 190M/202M [02:54&lt;00:21, 538kB/s]
+file_sizes:  94%|###########################3 | 190M/202M [02:54&lt;00:21, 537kB/s]
+file_sizes:  94%|###########################3 | 190M/202M [02:54&lt;00:22, 507kB/s]
+file_sizes:  94%|###########################3 | 190M/202M [02:54&lt;00:21, 538kB/s]
+file_sizes:  94%|###########################3 | 190M/202M [02:54&lt;00:23, 493kB/s]
+file_sizes:  94%|###########################3 | 190M/202M [02:54&lt;00:21, 520kB/s]
+file_sizes:  94%|###########################3 | 190M/202M [02:54&lt;00:20, 548kB/s]
+file_sizes:  94%|###########################3 | 190M/202M [02:54&lt;00:20, 544kB/s]
+file_sizes:  94%|###########################3 | 190M/202M [02:55&lt;00:21, 512kB/s]
+file_sizes:  94%|###########################3 | 190M/202M [02:55&lt;00:20, 542kB/s]
+file_sizes:  94%|###########################4 | 191M/202M [02:55&lt;00:20, 539kB/s]
+file_sizes:  95%|###########################4 | 191M/202M [02:55&lt;00:21, 508kB/s]
+file_sizes:  95%|###########################4 | 191M/202M [02:55&lt;00:20, 540kB/s]
+file_sizes:  95%|###########################4 | 191M/202M [02:55&lt;00:20, 537kB/s]
+file_sizes:  95%|###########################4 | 191M/202M [02:55&lt;00:19, 552kB/s]
+file_sizes:  95%|###########################4 | 191M/202M [02:55&lt;00:17, 601kB/s]
+file_sizes:  95%|###########################4 | 191M/202M [02:56&lt;00:18, 583kB/s]
+file_sizes:  95%|###########################4 | 191M/202M [02:56&lt;00:19, 539kB/s]
+file_sizes:  95%|###########################4 | 191M/202M [02:56&lt;00:16, 638kB/s]
+file_sizes:  95%|###########################5 | 191M/202M [02:56&lt;00:17, 595kB/s]
+file_sizes:  95%|###########################5 | 191M/202M [02:56&lt;00:16, 633kB/s]
+file_sizes:  95%|###########################5 | 191M/202M [02:56&lt;00:16, 611kB/s]
+file_sizes:  95%|###########################5 | 192M/202M [02:57&lt;00:19, 515kB/s]
+file_sizes:  95%|###########################5 | 192M/202M [02:57&lt;00:17, 578kB/s]
+file_sizes:  95%|###########################5 | 192M/202M [02:57&lt;00:17, 577kB/s]
+file_sizes:  95%|###########################5 | 192M/202M [02:57&lt;00:17, 549kB/s]
+file_sizes:  95%|###########################6 | 192M/202M [02:57&lt;00:16, 590kB/s]
+file_sizes:  95%|###########################6 | 192M/202M [02:57&lt;00:16, 579kB/s]
+file_sizes:  95%|###########################6 | 192M/202M [02:58&lt;00:16, 587kB/s]
+file_sizes:  95%|###########################6 | 192M/202M [02:58&lt;00:15, 614kB/s]
+file_sizes:  95%|###########################6 | 192M/202M [02:58&lt;00:15, 595kB/s]
+file_sizes:  95%|###########################6 | 192M/202M [02:58&lt;00:15, 601kB/s]
+file_sizes:  95%|###########################6 | 192M/202M [02:58&lt;00:14, 624kB/s]
+file_sizes:  95%|###########################6 | 193M/202M [02:58&lt;00:15, 602kB/s]
+file_sizes:  96%|###########################6 | 193M/202M [02:58&lt;00:14, 606kB/s]
+file_sizes:  96%|###########################7 | 193M/202M [02:58&lt;00:13, 677kB/s]
+file_sizes:  96%|###########################7 | 193M/202M [02:59&lt;00:13, 666kB/s]
+file_sizes:  96%|###########################7 | 193M/202M [02:59&lt;00:14, 614kB/s]
+file_sizes:  96%|###########################7 | 193M/202M [02:59&lt;00:13, 633kB/s]
+file_sizes:  96%|###########################7 | 193M/202M [02:59&lt;00:13, 657kB/s]
+file_sizes:  96%|###########################7 | 193M/202M [02:59&lt;00:11, 715kB/s]
+file_sizes:  96%|###########################7 | 193M/202M [02:59&lt;00:12, 688kB/s]
+file_sizes:  96%|###########################8 | 193M/202M [03:00&lt;00:12, 677kB/s]
+file_sizes:  96%|###########################8 | 193M/202M [03:00&lt;00:12, 676kB/s]
+file_sizes:  96%|###########################8 | 194M/202M [03:00&lt;00:11, 672kB/s]
+file_sizes:  96%|###########################8 | 194M/202M [03:00&lt;00:11, 719kB/s]
+file_sizes:  96%|###########################8 | 194M/202M [03:00&lt;00:11, 697kB/s]
+file_sizes:  96%|###########################8 | 194M/202M [03:00&lt;00:11, 690kB/s]
+file_sizes:  96%|###########################8 | 194M/202M [03:00&lt;00:11, 681kB/s]
+file_sizes:  96%|###########################9 | 194M/202M [03:01&lt;00:11, 679kB/s]
+file_sizes:  96%|###########################9 | 194M/202M [03:01&lt;00:10, 716kB/s]
+file_sizes:  96%|###########################9 | 194M/202M [03:01&lt;00:11, 647kB/s]
+file_sizes:  96%|###########################9 | 194M/202M [03:01&lt;00:11, 656kB/s]
+file_sizes:  96%|###########################9 | 195M/202M [03:01&lt;00:10, 672kB/s]
+file_sizes:  97%|###########################9 | 195M/202M [03:01&lt;00:10, 682kB/s]
+file_sizes:  97%|############################ | 195M/202M [03:02&lt;00:09, 689kB/s]
+file_sizes:  97%|############################ | 195M/202M [03:02&lt;00:09, 734kB/s]
+file_sizes:  97%|############################ | 195M/202M [03:02&lt;00:09, 705kB/s]
+file_sizes:  97%|############################ | 195M/202M [03:02&lt;00:09, 689kB/s]
+file_sizes:  97%|############################ | 195M/202M [03:02&lt;00:09, 685kB/s]
+file_sizes:  97%|############################ | 195M/202M [03:02&lt;00:09, 677kB/s]
+file_sizes:  97%|############################ | 195M/202M [03:02&lt;00:08, 724kB/s]
+file_sizes:  97%|############################1| 195M/202M [03:02&lt;00:08, 700kB/s]
+file_sizes:  97%|############################1| 196M/202M [03:03&lt;00:08, 692kB/s]
+file_sizes:  97%|############################1| 196M/202M [03:03&lt;00:08, 682kB/s]
+file_sizes:  97%|############################1| 196M/202M [03:03&lt;00:08, 729kB/s]
+file_sizes:  97%|############################1| 196M/202M [03:03&lt;00:08, 703kB/s]
+file_sizes:  97%|############################1| 196M/202M [03:03&lt;00:08, 692kB/s]
+file_sizes:  97%|############################1| 196M/202M [03:03&lt;00:07, 747kB/s]
+file_sizes:  97%|############################2| 196M/202M [03:03&lt;00:07, 769kB/s]
+file_sizes:  97%|############################2| 196M/202M [03:04&lt;00:10, 518kB/s]
+file_sizes:  97%|############################2| 196M/202M [03:04&lt;00:07, 709kB/s]
+file_sizes:  97%|############################2| 197M/202M [03:04&lt;00:09, 536kB/s]
+file_sizes:  98%|############################2| 197M/202M [03:05&lt;00:09, 547kB/s]
+file_sizes:  98%|############################3| 197M/202M [03:05&lt;00:09, 498kB/s]
+file_sizes:  98%|############################3| 197M/202M [03:05&lt;00:09, 488kB/s]
+file_sizes:  98%|############################3| 197M/202M [03:05&lt;00:09, 477kB/s]
+file_sizes:  98%|############################3| 197M/202M [03:05&lt;00:10, 467kB/s]
+file_sizes:  98%|############################3| 197M/202M [03:05&lt;00:10, 461kB/s]
+file_sizes:  98%|############################3| 197M/202M [03:05&lt;00:10, 422kB/s]
+file_sizes:  98%|############################3| 197M/202M [03:06&lt;00:09, 466kB/s]
+file_sizes:  98%|############################3| 197M/202M [03:06&lt;00:09, 451kB/s]
+file_sizes:  98%|############################3| 197M/202M [03:06&lt;00:09, 446kB/s]
+file_sizes:  98%|############################3| 197M/202M [03:06&lt;00:09, 446kB/s]
+file_sizes:  98%|############################3| 197M/202M [03:06&lt;00:09, 446kB/s]
+file_sizes:  98%|############################3| 197M/202M [03:06&lt;00:08, 478kB/s]
+file_sizes:  98%|############################4| 198M/202M [03:06&lt;00:08, 468kB/s]
+file_sizes:  98%|############################4| 198M/202M [03:07&lt;00:08, 461kB/s]
+file_sizes:  98%|############################4| 198M/202M [03:07&lt;00:08, 458kB/s]
+file_sizes:  98%|############################4| 198M/202M [03:07&lt;00:08, 446kB/s]
+file_sizes:  98%|############################4| 198M/202M [03:07&lt;00:08, 441kB/s]
+file_sizes:  98%|############################4| 198M/202M [03:07&lt;00:07, 483kB/s]
+file_sizes:  98%|############################4| 198M/202M [03:07&lt;00:07, 473kB/s]
+file_sizes:  98%|############################4| 198M/202M [03:07&lt;00:08, 455kB/s]
+file_sizes:  98%|############################4| 198M/202M [03:08&lt;00:08, 448kB/s]
+file_sizes:  98%|############################4| 198M/202M [03:08&lt;00:07, 448kB/s]
+file_sizes:  98%|############################5| 198M/202M [03:08&lt;00:07, 481kB/s]
+file_sizes:  98%|############################5| 198M/202M [03:08&lt;00:07, 473kB/s]
+file_sizes:  98%|############################5| 198M/202M [03:08&lt;00:07, 455kB/s]
+file_sizes:  98%|############################5| 198M/202M [03:08&lt;00:07, 448kB/s]
+file_sizes:  98%|############################5| 198M/202M [03:08&lt;00:07, 449kB/s]
+file_sizes:  98%|############################5| 199M/202M [03:09&lt;00:06, 481kB/s]
+file_sizes:  98%|############################5| 199M/202M [03:09&lt;00:06, 472kB/s]
+file_sizes:  99%|############################5| 199M/202M [03:09&lt;00:06, 490kB/s]
+file_sizes:  99%|############################5| 199M/202M [03:09&lt;00:06, 471kB/s]
+file_sizes:  99%|############################5| 199M/202M [03:09&lt;00:06, 465kB/s]
+file_sizes:  99%|############################6| 199M/202M [03:09&lt;00:06, 459kB/s]
+file_sizes:  99%|############################6| 199M/202M [03:09&lt;00:05, 491kB/s]
+file_sizes:  99%|############################6| 199M/202M [03:10&lt;00:05, 502kB/s]
+file_sizes:  99%|############################6| 199M/202M [03:10&lt;00:05, 486kB/s]
+file_sizes:  99%|############################6| 199M/202M [03:10&lt;00:05, 474kB/s]
+file_sizes:  99%|############################6| 199M/202M [03:10&lt;00:04, 497kB/s]
+file_sizes:  99%|############################6| 199M/202M [03:10&lt;00:04, 478kB/s]
+file_sizes:  99%|############################6| 199M/202M [03:10&lt;00:04, 511kB/s]
+file_sizes:  99%|############################6| 199M/202M [03:10&lt;00:04, 526kB/s]
+file_sizes:  99%|############################6| 199M/202M [03:10&lt;00:03, 544kB/s]
+file_sizes:  99%|############################6| 200M/202M [03:11&lt;00:04, 511kB/s]
+file_sizes:  99%|############################7| 200M/202M [03:11&lt;00:03, 566kB/s]
+file_sizes:  99%|############################7| 200M/202M [03:11&lt;00:03, 558kB/s]
+file_sizes:  99%|############################7| 200M/202M [03:11&lt;00:04, 393kB/s]
+file_sizes:  99%|############################7| 200M/202M [03:11&lt;00:02, 570kB/s]
+file_sizes:  99%|############################7| 200M/202M [03:11&lt;00:02, 567kB/s]
+file_sizes:  99%|############################7| 200M/202M [03:12&lt;00:02, 525kB/s]
+file_sizes:  99%|############################7| 200M/202M [03:12&lt;00:02, 498kB/s]
+file_sizes:  99%|############################8| 200M/202M [03:12&lt;00:02, 480kB/s]
+file_sizes:  99%|############################8| 200M/202M [03:12&lt;00:02, 510kB/s]
+file_sizes:  99%|############################8| 200M/202M [03:12&lt;00:02, 521kB/s]
+file_sizes:  99%|############################8| 200M/202M [03:12&lt;00:02, 495kB/s]
+file_sizes:  99%|############################8| 201M/202M [03:12&lt;00:01, 563kB/s]
+file_sizes:  99%|############################8| 201M/202M [03:13&lt;00:01, 561kB/s]
+file_sizes: 100%|############################8| 201M/202M [03:13&lt;00:01, 520kB/s]
+file_sizes: 100%|############################8| 201M/202M [03:13&lt;00:01, 523kB/s]
+file_sizes: 100%|############################8| 201M/202M [03:13&lt;00:01, 582kB/s]
+file_sizes: 100%|############################8| 201M/202M [03:13&lt;00:01, 576kB/s]
+file_sizes: 100%|############################9| 201M/202M [03:13&lt;00:01, 529kB/s]
+file_sizes: 100%|############################9| 201M/202M [03:14&lt;00:00, 560kB/s]
+file_sizes: 100%|############################9| 201M/202M [03:14&lt;00:00, 610kB/s]
+file_sizes: 100%|############################9| 201M/202M [03:14&lt;00:00, 598kB/s]
+file_sizes: 100%|############################9| 201M/202M [03:14&lt;00:00, 614kB/s]
+file_sizes: 100%|############################9| 201M/202M [03:14&lt;00:00, 617kB/s]
+file_sizes: 100%|############################9| 201M/202M [03:14&lt;00:00, 602kB/s]
+file_sizes: 100%|############################9| 202M/202M [03:14&lt;00:00, 617kB/s]
+file_sizes: 100%|############################9| 202M/202M [03:14&lt;00:00, 619kB/s]
+file_sizes: 100%|############################| 202M/202M [03:14&lt;00:00, 1.03MB/s]
+Successfully downloaded file to /github/home/data/dicodile/gait/GaitData.zip
+</pre></div>
+</div>
+<p>Let’s have a look at the data for one trial.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trial</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;Subject&#39;, &#39;Trial&#39;, &#39;Code&#39;, &#39;Age&#39;, &#39;Gender&#39;, &#39;Height&#39;, &#39;Weight&#39;, &#39;BMI&#39;, &#39;Laterality&#39;, &#39;Sensor&#39;, &#39;WalkedDistance&#39;, &#39;WalkingSpeed&#39;, &#39;PathologyGroup&#39;, &#39;IsControl&#39;, &#39;LeftFootActivity&#39;, &#39;RightFootActivity&#39;, &#39;data&#39;])
+</pre></div>
+</div>
+<p>We get a dictionary whose keys are metadata items, plus a ‘data’ key that
+contains a numpy array with the trial time series for each sensor axis, at
+100 Hz resolution.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># right foot acceleration (vertical)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">trial</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;RAV&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_gait_001.png" srcset="../../_images/sphx_glr_plot_gait_001.png" alt="plot gait" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D object at 0x7fc90463f370&gt;]
+</pre></div>
+</div>
+<p>Let’s look at a small portion of the series for both feet, overlaid on the
+same plot.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">trial</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;LAV&#39;</span><span class="p">][</span><span class="mi">5000</span><span class="p">:</span><span class="mi">5800</span><span class="p">],</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;left foot vertical acceleration&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">trial</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;RAV&#39;</span><span class="p">][</span><span class="mi">5000</span><span class="p">:</span><span class="mi">5800</span><span class="p">],</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;right foot vertical acceleration&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time (x10ms)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;acceleration ($m.s^{-2}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_gait_002.png" srcset="../../_images/sphx_glr_plot_gait_002.png" alt="plot gait" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend object at 0x7fc904779fa0&gt;
+</pre></div>
+</div>
+<p>We can see the alternating left and right foot movements.</p>
+<p>In the rest of this example, we will only use the right foot vertical
+acceleration.</p>
+<p># Convolutional Dictionary Learning</p>
+<p>Now, let’s use “dicodile” as solver_z to learn patterns from the data and
+reconstruct the signal from a sparse representation.</p>
+<p>First, we initialize a dictionary from parts of the signal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X</span></a> <span class="o">=</span> <span class="n">trial</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;RAV&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="c1"># reshape X to (n_trials, n_channels, n_times)</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X</span></a><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">*</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X</span></a><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X</span></a><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(1, 1, 18639)
+</pre></div>
+</div>
+<p>Note the use of reshape to shape the signal as per alphacsc requirements: the
+shape of the signal should be (n_trials, n_channels, n_times). Here, we have
+a single-channel time series so it is (1, 1, n_times).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alphacsc.init_dict</span> <span class="kn">import</span> <span class="n">init_dictionary</span>
+
+<span class="c1"># set dictionary size</span>
+<span class="n">n_atoms</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="c1"># set individual atom (patch) size.</span>
+<span class="n">n_times_atom</span> <span class="o">=</span> <span class="mi">200</span>
+
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_init</span></a> <span class="o">=</span> <span class="n">init_dictionary</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X</span></a><span class="p">,</span>
+                         <span class="n">n_atoms</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                         <span class="n">n_times_atom</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                         <span class="n">rank1</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                         <span class="n">window</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                         <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_init</span></a><span class="o">=</span><span class="s1">&#39;chunk&#39;</span><span class="p">,</span>
+                         <span class="n">random_state</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_init</span></a><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="s2">&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">alphacsc</span> <span class="kn">import</span> <a href="http://alphacsc.github.io/generated/alphacsc.BatchCDL.html#alphacsc.BatchCDL" title="alphacsc.BatchCDL" class="sphx-glr-backref-module-alphacsc sphx-glr-backref-type-py-class"><span class="n">BatchCDL</span></a>
+
+<a href="http://alphacsc.github.io/generated/alphacsc.BatchCDL.html#alphacsc.BatchCDL" title="alphacsc.BatchCDL" class="sphx-glr-backref-module-alphacsc sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cdl</span></a> <span class="o">=</span> <a href="http://alphacsc.github.io/generated/alphacsc.BatchCDL.html#alphacsc.BatchCDL" title="alphacsc.BatchCDL" class="sphx-glr-backref-module-alphacsc sphx-glr-backref-type-py-class"><span class="n">BatchCDL</span></a><span class="p">(</span>
+    <span class="c1"># Shape of the dictionary</span>
+    <span class="n">n_atoms</span><span class="p">,</span>
+    <span class="n">n_times_atom</span><span class="p">,</span>
+    <span class="n">rank1</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">uv_constraint</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+    <span class="c1"># Number of iteration for the alternate minimization and cvg threshold</span>
+    <span class="n">n_iter</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="c1"># number of workers to be used for dicodile</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="c1"># solver for the z-step</span>
+    <span class="n">solver_z</span><span class="o">=</span><span class="s1">&#39;dicodile&#39;</span><span class="p">,</span>
+    <span class="n">solver_z_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;max_iter&#39;</span><span class="p">:</span> <span class="mi">10000</span><span class="p">},</span>
+    <span class="n">window</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_init</span></a><span class="o">=</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_init</span></a><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+
+<a href="http://alphacsc.github.io/generated/alphacsc.BatchCDL.html#alphacsc.BatchCDL" title="alphacsc.BatchCDL" class="sphx-glr-backref-module-alphacsc sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">res</span></a> <span class="o">=</span> <a href="http://alphacsc.github.io/generated/alphacsc.BatchCDL.html#alphacsc.BatchCDL" title="alphacsc.BatchCDL" class="sphx-glr-backref-module-alphacsc sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cdl</span></a><span class="o">.</span><span class="n">fit</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X</span></a><span class="p">)</span>
+
+<span class="s2">&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">dicodile.utils.viz</span> <span class="kn">import</span> <span class="n">display_dictionaries</span>
+
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_hat</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">res</span><span class="o">.</span><span class="n">_D_hat</span></a>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">display_dictionaries</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_init</span></a><span class="p">,</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_hat</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_gait_003.png" srcset="../../_images/sphx_glr_plot_gait_003.png" alt="plot gait" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(8, 1, 200)
+Started 4 workers in 1.95s
+[BatchCDL] CD iterations 0 / 3
+[BatchCDL] lambda = 2.658e+00
+[BatchCDL] Objective (z) : 4.270e+03 (sparsity: 6.938e+00)
+/github/workspace/alphacsc/utils/optim.py:136: DeprecationWarning: Please use `scalar_search_armijo` from the `scipy.optimize` namespace, the `scipy.optimize.linesearch` namespace is deprecated.
+  step_size, obj_uv = optimize.linesearch.scalar_search_armijo(
+[BatchCDL] Resampled atom 0
+[BatchCDL] Objective (d) : 3.675e+03
+[BatchCDL] CD iterations 1 / 3
+[BatchCDL] Objective (z) : 3.402e+03 (sparsity: 7.625e+00)
+[BatchCDL] Resampled atom 1
+[BatchCDL] Objective (d) : 3.323e+03
+[BatchCDL] CD iterations 2 / 3
+[BatchCDL] Objective (z) : 3.219e+03 (sparsity: 7.641e+00)
+[BatchCDL] Resampled atom 5
+[BatchCDL] Objective (d) : 3.153e+03
+[BatchCDL] Fit in 36.5s
+</pre></div>
+</div>
+<p># Signal reconstruction</p>
+<p>Now, let’s reconstruct the original signal.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alphacsc.utils</span> <span class="kn">import</span> <span class="n">construct_X_multi</span>
+
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">z_hat</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">res</span><span class="o">.</span><span class="n">_z_hat</span></a>
+
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_hat</span></a> <span class="o">=</span> <span class="n">construct_X_multi</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">z_hat</span></a><span class="p">,</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_hat</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plot a small part of the original and reconstructed signals</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig_hat</span><span class="p">,</span> <span class="n">ax_hat</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax_hat</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X</span></a><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">5000</span><span class="p">:</span><span class="mi">5800</span><span class="p">],</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;right foot vertical acceleration (ORIGINAL)&#39;</span><span class="p">)</span>
+<span class="n">ax_hat</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_hat</span></a><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">5000</span><span class="p">:</span><span class="mi">5800</span><span class="p">],</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;right foot vertical acceleration (RECONSTRUCTED)&#39;</span><span class="p">)</span>
+<span class="n">ax_hat</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time (x10ms)&#39;</span><span class="p">)</span>
+<span class="n">ax_hat</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;acceleration ($m.s^{-2}$)&#39;</span><span class="p">)</span>
+<span class="n">ax_hat</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_gait_004.png" srcset="../../_images/sphx_glr_plot_gait_004.png" alt="plot gait" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend object at 0x7fc904729880&gt;
+</pre></div>
+</div>
+<p>Check that our representation is indeed sparse:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.count_nonzero" title="numpy.count_nonzero" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span></a><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">z_hat</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>489
+</pre></div>
+</div>
+<p>Besides our visual check, a measure of how closely we’re reconstructing the
+original signal is the (normalized) cross-correlation. Let’s compute this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.correlate" title="numpy.correlate" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">np</span><span class="o">.</span><span class="n">correlate</span></a><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X</span></a><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_hat</span></a><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.sqrt" title="numpy.sqrt" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-data"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span>
+    <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.correlate" title="numpy.correlate" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">np</span><span class="o">.</span><span class="n">correlate</span></a><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X</span></a><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X</span></a><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.correlate" title="numpy.correlate" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-function"><span class="n">np</span><span class="o">.</span><span class="n">correlate</span></a><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_hat</span></a><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_hat</span></a><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([0.98280201])
+</pre></div>
+</div>
+<p># Multichannel signals</p>
+<p>DiCoDiLe works just as well with multi-channel signals. The gait dataset
+contains 16 signals (8 for each foot), in the rest of this tutorial, we’ll
+use three of those.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Left foot Vertical acceleration, Y rotation and X acceleration</span>
+<span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LAV&#39;</span><span class="p">,</span> <span class="s1">&#39;LRY&#39;</span><span class="p">,</span> <span class="s1">&#39;LAX&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Let’s look at a small portion of multi-channel data</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.prop_cycle&quot;</span><span class="p">]()</span>
+<span class="n">mc_fig</span><span class="p">,</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">mc_ax</span></a> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">channels</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">chan</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">mc_ax</span></a><span class="p">,</span> <span class="n">channels</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">trial</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="n">chan</span><span class="p">][</span><span class="mi">5000</span><span class="p">:</span><span class="mi">5800</span><span class="p">],</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">chan</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="nb">next</span><span class="p">(</span><span class="n">colors</span><span class="p">)[</span><span class="s2">&quot;color&quot;</span><span class="p">])</span>
+<span class="n">mc_fig</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper center&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_gait_005.png" srcset="../../_images/sphx_glr_plot_gait_005.png" alt="plot gait" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend object at 0x7fc8f792cdf0&gt;
+</pre></div>
+</div>
+<p>Let’s put the data in shape for alphacsc: (n_trials, n_channels, n_times)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_mc_subset</span></a> <span class="o">=</span> <span class="n">trial</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="n">channels</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_mc_subset</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_mc_subset</span></a><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">*</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_mc_subset</span></a><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_mc_subset</span></a><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(1, 3, 18639)
+</pre></div>
+</div>
+<p>Initialize the dictionary (note that the call is identical to the
+single-channel version)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_init_mc</span></a> <span class="o">=</span> <span class="n">init_dictionary</span><span class="p">(</span>
+    <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_mc_subset</span></a><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">n_times_atom</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">rank1</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">window</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_init</span></a><span class="o">=</span><span class="s1">&#39;chunk&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">60</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_init_mc</span></a><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(8, 3, 200)
+</pre></div>
+</div>
+<p>And run DiCoDiLe (note that the call is identical to the single-channel
+version here as well)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alphacsc</span> <span class="kn">import</span> <a href="http://alphacsc.github.io/generated/alphacsc.BatchCDL.html#alphacsc.BatchCDL" title="alphacsc.BatchCDL" class="sphx-glr-backref-module-alphacsc sphx-glr-backref-type-py-class"><span class="n">BatchCDL</span></a>
+
+<a href="http://alphacsc.github.io/generated/alphacsc.BatchCDL.html#alphacsc.BatchCDL" title="alphacsc.BatchCDL" class="sphx-glr-backref-module-alphacsc sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cdl</span></a> <span class="o">=</span> <a href="http://alphacsc.github.io/generated/alphacsc.BatchCDL.html#alphacsc.BatchCDL" title="alphacsc.BatchCDL" class="sphx-glr-backref-module-alphacsc sphx-glr-backref-type-py-class"><span class="n">BatchCDL</span></a><span class="p">(</span>
+    <span class="c1"># Shape of the dictionary</span>
+    <span class="n">n_atoms</span><span class="p">,</span>
+    <span class="n">n_times_atom</span><span class="p">,</span>
+    <span class="n">rank1</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">uv_constraint</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+    <span class="c1"># Number of iteration for the alternate minimization and cvg threshold</span>
+    <span class="n">n_iter</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="c1"># number of workers to be used for dicodile</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="c1"># solver for the z-step</span>
+    <span class="n">solver_z</span><span class="o">=</span><span class="s1">&#39;dicodile&#39;</span><span class="p">,</span>
+    <span class="n">solver_z_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;max_iter&#39;</span><span class="p">:</span> <span class="mi">10000</span><span class="p">},</span>
+    <span class="n">window</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_init</span></a><span class="o">=</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_init_mc</span></a><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+
+<a href="http://alphacsc.github.io/generated/alphacsc.BatchCDL.html#alphacsc.BatchCDL" title="alphacsc.BatchCDL" class="sphx-glr-backref-module-alphacsc sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">res</span></a> <span class="o">=</span> <a href="http://alphacsc.github.io/generated/alphacsc.BatchCDL.html#alphacsc.BatchCDL" title="alphacsc.BatchCDL" class="sphx-glr-backref-module-alphacsc sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cdl</span></a><span class="o">.</span><span class="n">fit</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_mc_subset</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Started 4 workers in 1.99s
+[BatchCDL] CD iterations 0 / 3
+[BatchCDL] lambda = 3.191e+00
+[BatchCDL] Objective (z) : 7.983e+03 (sparsity: 1.264e+01)
+/github/workspace/alphacsc/utils/optim.py:136: DeprecationWarning: Please use `scalar_search_armijo` from the `scipy.optimize` namespace, the `scipy.optimize.linesearch` namespace is deprecated.
+  step_size, obj_uv = optimize.linesearch.scalar_search_armijo(
+[BatchCDL] Objective (d) : 7.599e+03
+[BatchCDL] CD iterations 1 / 3
+[BatchCDL] Objective (z) : 7.473e+03 (sparsity: 9.969e+00)
+[BatchCDL] Objective (d) : 7.436e+03
+[BatchCDL] CD iterations 2 / 3
+[BatchCDL] Objective (z) : 7.403e+03 (sparsity: 9.125e+00)
+[BatchCDL] Objective (d) : 7.376e+03
+[BatchCDL] Fit in 26.8s
+</pre></div>
+</div>
+<p># Signal reconstruction (multichannel)</p>
+<p>Now, let’s reconstruct the original signal</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alphacsc.utils</span> <span class="kn">import</span> <span class="n">construct_X_multi</span>
+
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">z_hat_mc</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">res</span><span class="o">.</span><span class="n">_z_hat</span></a>
+
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_hat_mc</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">res</span><span class="o">.</span><span class="n">_D_hat</span></a>
+
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_hat_mc</span></a> <span class="o">=</span> <span class="n">construct_X_multi</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">z_hat_mc</span></a><span class="p">,</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">D_hat_mc</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s visually compare a small part of the original and reconstructed signal
+along with the activations.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">z_hat_mc</span></a><span class="o">.</span><span class="n">shape</span>
+
+<span class="s2">&quot;&quot;</span>
+<span class="n">viz_start_idx</span> <span class="o">=</span> <span class="mi">4000</span>
+<span class="n">viz_end_idx</span> <span class="o">=</span> <span class="mi">5800</span>
+<span class="n">viz_chan</span> <span class="o">=</span> <span class="mi">2</span>
+
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">max_abs</span></a> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">z_hat_mc</span></a><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">max_abs</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">max_abs</span></a><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">z_hat_mc</span></a><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">z_hat_normalized</span></a> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">z_hat_mc</span></a> <span class="o">/</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">max_abs</span></a>
+
+<span class="n">fig_hat_mc</span><span class="p">,</span> <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">ax_hat_mc</span></a> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="c1"># plot original and constructed</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">ax_hat_mc</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_mc_subset</span></a><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">viz_chan</span><span class="p">][</span><span class="n">viz_start_idx</span><span class="p">:</span><span class="n">viz_end_idx</span><span class="p">],</span>
+                  <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ORIGINAL&#39;</span><span class="p">)</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">ax_hat_mc</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">X_hat_mc</span></a><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">viz_chan</span><span class="p">][</span><span class="n">viz_start_idx</span><span class="p">:</span><span class="n">viz_end_idx</span><span class="p">],</span>
+                  <span class="n">label</span><span class="o">=</span><span class="s1">&#39;RECONSTRUCTED&#39;</span><span class="p">)</span>
+
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">ax_hat_mc</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time (x10ms)&#39;</span><span class="p">)</span>
+<a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">ax_hat_mc</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># plot activations</span>
+<span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">z_hat_normalized</span></a><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+    <a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">ax_hat_mc</span></a><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><a href="http://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-np-class"><span class="n">z_hat_normalized</span></a><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idx</span><span class="p">][</span><span class="n">viz_start_idx</span><span class="p">:</span><span class="n">viz_end_idx</span><span class="p">],</span>
+                      <span class="n">linefmt</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">-&quot;</span><span class="p">,</span>
+                      <span class="n">markerfmt</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;C</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">o&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_gait_006.png" srcset="../../_images/sphx_glr_plot_gait_006.png" alt="plot gait" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 4 minutes  22.273 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-dicodile-plot-gait-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/9bf16292955e481fa4a4521ab1076e38/plot_gait.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_gait.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/530988330d7c2bb6b6390a7027d94312/plot_gait.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_gait.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../csc/plot_simulate_csc.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Vanilla CSC on simulated data</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../multicsc/plot_somato_mu_waves.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Extracting <span class="math notranslate nohighlight">\(\mu\)</span>-wave from the somato-sensory dataset</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+    <script src="/versionwarning.js"></script>
+    
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2017-2018, Mainak Jas.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
