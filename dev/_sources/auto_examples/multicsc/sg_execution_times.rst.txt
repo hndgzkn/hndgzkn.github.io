@@ -5,10 +5,10 @@
 
 Computation times
 =================
-**135:32.633** total execution time for **auto_examples_multicsc** files:
+**125:43.795** total execution time for **auto_examples_multicsc** files:
 
 +------------------------------------------------------------------------------------------------------------+------------+--------+
-| :ref:`sphx_glr_auto_examples_multicsc_plot_sample_evoked_response.py` (``plot_sample_evoked_response.py``) | 116:30.095 | 0.0 MB |
+| :ref:`sphx_glr_auto_examples_multicsc_plot_sample_evoked_response.py` (``plot_sample_evoked_response.py``) | 108:05.604 | 0.0 MB |
 +------------------------------------------------------------------------------------------------------------+------------+--------+
-| :ref:`sphx_glr_auto_examples_multicsc_plot_somato_mu_waves.py` (``plot_somato_mu_waves.py``)               | 19:02.538  | 0.0 MB |
+| :ref:`sphx_glr_auto_examples_multicsc_plot_somato_mu_waves.py` (``plot_somato_mu_waves.py``)               | 17:38.190  | 0.0 MB |
 +------------------------------------------------------------------------------------------------------------+------------+--------+
