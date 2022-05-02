@@ -211,7 +211,7 @@ Finally, let's compare the results.
  .. code-block:: none
 
 
-    [<matplotlib.lines.Line2D object at 0x7f5468493a60>, <matplotlib.lines.Line2D object at 0x7f5468493670>]
+    [<matplotlib.lines.Line2D object at 0x7fdb6c126c10>, <matplotlib.lines.Line2D object at 0x7fdb6c1267c0>]
 
 
 
@@ -286,7 +286,7 @@ such data.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  27.524 seconds)
+   **Total running time of the script:** ( 0 minutes  29.284 seconds)
 
 
 .. _sphx_glr_download_auto_examples_csc_plot_simulate_csc.py:
