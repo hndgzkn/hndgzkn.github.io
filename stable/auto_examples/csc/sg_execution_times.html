@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Computation times &#8212; alphacsc 0.7.0 documentation</title>
+    <title>Computation times &#8212; alphacsc 0.9.0 documentation</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -97,7 +97,7 @@
       <div class="navbar-end-item">
         <div class="dropdown" id="version_switcher">
     <button type="button" class="btn btn-primary btn-sm navbar-btn dropdown-toggle" id="version_switcher_button" data-toggle="dropdown">
-        0.7.0  <!-- this text may get changed later by javascript -->
+        0.9.0  <!-- this text may get changed later by javascript -->
         <span class="caret"></span>
     </button>
     <div id="version_switcher_menu" class="dropdown-menu list-group-flush py-0" aria-labelledby="version_switcher_button">
@@ -107,7 +107,7 @@
 
 <!-- NOTE: this JS must live here (not in our global JS file) because it relies
      on being processed by Jinja before it is run (specifically for replacing
-     variables auto_examples/csc/sg_execution_times and {'json_url': '/dev/_static/switcher.json', 'version_match': '0.7.0'}.
+     variables auto_examples/csc/sg_execution_times and {'json_url': '/stable/_static/switcher.json', 'version_match': '0.9.0'}.
 -->
 
 <script type="text/javascript">
@@ -134,7 +134,7 @@ function checkPageExistsAndRedirect(event) {
 
 // Populate the version switcher from the JSON config file
 (function () {
-    $.getJSON("/dev/_static/switcher.json", function(data, textStatus, jqXHR) {
+    $.getJSON("/stable/_static/switcher.json", function(data, textStatus, jqXHR) {
         const currentFilePath = "auto_examples/csc/sg_execution_times.html";
         // create links to the corresponding page in the other docs versions
         $.each(data, function(index, entry) {
@@ -158,10 +158,10 @@ function checkPageExistsAndRedirect(event) {
 
             $("#version_switcher_menu").append(node);
             // replace dropdown button text with the preferred display name of
-            // this version, rather than using sphinx's 0.7.0 variable.
+            // this version, rather than using sphinx's 0.9.0 variable.
             // also highlight the dropdown entry for the currently-viewed
             // version's entry
-            if (entry.version == "0.7.0") {
+            if (entry.version == "0.9.0") {
                 node.classList.add("active");
                 let btn = document.getElementById("version_switcher_button");
                 btn.innerText = btn.dataset["activeVersionName"] = entry.name;
@@ -243,7 +243,7 @@ function checkPageExistsAndRedirect(event) {
                 
   <div class="section" id="computation-times">
 <span id="sphx-glr-auto-examples-csc-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this headline">#</a></h1>
-<p><strong>12:03.426</strong> total execution time for <strong>auto_examples_csc</strong> files:</p>
+<p><strong>12:45.854</strong> total execution time for <strong>auto_examples_csc</strong> files:</p>
 <table class="table">
 <colgroup>
 <col style="width: 85%" />
@@ -252,19 +252,19 @@ function checkPageExistsAndRedirect(event) {
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="plot_cross_frequency_coupling.html#sphx-glr-auto-examples-csc-plot-cross-frequency-coupling-py"><span class="std std-ref">Extracting cross-frequency coupling waveforms from rodent LFP data</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_cross_frequency_coupling.py</span></code>)</p></td>
-<td><p>09:14.707</p></td>
+<td><p>09:46.860</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="plot_lfp_data.html#sphx-glr-auto-examples-csc-plot-lfp-data-py"><span class="std std-ref">CSC to learn LFP spiking atoms</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_lfp_data.py</span></code>)</p></td>
-<td><p>01:34.742</p></td>
+<td><p>01:40.313</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="plot_simulate_randomstate.html#sphx-glr-auto-examples-csc-plot-simulate-randomstate-py"><span class="std std-ref">Selecting random state for CSC</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_simulate_randomstate.py</span></code>)</p></td>
-<td><p>00:52.365</p></td>
+<td><p>00:55.645</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="plot_simulate_csc.html#sphx-glr-auto-examples-csc-plot-simulate-csc-py"><span class="std std-ref">Vanilla CSC on simulated data</span></a> (<code class="docutils literal notranslate"><span class="pre">plot_simulate_csc.py</span></code>)</p></td>
-<td><p>00:21.612</p></td>
+<td><p>00:23.035</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 </tbody>
