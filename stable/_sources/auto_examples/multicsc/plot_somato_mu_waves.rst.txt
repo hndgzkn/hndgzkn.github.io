@@ -120,92 +120,45 @@ before and finishing 4 seconds after.
 .. code-block:: default
 
 
-    from alphacsc.datasets.mne_data import load_data
+    from alphacsc.datasets.somato import load_data
     t_lim = (-2, 4)
-    X, info = load_data(dataset='somato', epoch=t_lim, sfreq=sfreq)
-
-
+    X, info = load_data(epoch=t_lim, sfreq=sfreq)
 
 
 
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
+.. code-block:: pytb
 
- .. code-block:: none
-
-    Using default location ~/mne_data for somato...
-      0%|                                               | 0.00/611M [00:00<?, ?B/s]      0%|                                       | 490k/611M [00:00<02:04, 4.89MB/s]      1%|▎                                     | 4.20M/611M [00:00<00:25, 23.8MB/s]      2%|▋                                     | 10.3M/611M [00:00<00:14, 40.8MB/s]      3%|█                                     | 16.7M/611M [00:00<00:11, 50.1MB/s]      4%|█▍                                    | 23.2M/611M [00:00<00:10, 55.2MB/s]      5%|█▊                                    | 29.6M/611M [00:00<00:09, 58.3MB/s]      6%|██▏                                   | 36.1M/611M [00:00<00:09, 60.4MB/s]      7%|██▋                                   | 42.5M/611M [00:00<00:09, 61.7MB/s]      8%|███                                   | 49.0M/611M [00:00<00:08, 62.8MB/s]      9%|███▍                                  | 55.5M/611M [00:01<00:08, 63.4MB/s]     10%|███▊                                  | 62.1M/611M [00:01<00:08, 64.1MB/s]     11%|████▎                                 | 68.6M/611M [00:01<00:08, 64.4MB/s]     12%|████▋                                 | 75.1M/611M [00:01<00:08, 64.6MB/s]     13%|█████                                 | 81.6M/611M [00:01<00:08, 64.7MB/s]     14%|█████▍                                | 88.1M/611M [00:01<00:08, 64.9MB/s]     15%|█████▉                                | 94.6M/611M [00:01<00:07, 64.9MB/s]     17%|██████▍                                | 101M/611M [00:01<00:07, 64.9MB/s]     18%|██████▉                                | 108M/611M [00:01<00:07, 65.1MB/s]     19%|███████▎                               | 114M/611M [00:01<00:07, 65.1MB/s]     20%|███████▋                               | 121M/611M [00:02<00:07, 65.2MB/s]     21%|████████▏                              | 127M/611M [00:02<00:07, 65.3MB/s]     22%|████████▌                              | 134M/611M [00:02<00:07, 65.4MB/s]     23%|████████▉                              | 140M/611M [00:02<00:07, 65.4MB/s]     24%|█████████▍                             | 147M/611M [00:02<00:07, 65.3MB/s]     25%|█████████▊                             | 153M/611M [00:02<00:07, 65.3MB/s]     26%|██████████▏                            | 160M/611M [00:02<00:06, 65.2MB/s]     27%|██████████▋                            | 166M/611M [00:02<00:06, 65.2MB/s]     28%|███████████                            | 173M/611M [00:02<00:06, 65.2MB/s]     29%|███████████▍                           | 180M/611M [00:02<00:06, 65.2MB/s]     30%|███████████▉                           | 186M/611M [00:03<00:06, 65.1MB/s]     32%|████████████▎                          | 193M/611M [00:03<00:06, 65.1MB/s]     33%|████████████▋                          | 199M/611M [00:03<00:06, 65.0MB/s]     34%|█████████████▏                         | 206M/611M [00:03<00:06, 65.0MB/s]     35%|█████████████▌                         | 212M/611M [00:03<00:06, 64.9MB/s]     36%|█████████████▉                         | 219M/611M [00:03<00:06, 64.9MB/s]     37%|██████████████▍                        | 225M/611M [00:03<00:05, 65.0MB/s]     38%|██████████████▊                        | 232M/611M [00:03<00:05, 65.0MB/s]     39%|███████████████▏                       | 238M/611M [00:03<00:05, 64.9MB/s]     40%|███████████████▌                       | 245M/611M [00:03<00:05, 64.9MB/s]     41%|████████████████                       | 251M/611M [00:04<00:05, 65.0MB/s]     42%|████████████████▍                      | 258M/611M [00:04<00:05, 65.0MB/s]     43%|████████████████▊                      | 264M/611M [00:04<00:05, 65.0MB/s]     44%|█████████████████▎                     | 271M/611M [00:04<00:05, 65.1MB/s]     45%|█████████████████▋                     | 277M/611M [00:04<00:05, 65.0MB/s]     46%|██████████████████                     | 284M/611M [00:04<00:05, 64.8MB/s]     48%|██████████████████▌                    | 290M/611M [00:04<00:04, 64.9MB/s]     49%|██████████████████▉                    | 297M/611M [00:04<00:04, 64.9MB/s]     50%|███████████████████▎                   | 303M/611M [00:04<00:04, 64.9MB/s]     51%|███████████████████▊                   | 310M/611M [00:04<00:04, 65.0MB/s]     52%|████████████████████▏                  | 316M/611M [00:05<00:04, 65.0MB/s]     53%|████████████████████▌                  | 323M/611M [00:05<00:04, 65.0MB/s]     54%|█████████████████████                  | 329M/611M [00:05<00:04, 62.8MB/s]     55%|█████████████████████▍                 | 335M/611M [00:05<00:05, 53.7MB/s]     56%|█████████████████████▊                 | 342M/611M [00:05<00:04, 56.4MB/s]     57%|██████████████████████▎                | 348M/611M [00:05<00:04, 58.9MB/s]     58%|██████████████████████▋                | 355M/611M [00:05<00:04, 60.6MB/s]     59%|███████████████████████                | 361M/611M [00:05<00:04, 61.8MB/s]     60%|███████████████████████▍               | 368M/611M [00:05<00:03, 62.6MB/s]     61%|███████████████████████▉               | 374M/611M [00:05<00:03, 63.4MB/s]     62%|████████████████████████▎              | 381M/611M [00:06<00:03, 64.0MB/s]     63%|████████████████████████▋              | 387M/611M [00:06<00:03, 64.2MB/s]     65%|█████████████████████████▏             | 394M/611M [00:06<00:03, 64.4MB/s]     66%|█████████████████████████▌             | 400M/611M [00:06<00:03, 64.5MB/s]     67%|█████████████████████████▉             | 407M/611M [00:06<00:03, 64.8MB/s]     68%|██████████████████████████▍            | 413M/611M [00:06<00:03, 64.9MB/s]     69%|██████████████████████████▊            | 420M/611M [00:06<00:02, 65.0MB/s]     70%|███████████████████████████▏           | 426M/611M [00:06<00:02, 64.8MB/s]     71%|███████████████████████████▋           | 433M/611M [00:06<00:02, 64.9MB/s]     72%|████████████████████████████           | 439M/611M [00:06<00:02, 65.0MB/s]     73%|████████████████████████████▍          | 446M/611M [00:07<00:02, 65.1MB/s]     74%|████████████████████████████▉          | 453M/611M [00:07<00:02, 65.2MB/s]     75%|█████████████████████████████▎         | 459M/611M [00:07<00:02, 65.2MB/s]     76%|█████████████████████████████▋         | 466M/611M [00:07<00:02, 65.3MB/s]     77%|██████████████████████████████▏        | 472M/611M [00:07<00:02, 65.3MB/s]     78%|██████████████████████████████▌        | 479M/611M [00:07<00:02, 65.2MB/s]     79%|██████████████████████████████▉        | 485M/611M [00:07<00:01, 65.1MB/s]     81%|███████████████████████████████▍       | 492M/611M [00:07<00:01, 65.0MB/s]     82%|███████████████████████████████▊       | 498M/611M [00:07<00:01, 64.9MB/s]     83%|████████████████████████████████▏      | 505M/611M [00:07<00:01, 65.0MB/s]     84%|████████████████████████████████▋      | 511M/611M [00:08<00:01, 64.8MB/s]     85%|█████████████████████████████████      | 518M/611M [00:08<00:01, 64.8MB/s]     86%|█████████████████████████████████▍     | 524M/611M [00:08<00:01, 64.8MB/s]     87%|█████████████████████████████████▉     | 531M/611M [00:08<00:01, 64.8MB/s]     88%|██████████████████████████████████▎    | 537M/611M [00:08<00:01, 64.9MB/s]     89%|██████████████████████████████████▋    | 544M/611M [00:08<00:01, 64.9MB/s]     90%|███████████████████████████████████▏   | 550M/611M [00:08<00:00, 64.8MB/s]     91%|███████████████████████████████████▌   | 557M/611M [00:08<00:00, 64.7MB/s]     92%|███████████████████████████████████▉   | 563M/611M [00:08<00:00, 64.7MB/s]     93%|████████████████████████████████████▍  | 570M/611M [00:08<00:00, 64.8MB/s]     94%|████████████████████████████████████▊  | 576M/611M [00:09<00:00, 64.8MB/s]     95%|█████████████████████████████████████▏ | 583M/611M [00:09<00:00, 64.9MB/s]     97%|█████████████████████████████████████▋ | 589M/611M [00:09<00:00, 65.0MB/s]     98%|██████████████████████████████████████ | 596M/611M [00:09<00:00, 65.2MB/s]     99%|██████████████████████████████████████▍| 602M/611M [00:09<00:00, 64.9MB/s]    100%|██████████████████████████████████████▉| 609M/611M [00:09<00:00, 65.3MB/s]      0%|                                               | 0.00/611M [00:00<?, ?B/s]    100%|███████████████████████████████████████| 611M/611M [00:00<00:00, 1.20TB/s]
-    Attempting to create new mne-python configuration file:
-    /github/home/.mne/mne-python.json
-    Opening raw data file /github/home/mne_data/MNE-somato-data/sub-01/meg/sub-01_task-somato_meg.fif...
-        Range : 237600 ... 506999 =    791.189 ...  1688.266 secs
-    Ready.
-    Reading 0 ... 269399  =      0.000 ...   897.077 secs...
-    Setting up band-stop filter
-
-    FIR filter parameters
-    ---------------------
-    Designing a one-pass, zero-phase, non-causal bandstop filter:
-    - Windowed time-domain design (firwin) method
-    - Hamming window with 0.0194 passband ripple and 53 dB stopband attenuation
-    - Lower transition bandwidth: 0.50 Hz
-    - Upper transition bandwidth: 0.50 Hz
-    - Filter length: 1983 samples (6.603 sec)
-
-    Filtering raw data in 1 contiguous segment
-    Setting up high-pass filter at 2 Hz
-
-    FIR filter parameters
-    ---------------------
-    Designing a one-pass, zero-phase, non-causal highpass filter:
-    - Windowed time-domain design (firwin) method
-    - Hamming window with 0.0194 passband ripple and 53 dB stopband attenuation
-    - Lower passband edge: 2.00
-    - Lower transition bandwidth: 2.00 Hz (-6 dB cutoff frequency: 1.00 Hz)
-    - Filter length: 497 samples (1.655 sec)
-
-    111 events found
-    Event IDs: [1]
-    Not setting metadata
-    111 matching events found
-    Setting baseline interval to [-3.9992341833870637, 0.0] sec
-    Applying baseline correction (mode: mean)
-    0 projection items activated
-    Using data from preloaded Raw for 111 events and 1202 original time points ...
-        Rejecting  epoch based on EOG : ['EOG 061']
-        Rejecting  epoch based on EOG : ['EOG 061']
-        Rejecting  epoch based on EOG : ['EOG 061']
-        Rejecting  epoch based on EOG : ['EOG 061']
-        Rejecting  epoch based on EOG : ['EOG 061']
-    5 bad epochs dropped
-    Computing rank from data with rank=None
-        Using tolerance 7.5e-09 (2.2e-16 eps * 204 dim * 1.7e+05  max singular value)
-        Estimated rank (grad): 204
-        GRAD: rank 204 computed from 204 data channels with 0 projectors
-    /github/workspace/alphacsc/datasets/mne_data.py:94: RuntimeWarning: Something went wrong in the data-driven estimation of the data rank as it exceeds the theoretical rank from the info (204 > 64). Consider setting rank to "auto" or setting it explicitly as an integer.
-      cov = mne.compute_covariance(epochs_cov)
-    Reducing data rank from 204 -> 204
-    Estimating covariance using EMPIRICAL
-    Done.
-    Number of samples used : 127412
-    [done]
-    Not setting metadata
-    111 matching events found
-    Setting baseline interval to [-2.001282051803185, 0.0] sec
-    Applying baseline correction (mode: mean)
-    0 projection items activated
-    Using data from preloaded Raw for 111 events and 1803 original time points ...
-        Rejecting  epoch based on EOG : ['EOG 061']
-        Rejecting  epoch based on EOG : ['EOG 061']
-        Rejecting  epoch based on EOG : ['EOG 061']
-        Rejecting  epoch based on EOG : ['EOG 061']
-        Rejecting  epoch based on EOG : ['EOG 061']
-        Rejecting  epoch based on EOG : ['EOG 061']
-        Rejecting  epoch based on EOG : ['EOG 061']
-        Rejecting  epoch based on EOG : ['EOG 061']
-    8 bad epochs dropped
+    Traceback (most recent call last):
+      File "/home/sed-sac/hgozukan/dev/alphacsc/examples/multicsc/plot_somato_mu_waves.py", line 63, in <module>
+        X, info = load_data(epoch=t_lim, sfreq=sfreq)
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/joblib/memory.py", line 594, in __call__
+        return self._cached_call(args, kwargs)[0]
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/joblib/memory.py", line 537, in _cached_call
+        out, metadata = self.call(*args, **kwargs)
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/joblib/memory.py", line 779, in call
+        output = self.func(*args, **kwargs)
+      File "/home/sed-sac/hgozukan/dev/alphacsc/alphacsc/datasets/somato.py", line 50, in load_data
+        data_path = mne.datasets.somato.data_path()
+      File "</scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/externals/decorator.py:decorator-gen-354>", line 2, in data_path
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/utils/_logging.py", line 90, in wrapper
+        return function(*args, **kwargs)
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/datasets/somato/somato.py", line 19, in data_path
+        return _data_path(path=path, force_update=force_update,
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/datasets/utils.py", line 390, in _data_path
+        remove_archive, full = _download(path, u, an, h)
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/datasets/utils.py", line 447, in _download
+        _fetch_file(url, full_name, print_destination=False,
+      File "</scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/externals/decorator.py:decorator-gen-3>", line 2, in _fetch_file
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/utils/_logging.py", line 90, in wrapper
+        return function(*args, **kwargs)
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/utils/fetching.py", line 162, in _fetch_file
+        _get_http(url, temp_file_name, initial_size, file_size, timeout,
+      File "/scratch/hgozukan/miniconda3/lib/python3.8/site-packages/mne/utils/fetching.py", line 60, in _get_http
+        with open(temp_file_name, mode) as local_file:
+    FileNotFoundError: [Errno 2] No such file or directory: '/home/sed-sac/hgozukan/mne_data/MNE-somato-data.tar.gz.part'
 
 
 
@@ -219,25 +172,6 @@ Fit the model and learn rank1 atoms
 .. code-block:: default
 
     cdl.fit(X)
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    ./github/workspace/alphacsc/utils/optim.py:136: DeprecationWarning: Please use `scalar_search_armijo` from the `scipy.optimize` namespace, the `scipy.optimize.linesearch` namespace is deprecated.
-      step_size, obj_uv = optimize.linesearch.scalar_search_armijo(
-    .............
-    [BatchCDL] Converged after 14 iteration, (dz, du) = 8.570e-05, 8.726e-05
-    [BatchCDL] Fit in 862.1s
-
-    <alphacsc.convolutional_dictionary_learning.BatchCDL object at 0x7f2fe10937f0>
-
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 71-73
@@ -256,7 +190,7 @@ pattern.
 
     i_atom = 4
     n_plots = 3
-    figsize = (n_plots * 5, 5.5)
+    figsize = (n_plots * 3.5, 5)
     fig, axes = plt.subplots(1, n_plots, figsize=figsize, squeeze=False)
 
     # Plot the spatial map of the learn atom using mne topomap
@@ -286,20 +220,9 @@ pattern.
     plt.show()
 
 
-
-.. image-sg:: /auto_examples/multicsc/images/sphx_glr_plot_somato_mu_waves_001.png
-   :alt: Learned spatial pattern, Learned temporal waveform, Power Spectral Density
-   :srcset: /auto_examples/multicsc/images/sphx_glr_plot_somato_mu_waves_001.png
-   :class: sphx-glr-single-img
-
-
-
-
-
-
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 14 minutes  56.721 seconds)
+   **Total running time of the script:** ( 0 minutes  3.815 seconds)
 
 
 .. _sphx_glr_download_auto_examples_multicsc_plot_somato_mu_waves.py:
